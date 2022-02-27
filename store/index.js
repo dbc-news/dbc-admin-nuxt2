@@ -1,22 +1,22 @@
 export const state = () => ({
-  news: [],
+  articles: [],
 })
 // Getters
 export const getters = {
-  news(state) {
-    return state.news
+  articles(state) {
+    return state.articles
   },
 }
 // Mutations
 export const mutations = {
-  SET_NEWS(state, news) {
-    state.news = news
+  SET_ARTICLES(state, articles) {
+    state.articles = articles
   },
 }
 // Actions
 export const actions = {
   async nuxtServerInit({ commit, dispatch }, { app }) {
-    let news = await app.$axios.$get('articles')
-    commit('SET_NEWS', news.data)
+    let response = await app.$axios.$get('articles')
+    commit('SET_ARTICLES', response.data)
   },
 }

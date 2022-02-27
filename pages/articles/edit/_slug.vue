@@ -13,27 +13,50 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Title</FormLabel>
-                <FormInput placeholder="Title" type="text" />
+                <FormInput
+                  placeholder="Title"
+                  inpuType="text"
+                  inputId="title"
+                  inpuName="title"
+                  v-model="form.title"
+                />
                 <FormInputError>The title field is required</FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Kicker</FormLabel>
-                <FormInput placeholder="Kicker" type="text" />
+                <FormInput
+                  placeholder="Kicker"
+                  inpuType="text"
+                  inputId="kicker"
+                  inpuName="kicker"
+                  v-model="form.kicker"
+                />
                 <FormInputError>The title field is required</FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Author</FormLabel>
-                <FormInput placeholder="Author" type="text" />
+                <FormInput
+                  placeholder="Author"
+                  inpuType="text"
+                  inputId="author"
+                  inpuName="author"
+                  v-model="form.user.name"
+                  disabled
+                />
                 <FormInputError>The title field is required</FormInputError>
               </div>
-              <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Video (Optional)</FormLabel>
-                <FormInput placeholder="Embaded Video URL" type="text" />
-                <FormInputError>The title field is required</FormInputError>
-              </div>
+
               <div class="w-full px-2 py-4 md:w-full">
+                {{ form.teaser }}
                 <FormLabel>Teaser</FormLabel>
-                <FormTextArea rows="5" placeholder="Teaser" type="text" />
+                <FormTextArea
+                  rows="5"
+                  placeholder="Teaser"
+                  inpuType="text"
+                  inputId="teaser"
+                  inpuName="teaser"
+                  v-model="form.teaser"
+                />
                 <FormInputError>The title field is required</FormInputError>
               </div>
             </div>
@@ -41,7 +64,14 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <FormLabel>Content</FormLabel>
-              <FormTextArea rows="10" placeholder="Content" />
+              <FormTextArea
+                rows="10"
+                placeholder="Content"
+                inpuType="text"
+                inputId="content"
+                inpuName="content"
+                v-model="form.content"
+              />
               <FormInputError>The title field is required</FormInputError>
             </div>
           </div>
@@ -54,23 +84,35 @@
 
                   <div
                     class="flex flex-wrap p-2 my-3 border rounded-md"
-                    v-for="n in 10"
-                    :key="n"
+                    v-for="category in categories"
+                    :key="category.id"
                   >
                     <div class="flex items-center">
-                      <FormCheckbox boxName="cat" boxId="cat" />
+                      <input
+                        type="checkbox"
+                        :value="category.id"
+                        v-model="form.categories"
+                      />
                       <label
                         class="font-semibold text-blue-600 cursor-pointer"
                         for="cat"
                       >
-                        cagegory name
+                        {{ category.id }}
                       </label>
                     </div>
 
-                    <div class="flex items-center" v-for="m in 10" :key="m">
-                      <FormCheckbox :boxName="n" :boxId="n" />
+                    <div
+                      class="flex items-center"
+                      v-for="child in category.children"
+                      :key="child.id"
+                    >
+                      <input
+                        type="checkbox"
+                        :value="child.id"
+                        v-model="form.categories"
+                      />
                       <label class="cursor-pointer" for="cat">
-                        Child name
+                        {{ child.name }}
                       </label>
                     </div>
                   </div>
@@ -192,36 +234,57 @@
         </div>
       </div>
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
+        <AppDangerButton>Check it</AppDangerButton>
         <FormButton
-          type="button"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+          type="submit"
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500 hover:ring-8"
           >Submit</FormButton
         >
       </div>
+      <!-- {{ article }} -->
+      {{ form.categories }}
     </form>
   </div>
 </template>
-<script>
-import Breadcrumb from '@/components/Breadcrumb'
-import FormLabel from '@/components/form/Label'
-import FormInput from '@/components/form/Input'
-import FormInputError from '@/components/form/InputError'
-import FormTextArea from '@/components/form/TextArea'
 
-import FormCheckbox from '@/components/form/Checkbox'
-import FormSelect from '@/components/form/Select'
-import FormButton from '@/components/form/Button'
+<script>
+import map from 'lodash.map'
 
 export default {
-  components: {
-    Breadcrumb,
-    FormLabel,
-    FormInput,
-    FormInputError,
-    FormCheckbox,
-    FormSelect,
-    FormButton,
-    FormTextArea,
+  data() {
+    return {
+      categories: [],
+    }
+  },
+
+  async asyncData({ params, app, error }) {
+    try {
+      let articleResponse = await app.$axios.$get(
+        `articles/${encodeURI(params.slug)}`
+      )
+      let categoryResponse = await app.$axios.$get('categories')
+
+      let article = articleResponse.data
+
+      return {
+        categories: categoryResponse.data,
+        form: {
+          title: article.title,
+          kicker: article.kicker,
+          thumbnail: article.thumbnail,
+          teaser: article.teaser,
+          content: article.content,
+          pinned: article.pinned,
+          status: article.status,
+          user: article.user,
+          categories: map(article.categories, 'id'),
+        },
+      }
+    } catch (e) {
+      error({
+        statusCode: e.response.status,
+      })
+    }
   },
 }
 </script>

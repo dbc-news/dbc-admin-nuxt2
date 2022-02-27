@@ -16,7 +16,7 @@ export default {
 
   css: [],
 
-  plugins: ['@/plugins/VueObserveVisibility'],
+  plugins: ['~/plugins/components', '@/plugins/VueObserveVisibility'],
 
   components: true,
 

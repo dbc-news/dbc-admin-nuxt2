@@ -96,7 +96,7 @@
                   >
                     <div class="flex items-center space-x-2">
                       <nuxt-link
-                        :to="link('this-is-nice')"
+                        :to="link(article.slug)"
                         exact
                         class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  text-bases focus:outline-none focus:ring-2 focus:ring-offset-2 hover:bg-blue-700 focus:ring-blue-500"
                         >Edit

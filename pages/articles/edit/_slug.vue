@@ -80,6 +80,8 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
+                  {{ form.categories }}
+
                   <FormLabel>Categories</FormLabel>
 
                   <div
@@ -90,14 +92,18 @@
                     <div class="flex items-center">
                       <input
                         type="checkbox"
+                        class="mx-2 rounded-md form-checkbox"
+                        :name="category.name"
+                        :id="category.name"
                         :value="category.id"
                         v-model="form.categories"
                       />
+
                       <label
                         class="font-semibold text-blue-600 cursor-pointer"
-                        for="cat"
+                        :for="category.name"
                       >
-                        {{ category.id }}
+                        {{ category.name }}
                       </label>
                     </div>
 
@@ -108,10 +114,13 @@
                     >
                       <input
                         type="checkbox"
+                        class="mx-2 rounded-md form-checkbox"
+                        :name="child.name"
+                        :id="child.name"
                         :value="child.id"
                         v-model="form.categories"
                       />
-                      <label class="cursor-pointer" for="cat">
+                      <label class="cursor-pointer" :for="child.name">
                         {{ child.name }}
                       </label>
                     </div>
@@ -124,17 +133,25 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
+                  {{ form.topics }}
                   <FormLabel>Topics</FormLabel>
                   <div class="flex flex-wrap p-1">
                     <div
                       class="relative flex items-start"
-                      v-for="n in 10"
-                      :key="n"
+                      v-for="topic in topics"
+                      :key="topic.id"
                     >
                       <div class="flex items-center">
-                        <FormCheckbox boxName="topic" boxId="topic" />
-                        <label class="cursor-pointer" for="topic">
-                          Topic name
+                        <input
+                          type="checkbox"
+                          class="mx-2 rounded-md form-checkbox"
+                          :name="topic.name"
+                          :id="topic.name"
+                          :value="topic.id"
+                          v-model="form.topics"
+                        />
+                        <label class="cursor-pointer" :for="topic.name">
+                          {{ topic.name }}{{ topic.id }}
                         </label>
                       </div>
                     </div>
@@ -234,15 +251,12 @@
         </div>
       </div>
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
-        <AppDangerButton>Check it</AppDangerButton>
         <FormButton
           type="submit"
           class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500 hover:ring-8"
           >Submit</FormButton
         >
       </div>
-      <!-- {{ article }} -->
-      {{ form.categories }}
     </form>
   </div>
 </template>
@@ -254,6 +268,7 @@ export default {
   data() {
     return {
       categories: [],
+      topics: [],
     }
   },
 
@@ -263,11 +278,13 @@ export default {
         `articles/${encodeURI(params.slug)}`
       )
       let categoryResponse = await app.$axios.$get('categories')
+      let topicResponse = await app.$axios.$get('topics')
 
       let article = articleResponse.data
 
       return {
         categories: categoryResponse.data,
+        topics: topicResponse.data,
         form: {
           title: article.title,
           kicker: article.kicker,
@@ -278,6 +295,7 @@ export default {
           status: article.status,
           user: article.user,
           categories: map(article.categories, 'id'),
+          topics: map(article.topics, 'id'),
         },
       }
     } catch (e) {

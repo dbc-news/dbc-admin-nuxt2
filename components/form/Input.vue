@@ -33,11 +33,6 @@ export default {
       type: String,
       default: 'name',
     },
-    fieldId: {
-      required: false,
-      type: String,
-      default: 'name',
-    },
     placeholder: {
       required: false,
       type: String,

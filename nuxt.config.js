@@ -14,31 +14,21 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/dbc-red-logo.png' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/VueObserveVisibility'],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ['@nuxt/postcss8', '@nuxtjs/tailwindcss'],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-  ],
+  modules: ['@nuxtjs/axios'],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'http://admin.test/admin',
+    credentials: true,
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     postcss: {
       plugins: {

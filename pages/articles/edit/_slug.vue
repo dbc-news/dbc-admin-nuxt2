@@ -234,11 +234,21 @@
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
+              {{ form.tags }}
+              {{ tags }}
               <FormLabel>Tags</FormLabel>
-              <FormSelect>
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </FormSelect>
+              <multiselect
+                v-model="selectedTags"
+                tag-placeholder="Add this as new tag"
+                placeholder="Search or add a tag"
+                label="name"
+                track-by="hash_id"
+                :options="tags"
+                :multiple="true"
+                :hideSelected="true"
+                :taggable="true"
+                @tag="newTagAdd"
+              ></multiselect>
             </div>
             <div class="w-full px-2 py-4">
               <FormLabel>Area</FormLabel>
@@ -263,13 +273,19 @@
 
 <script>
 import map from 'lodash.map'
+import Multiselect from 'vue-multiselect'
 
 export default {
   data() {
     return {
       categories: [],
       topics: [],
+      tags: [],
+      selectedTags: [],
     }
+  },
+  components: {
+    Multiselect,
   },
 
   async asyncData({ params, app, error }) {
@@ -279,12 +295,15 @@ export default {
       )
       let categoryResponse = await app.$axios.$get('categories')
       let topicResponse = await app.$axios.$get('topics')
+      let tagResponse = await app.$axios.$get('tags')
 
       let article = articleResponse.data
 
       return {
         categories: categoryResponse.data,
         topics: topicResponse.data,
+        tags: tagResponse.data,
+
         form: {
           title: article.title,
           kicker: article.kicker,
@@ -296,6 +315,7 @@ export default {
           user: article.user,
           categories: map(article.categories, 'id'),
           topics: map(article.topics, 'id'),
+          tags: map(article.tags, 'id'),
         },
       }
     } catch (e) {
@@ -304,5 +324,25 @@ export default {
       })
     }
   },
+  async newTagAdd(newTag) {
+    console.log('new tag')
+    // let name = newTag
+    // let addedTag = this.addToServer(name)
+  },
 }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<style >
+@import 'vue-multiselect/dist/vue-multiselect.min.css';
+
+.body-editor {
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.multiselect__input {
+  border-radius: 5px !important;
+  min-height: 40px;
+}
+</style>

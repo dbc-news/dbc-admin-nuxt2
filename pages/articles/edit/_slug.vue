@@ -6,7 +6,7 @@
       :href="{ name: 'index' }"
       breadcrumb="Articles / Create"
     />
-    <form action="">
+    <form @submit.prevent="articleUpdate">
       <div class="grid grid-cols-12 gap-6 px-2 mt-8 sm:px-4 lg:px-8">
         <div class="col-span-12 2md:col-span-8">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
@@ -263,7 +263,7 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <FormButton
           type="submit"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500 hover:ring-8"
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500 hover:ring-1"
           >Submit</FormButton
         >
       </div>
@@ -324,10 +324,44 @@ export default {
       })
     }
   },
+
+  methods: {
+    async articleUpdate() {
+      console.log(this.article)
+      // try{
+      //   await this.$axios.patch(`articles/${this.form.slug}`, this.form)
+      // }
+    },
+  },
   async newTagAdd(newTag) {
-    console.log('new tag')
-    // let name = newTag
-    // let addedTag = this.addToServer(name)
+    let name = newTag
+    let addedTag = this.addToServer(name)
+  },
+  async addToServer(name) {
+    try {
+      await this.$toast.show('New Tag adding...', {
+        icon: 'hourglass-half',
+      })
+      let tagForm = {
+        name: name,
+        slug:
+          name +
+          '-' +
+          name.substring(0, 2) +
+          Math.floor(Math.random() * 10000000),
+      }
+      await this.$axios.post(`tags`, tagForm).then(({ data }) => {
+        this.tags.push(data.data)
+        this.selectedTags.push(data.data)
+      })
+      this.$toast.success('New Tag added successfully.', {
+        icon: 'tags',
+      })
+    } catch (e) {
+      this.$toast.error('Error while adding the tag...', {
+        icon: 'times-circle',
+      })
+    }
   },
 }
 </script>

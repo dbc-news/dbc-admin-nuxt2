@@ -6,6 +6,7 @@
       :href="{ name: 'tag' }"
       breadcrumb="Tag / Create"
     />
+    <!-- {{ errors }} -->
     <form @submit.prevent="tagCreate">
       <div class="grid grid-cols-12 gap-6 px-2 mt-8 sm:px-4 lg:px-8">
         <div class="col-span-12 2md:col-span-8">
@@ -60,7 +61,9 @@ export default {
     async tagCreate() {
       try {
         await this.$axios.post(`tags`, this.form).then(({ data }) => {})
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
       this.isLoading = false
     },
   },

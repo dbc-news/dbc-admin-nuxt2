@@ -20,7 +20,9 @@
                   inpuName="title"
                   v-model="form.title"
                 />
-                <FormInputError>The title field is required</FormInputError>
+                <FormInputError v-if="errors.title">
+                  {{ errors.title[0] }}
+                </FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Slug</FormLabel>
@@ -31,7 +33,9 @@
                   inpuName="slug"
                   v-model="form.slug"
                 />
-                <FormInputError>The title field is required</FormInputError>
+                <FormInputError v-if="errors.slug">
+                  {{ errors.slug[0] }}
+                </FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Kicker</FormLabel>
@@ -42,7 +46,9 @@
                   inpuName="kicker"
                   v-model="form.kicker"
                 />
-                <FormInputError>The title field is required</FormInputError>
+                <FormInputError v-if="errors.kicker">
+                  {{ errors.kicker[0] }}
+                </FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Author</FormLabel>
@@ -54,7 +60,6 @@
                   v-model="form.user.name"
                   disabled
                 />
-                <FormInputError>The title field is required</FormInputError>
               </div>
 
               <div class="w-full px-2 py-4 md:w-full">
@@ -68,7 +73,9 @@
                   inpuName="teaser"
                   v-model="form.teaser"
                 />
-                <FormInputError>The title field is required</FormInputError>
+                <FormInputError v-if="errors.teaser">
+                  {{ errors.teaser[0] }}
+                </FormInputError>
               </div>
             </div>
           </div>
@@ -83,7 +90,9 @@
                 inpuName="content"
                 v-model="form.content"
               />
-              <FormInputError>The title field is required</FormInputError>
+              <FormInputError v-if="errors.content">
+                {{ errors.content[0] }}
+              </FormInputError>
             </div>
           </div>
 
@@ -136,6 +145,9 @@
                       </label>
                     </div>
                   </div>
+                  <FormInputError v-if="errors.categories">
+                    {{ errors.categories[0] }}
+                  </FormInputError>
                 </div>
               </div>
             </div>
@@ -176,8 +188,9 @@
         <div class="col-span-12 2md:col-span-4">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
+              {{ form.status }}
               <FormLabel>Status</FormLabel>
-              <FormSelect>
+              <FormSelect v-model="form.status">
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
               </FormSelect>
@@ -191,7 +204,13 @@
                   <div class="flex flex-wrap p-1 -pl-2">
                     <div class="relative flex items-start mt-2">
                       <div class="flex items-center">
-                        <FormCheckbox boxName="pinned" boxId="pinned" />
+                        <input
+                          type="checkbox"
+                          class="mx-2 rounded-md form-checkbox"
+                          name="pinned"
+                          id="pinned"
+                          v-model="form.pinned"
+                        />
                         <label class="cursor-pointer" for="pinned">
                           Pinned
                         </label>
@@ -238,7 +257,9 @@
                 <div class="w-full px-2 py-4">
                   <FormLabel>Thumbnail:</FormLabel>
                   <FormInput placeholder="Thumbnail URL" type="text" />
-                  <FormInputError>The title field is required</FormInputError>
+                  <FormInputError v-if="errors.title">
+                    {{ errors.title[0] }}
+                  </FormInputError>
                 </div>
               </div>
             </div>
@@ -293,6 +314,7 @@ export default {
       topics: [],
       tags: [],
       selectedTags: [],
+      errors: '',
     }
   },
   components: {
@@ -345,7 +367,7 @@ export default {
         console.log(this.form)
         await this.$axios.patch(`articles/${this.article.slug}`, this.form)
       } catch (e) {
-        console.log(e)
+        this.errors = e.response.data.errors
       }
     },
   },

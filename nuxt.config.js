@@ -14,6 +14,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/dbc-red-logo.png' }],
   },
 
+  loading: { color: '#00FF00' },
+
   css: [],
 
   plugins: ['~/plugins/components', '@/plugins/VueObserveVisibility'],

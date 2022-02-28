@@ -2,9 +2,9 @@
   <div class="w-full">
     <Breadcrumb
       leading="Articles"
-      trialing="New Articles"
+      trialing="New Article"
       :href="{ name: 'articles-create' }"
-      breadcrumb="Articles / list"
+      breadcrumb="Article / list"
     />
 
     <div

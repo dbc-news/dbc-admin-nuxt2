@@ -18,7 +18,11 @@ export default {
 
   css: [],
 
-  plugins: ['~/plugins/components', '@/plugins/VueObserveVisibility'],
+  plugins: [
+    '~/plugins/components',
+    '@/plugins/VueObserveVisibility',
+    '@/plugins/VueSweetAlert',
+  ],
 
   components: true,
 

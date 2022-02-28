@@ -63,7 +63,6 @@
               </div>
 
               <div class="w-full px-2 py-4 md:w-full">
-                {{ form.teaser }}
                 <FormLabel>Teaser</FormLabel>
                 <FormTextArea
                   rows="5"
@@ -100,10 +99,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  {{ form.categories }}
-
                   <FormLabel>Categories</FormLabel>
-
                   <div
                     class="flex flex-wrap p-2 my-3 border rounded-md"
                     v-for="category in categories"
@@ -152,45 +148,13 @@
               </div>
             </div>
           </div>
-          <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
-            <div class="flex flex-wrap">
-              <div class="w-full px-2">
-                <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  {{ form.topics }}
-                  <FormLabel>Topics</FormLabel>
-                  <div class="flex flex-wrap p-1">
-                    <div
-                      class="relative flex items-start"
-                      v-for="topic in topics"
-                      :key="topic.id"
-                    >
-                      <div class="flex items-center">
-                        <input
-                          type="checkbox"
-                          class="mx-2 rounded-md form-checkbox"
-                          :name="topic.name"
-                          :id="topic.name"
-                          :value="topic.id"
-                          v-model="form.topics"
-                        />
-                        <label class="cursor-pointer" :for="topic.name">
-                          {{ topic.name }}{{ topic.id }}
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- aside  -->
         <div class="col-span-12 2md:col-span-4">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              {{ form.status }}
               <FormLabel>Status</FormLabel>
-              <FormSelect v-model="form.status">
+              <FormSelect v-model="form.status" id="inputId" inputName="status">
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
               </FormSelect>
@@ -362,12 +326,39 @@ export default {
   },
 
   methods: {
+    errorMessage() {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Something wrong!',
+      })
+    },
+    successMessage() {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'News Updated successfully',
+      })
+    },
     async articleUpdate() {
       try {
-        console.log(this.form)
-        await this.$axios.patch(`articles/${this.article.slug}`, this.form)
+        await this.$axios
+          .patch(`articles/${this.article.slug}`, this.form)
+          .then(({ data }) => {
+            this.successMessage()
+          })
       } catch (e) {
-        this.errors = e.response.data.errors
+        ;(this.errors = e.response.data.errors), this.errorMessage()
       }
     },
   },

@@ -23,6 +23,17 @@
                 <FormInputError>The title field is required</FormInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
+                <FormLabel>Slug</FormLabel>
+                <FormInput
+                  placeholder="Slug"
+                  inpuType="text"
+                  inputId="slug"
+                  inpuName="slug"
+                  v-model="form.slug"
+                />
+                <FormInputError>The title field is required</FormInputError>
+              </div>
+              <div class="w-full px-2 py-4 md:w-6/12">
                 <FormLabel>Kicker</FormLabel>
                 <FormInput
                   placeholder="Kicker"
@@ -303,9 +314,11 @@ export default {
         categories: categoryResponse.data,
         topics: topicResponse.data,
         tags: tagResponse.data,
+        article: article,
 
         form: {
           title: article.title,
+          slug: article.slug,
           kicker: article.kicker,
           thumbnail: article.thumbnail,
           teaser: article.teaser,
@@ -316,6 +329,7 @@ export default {
           categories: map(article.categories, 'id'),
           topics: map(article.topics, 'id'),
           tags: map(article.tags, 'id'),
+          regions: map(article.tags, 'id'),
         },
       }
     } catch (e) {
@@ -327,10 +341,12 @@ export default {
 
   methods: {
     async articleUpdate() {
-      console.log(this.article)
-      // try{
-      //   await this.$axios.patch(`articles/${this.form.slug}`, this.form)
-      // }
+      try {
+        console.log(this.form)
+        await this.$axios.patch(`articles/${this.article.slug}`, this.form)
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
   async newTagAdd(newTag) {

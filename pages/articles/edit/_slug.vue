@@ -230,15 +230,16 @@
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              {{ form.tags }}
-              {{ tags }}
+              <strong>tags</strong> : {{ tags }}
+              <br />
+              <strong>selectedTags</strong>: {{ selectedTags }}
               <FormLabel>Tags</FormLabel>
               <multiselect
                 v-model="selectedTags"
                 tag-placeholder="Add this as new tag"
                 placeholder="Search or add a tag"
                 label="name"
-                track-by="hash_id"
+                track-by="name"
                 :options="tags"
                 :multiple="true"
                 :hideSelected="true"
@@ -247,11 +248,21 @@
               ></multiselect>
             </div>
             <div class="w-full px-2 py-4">
-              <FormLabel>Area</FormLabel>
-              <FormSelect>
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </FormSelect>
+              <!-- <strong>regions</strong> : {{ regions }} -->
+              <br />
+              <!-- <strong>selectedRegions</strong>: {{ selectedRegions }} -->
+              <FormLabel>Regions</FormLabel>
+              <multiselect
+                v-model="selectedRegions"
+                region-placeholder="Add this as new tag"
+                placeholder="Search or add a tag"
+                label="name"
+                track-by="name"
+                :options="regions"
+                :multiple="true"
+                :hideSelected="true"
+                :regionable="true"
+              ></multiselect>
             </div>
           </div>
         </div>
@@ -277,7 +288,9 @@ export default {
       categories: [],
       topics: [],
       tags: [],
+      regions: [],
       selectedTags: [],
+      selectedRegions: [],
       errors: '',
     }
   },
@@ -293,6 +306,7 @@ export default {
       let categoryResponse = await app.$axios.$get('categories')
       let topicResponse = await app.$axios.$get('topics')
       let tagResponse = await app.$axios.$get('tags')
+      let regionResponse = await app.$axios.$get('regions')
 
       let article = articleResponse.data
 
@@ -300,7 +314,11 @@ export default {
         categories: categoryResponse.data,
         topics: topicResponse.data,
         tags: tagResponse.data,
+        regions: regionResponse.data,
+
         article: article,
+        selectedTags: article.tags,
+        selectedRegions: article.regions,
 
         form: {
           title: article.title,
@@ -314,17 +332,23 @@ export default {
           user: article.user,
           categories: map(article.categories, 'id'),
           topics: map(article.topics, 'id'),
-          tags: map(article.tags, 'id'),
-          regions: map(article.tags, 'id'),
         },
       }
     } catch (e) {
-      error({
-        statusCode: e.response.status,
-      })
+      // error({
+      //   statusCode: e.response.status,
+      // }),
+      console.log(e.response.data.errors)
     }
   },
-
+  watch: {
+    selectedTags() {
+      this.form.tags = map(this.selectedTags, 'id')
+    },
+    selectedRegions() {
+      this.form.regions = map(this.selectedRegions, 'id')
+    },
+  },
   methods: {
     errorMessage() {
       const Toast = this.$swal.mixin({
@@ -361,40 +385,42 @@ export default {
         ;(this.errors = e.response.data.errors), this.errorMessage()
       }
     },
-  },
-  async newTagAdd(newTag) {
-    let name = newTag
-    let addedTag = this.addToServer(name)
-  },
-  async addToServer(name) {
-    try {
-      await this.$toast.show('New Tag adding...', {
-        icon: 'hourglass-half',
-      })
-      let tagForm = {
-        name: name,
-        slug:
-          name +
-          '-' +
-          name.substring(0, 2) +
-          Math.floor(Math.random() * 10000000),
+    async newTagAdd(newTag) {
+      console.log(newTag)
+      let name = newTag
+      let addedTag = this.addToServer(name)
+    },
+    async addToServer(name) {
+      try {
+        // await this.$toast.show('New Tag adding...', {
+        //   icon: 'hourglass-half',
+        // })
+        let tagForm = {
+          name: name,
+          slug:
+            name +
+            '-' +
+            name.substring(0, 2) +
+            Math.floor(Math.random() * 10000000),
+        }
+        console.log(tagForm + 'server')
+        await this.$axios.post(`tags`, tagForm).then(({ data }) => {
+          this.tags.push(data.data)
+          this.selectedTags.push(data.data)
+        })
+        // this.$toast.success('New Tag added successfully.', {
+        //   icon: 'tags',
+        // })
+      } catch (e) {
+        // this.$toast.error('Error while adding the tag...', {
+        //   icon: 'times-circle',
+        // })
       }
-      await this.$axios.post(`tags`, tagForm).then(({ data }) => {
-        this.tags.push(data.data)
-        this.selectedTags.push(data.data)
-      })
-      this.$toast.success('New Tag added successfully.', {
-        icon: 'tags',
-      })
-    } catch (e) {
-      this.$toast.error('Error while adding the tag...', {
-        icon: 'times-circle',
-      })
-    }
+    },
   },
 }
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 
 <style >
 @import 'vue-multiselect/dist/vue-multiselect.min.css';

@@ -14,7 +14,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/dbc-red-logo.png' }],
   },
 
-  loading: { color: '#00FF00' },
+  loading: { color: '#5E8E3E' },
 
   css: [],
 

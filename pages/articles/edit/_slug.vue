@@ -189,9 +189,32 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <div class="w-full px-2">
+                <div class="w-full py-4">
+                  <div v-if="article.thumbnails">
+                    <img
+                      :src="article.thumbnails.original"
+                      alt="img"
+                      class="w-full border"
+                    />
+                    <FormInput
+                      placeholder="Thumbnail URL"
+                      type="text"
+                      class="mt-3"
+                      name="thumbnail_url"
+                      id="thumbnail_url"
+                      v-model="form.thumbnail.original"
+                    />
+                  </div>
+                  <div v-else>
+                    <img
+                      src="@/assets/images/placeholder.png"
+                      alt="img"
+                      class="w-full border rounded-md h-52"
+                    />
+                  </div>
+                </div>
                 <div class="mt-1">
-                  <img src="" alt="img" class="" />
-                  <button class="mt-3 text-blue-600 underline"></button>
+                  <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
                     class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md "
                   >
@@ -217,13 +240,6 @@
                       </p>
                     </div>
                   </div>
-                </div>
-                <div class="w-full px-2 py-4">
-                  <FormLabel>Thumbnail:</FormLabel>
-                  <FormInput placeholder="Thumbnail URL" type="text" />
-                  <FormInputError v-if="errors.title">
-                    {{ errors.title[0] }}
-                  </FormInputError>
                 </div>
               </div>
             </div>
@@ -351,6 +367,7 @@ export default {
           pinned: article.pinned,
           status: article.status,
           user: article.user,
+          thumbnail: article.thumbnails,
           categories: map(article.categories, 'id'),
           tags: map(article.tags, 'id'),
           regions: map(article.regions, 'id'),

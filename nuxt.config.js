@@ -22,6 +22,7 @@ export default {
     '~/plugins/components',
     '@/plugins/VueObserveVisibility',
     '@/plugins/VueSweetAlert',
+    '@/plugins/VueJsModal.js',
   ],
 
   components: true,

@@ -216,24 +216,27 @@
                 <div class="mt-1">
                   <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
-                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md "
+                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
                   >
-                    <div class="space-y-1 text-center">
-                      <img src="@/assets/icons/image.svg" alt="svg" />
+                    <div
+                      class="space-y-1 text-center"
+                      @click.prevent="showThumbnailIndexModal"
+                    >
+                      <FormImagePlus />
                       <div class="flex text-sm text-gray-600">
                         <label
                           for="file-upload"
                           class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
-                          <span>Upload a file</span>
-                          <input
+                          <!-- <span>Upload a file</span> -->
+                          <!-- <input
                             id="file-upload"
                             name="file-upload"
                             type="file"
                             class="sr-only"
-                          />
+                          /> -->
                         </label>
-                        <p class="pl-1">or drag and drop</p>
+                        <!-- <p class="pl-1">or drag and drop</p> -->
                       </div>
                       <p class="text-xs text-gray-500">
                         PNG, JPG, GIF up to 10MB
@@ -308,6 +311,7 @@
         >
       </div>
     </form>
+    <ThumbnailIndex />
   </div>
 </template>
 
@@ -393,6 +397,10 @@ export default {
     },
   },
   methods: {
+    showThumbnailIndexModal() {
+      this.$modal.show('thumbnailIndexModal')
+    },
+
     errorMessage() {
       const Toast = this.$swal.mixin({
         toast: true,
@@ -449,6 +457,12 @@ export default {
       } catch (e) {
         this.errorMessage()
       }
+    },
+    async photosUploaded(photo) {
+      this.form.thumbnail = photo.href.origin
+    },
+    async thumbnailIndexModal() {
+      this.$modal.show('photos-index')
     },
   },
 }

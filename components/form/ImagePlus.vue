@@ -1,4 +1,5 @@
-<svg
+<template>
+  <svg
     class="w-12 h-12 mx-auto text-gray-400"
     stroke="currentColor"
     fill="none"
@@ -12,3 +13,4 @@
       stroke-linejoin="round"
     ></path>
   </svg>
+</template>

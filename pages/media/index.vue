@@ -366,6 +366,8 @@
 </template>
 
 <script>
+import VueCropper from 'vue-cropperjs'
+import 'cropperjs/dist/cropper.css'
 export default {
   data() {
     return {
@@ -389,6 +391,7 @@ export default {
       },
     }
   },
+  components: { VueCropper },
   async asyncData({ app, error }) {
     try {
       let response = await app.$axios.$get('images')

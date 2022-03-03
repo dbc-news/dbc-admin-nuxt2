@@ -122,10 +122,10 @@ export default {
           data: this.form,
         })
 
-        if (this.$route.query.redirect) {
-          this.$router.replace(this.$route.query.redirect)
-          return
-        }
+        // if (this.$route.query.redirect) {
+        //   this.$router.replace(this.$route.query.redirect)
+        //   return
+        // }
         this.$router.replace({
           name: 'index',
         })

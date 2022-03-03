@@ -151,15 +151,9 @@
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
             tabindex="-1"
-            @keydown.arrow-up.prevent="onArrowUp()"
-            @keydown.arrow-down.prevent="onArrowDown()"
-            @keydown.tab="open = false"
-            @keydown.enter.prevent="open = false"
-            @keyup.space.prevent="open = false"
-            style="display: none"
           >
-            <a
-              href="#"
+            <nuxt-link
+              :to="{ name: 'auth-profile' }"
               class="block px-4 py-2 text-sm text-gray-700"
               x-state:on="Active"
               x-state:off="Not Active"
@@ -167,7 +161,7 @@
               tabindex="-1"
               id="user-menu-item-0"
               @click="open = false"
-              >Your Profile</a
+              >Your Profile</nuxt-link
             >
             <a
               href="#"

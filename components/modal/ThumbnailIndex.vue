@@ -8,7 +8,7 @@
         />
       </div>
       <div v-if="images.length">
-        <div v-for="image in images" :key="image">
+        <div v-for="image in images" :key="image.id">
           <img :src="image.thumb160x84" alt="img" />
         </div>
       </div>

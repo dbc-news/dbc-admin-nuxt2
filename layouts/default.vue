@@ -12,10 +12,7 @@
   </div> -->
 
   <div>
-    <div
-      class="overflow-hidden font-sans antialiased bg-gray-200"
-      v-if="$auth.loggedIn"
-    >
+    <div class="overflow-hidden font-sans antialiased bg-gray-200">
       <div class="" style="">
         <div class="h-full overflow-y-auto bg-gray-100">
           <div class="min-h-full">
@@ -348,18 +345,7 @@
         </div>
       </div>
     </div>
-    <div class="bg-gray-100" v-else><Nuxt /></div>
+    <!-- <div class="bg-gray-100" v-else><Nuxt /></div> -->
   </div>
 </template>
 
-<script>
-import AppSidebar from '@/components/AppSidebar'
-import AppHeader from '@/components/AppHeader'
-
-export default {
-  components: {
-    AppSidebar,
-    AppHeader,
-  },
-}
-</script>

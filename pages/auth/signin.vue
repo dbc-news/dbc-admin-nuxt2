@@ -17,7 +17,7 @@
         <div
           class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md  sm:max-w-md sm:rounded-lg"
         >
-          <form method="POST" action="http://metro.test/login">
+          <form @submit.prevent="signin">
             <div>
               <label
                 class="block mb-1 text-sm font-semibold text-gray-700"
@@ -32,6 +32,9 @@
                 name="email"
                 v-model="form.email"
               />
+              <FormInputError v-if="errors.email">
+                {{ errors.email[0] }}
+              </FormInputError>
             </div>
 
             <div class="mt-4">
@@ -48,6 +51,9 @@
                 name="password"
                 v-model="form.password"
               />
+              <FormInputError v-if="errors.password">
+                {{ errors.password[0] }}
+              </FormInputError>
             </div>
 
             <div class="block mt-4">
@@ -100,7 +106,7 @@ export default {
   data() {
     return {
       isloading: false,
-      loginerror: '',
+      errors: '',
       form: {
         email: '',
         password: '',
@@ -125,7 +131,7 @@ export default {
         })
       } catch (e) {
         this.isloading = false
-        this.loginerror = e.response.data.errors
+        this.errors = e.response.data.errors
       }
     },
   },

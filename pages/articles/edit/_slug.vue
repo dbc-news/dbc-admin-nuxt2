@@ -12,47 +12,47 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Title</FormLabel>
-                <FormInput
+                <Label>Title</Label>
+                <Input
                   placeholder="Title"
                   inpuType="text"
                   inputId="title"
                   inpuName="title"
                   v-model="form.title"
                 />
-                <FormInputError v-if="errors.title">
+                <InputError v-if="errors.title">
                   {{ errors.title[0] }}
-                </FormInputError>
+                </InputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Slug</FormLabel>
-                <FormInput
+                <Label>Slug</Label>
+                <Input
                   placeholder="Slug"
                   inpuType="text"
                   inputId="slug"
                   inpuName="slug"
                   v-model="form.slug"
                 />
-                <FormInputError v-if="errors.slug">
+                <InputError v-if="errors.slug">
                   {{ errors.slug[0] }}
-                </FormInputError>
+                </InputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Kicker</FormLabel>
-                <FormInput
+                <Label>Kicker</Label>
+                <Input
                   placeholder="Kicker"
                   inpuType="text"
                   inputId="kicker"
                   inpuName="kicker"
                   v-model="form.kicker"
                 />
-                <FormInputError v-if="errors.kicker">
+                <InputError v-if="errors.kicker">
                   {{ errors.kicker[0] }}
-                </FormInputError>
+                </InputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Author</FormLabel>
-                <FormInput
+                <Label>Author</Label>
+                <Input
                   placeholder="Author"
                   inpuType="text"
                   inputId="author"
@@ -63,7 +63,7 @@
               </div>
 
               <div class="w-full px-2 py-4 md:w-full">
-                <FormLabel>Teaser</FormLabel>
+                <Label>Teaser</Label>
                 <FormTextArea
                   rows="5"
                   placeholder="Teaser"
@@ -72,15 +72,15 @@
                   inpuName="teaser"
                   v-model="form.teaser"
                 />
-                <FormInputError v-if="errors.teaser">
+                <InputError v-if="errors.teaser">
                   {{ errors.teaser[0] }}
-                </FormInputError>
+                </InputError>
               </div>
             </div>
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
-              <FormLabel>Content</FormLabel>
+              <Label>Content</Label>
               <FormTextArea
                 rows="10"
                 placeholder="Content"
@@ -89,9 +89,9 @@
                 inpuName="content"
                 v-model="form.content"
               />
-              <FormInputError v-if="errors.content">
+              <InputError v-if="errors.content">
                 {{ errors.content[0] }}
-              </FormInputError>
+              </InputError>
             </div>
           </div>
 
@@ -99,7 +99,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  <FormLabel>Categories</FormLabel>
+                  <Label>Categories</Label>
                   <div
                     class="flex flex-wrap p-2 my-3 border rounded-md"
                     v-for="category in categories"
@@ -141,9 +141,9 @@
                       </label>
                     </div>
                   </div>
-                  <FormInputError v-if="errors.categories">
+                  <InputError v-if="errors.categories">
                     {{ errors.categories[0] }}
-                  </FormInputError>
+                  </InputError>
                 </div>
               </div>
             </div>
@@ -153,7 +153,7 @@
         <div class="col-span-12 2md:col-span-4">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              <FormLabel>Status</FormLabel>
+              <Label>Status</Label>
               <FormSelect v-model="form.status" id="inputId" inputName="status">
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
@@ -164,7 +164,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  <FormLabel>Make Aeticle</FormLabel>
+                  <Label>Make Aeticle</Label>
                   <div class="flex flex-wrap p-1 -pl-2">
                     <div class="relative flex items-start mt-2">
                       <div class="flex items-center">
@@ -196,7 +196,7 @@
                       alt="img"
                       class="w-full border"
                     />
-                    <FormInput
+                    <Input
                       placeholder="Thumbnail URL"
                       type="text"
                       class="mt-3"
@@ -249,7 +249,7 @@
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              <FormLabel>Tags</FormLabel>
+              <Label>Tags</Label>
               <multiselect
                 v-model="selectedTags"
                 tag-placeholder="Add this as new tag"
@@ -262,13 +262,13 @@
                 :taggable="true"
                 @tag="newTagAdd"
               ></multiselect>
-              <FormInputError v-if="errors.tags">
+              <InputError v-if="errors.tags">
                 {{ errors.tags[0] }}
-              </FormInputError>
+              </InputError>
             </div>
 
             <div class="w-full px-2 py-4">
-              <FormLabel>Regions</FormLabel>
+              <Label>Regions</Label>
               <multiselect
                 v-model="selectedRegions"
                 placeholder="Search region"
@@ -279,13 +279,13 @@
                 :hideSelected="true"
                 :regionable="true"
               ></multiselect>
-              <FormInputError v-if="errors.regions">
+              <InputError v-if="errors.regions">
                 {{ errors.regions[0] }}
-              </FormInputError>
+              </InputError>
             </div>
 
             <div class="w-full px-2 py-4">
-              <FormLabel>Topics</FormLabel>
+              <Label>Topics</Label>
               <multiselect
                 v-model="selectedTopics"
                 placeholder="Search a topic"
@@ -296,9 +296,9 @@
                 :hideSelected="true"
                 :topicable="true"
               ></multiselect>
-              <FormInputError v-if="errors.topics">
+              <InputError v-if="errors.topics">
                 {{ errors.topics[0] }}
-              </FormInputError>
+              </InputError>
             </div>
           </div>
         </div>
@@ -337,7 +337,7 @@ export default {
   components: {
     Multiselect,
   },
-
+  middleware: ['redirectIfGuest'],
   async asyncData({ params, app, error }) {
     try {
       let articleResponse = await app.$axios.$get(

@@ -54,12 +54,18 @@ export default {
 </script>
 <style>
 .vm--modal {
-  max-width: 800px !important;
+  width: 80% !important;
   max-height: 800px !important;
   top: 50px !important;
   bottom: 0 !important;
   margin: auto !important;
   left: 0 !important;
   right: 0 !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .vm--modal {
+    width: 100% !important;
+  }
 }
 </style>

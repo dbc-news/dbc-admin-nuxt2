@@ -126,6 +126,8 @@ export default {
     ClockIcon,
     ChevronDownIcon,
   },
+  middleware: ['redirectIfGuest'],
+
   computed: {
     ...mapGetters({
       articles: 'articles',

@@ -29,8 +29,29 @@ export default {
 
   buildModules: ['@nuxt/postcss8', '@nuxtjs/tailwindcss'],
 
-  modules: ['@nuxtjs/axios'],
-
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  auth: {
+    strategies: {
+      laravelSanctum: {
+        provider: 'laravel/sanctum',
+        url: 'http://admin.test',
+        endpoints: {
+          login: {
+            url: '/auth/login',
+          },
+        },
+      },
+      laravelSanctumRegister: {
+        provider: 'laravel/sanctum',
+        url: 'http://admin.test',
+        endpoints: {
+          login: {
+            url: '/auth/register',
+          },
+        },
+      },
+    },
+  },
   axios: {
     baseURL: 'http://admin.test/admin',
     credentials: true,

@@ -1,8 +1,5 @@
 <template>
   <input
-    :type="inputType"
-    :name="inputName"
-    :id="inputId"
     :placeholder="placeholder"
     :value="value"
     @input="$emit('input', $event.target.value)"
@@ -17,21 +14,6 @@ export default {
       required: false,
       type: String,
       default: '',
-    },
-    inputType: {
-      required: false,
-      type: String,
-      default: 'text',
-    },
-    inputId: {
-      required: false,
-      type: String,
-      default: 'name',
-    },
-    inputName: {
-      required: false,
-      type: String,
-      default: 'name',
     },
     placeholder: {
       required: false,

@@ -5,7 +5,7 @@
         class="flex flex-col items-center min-h-screen pt-6 bg-gray-100  sm:justify-center sm:pt-0"
       >
         <div>
-          <a href="/">
+          <a href="#">
             <img
               class="w-auto h-12"
               src="@/assets/images/dbc-red-logo.png"
@@ -13,7 +13,7 @@
             />
           </a>
         </div>
-
+        {{ form }}
         <div
           class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md  sm:max-w-md sm:rounded-lg"
         >
@@ -25,13 +25,12 @@
               >
                 Email
               </label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                required="required"
-                autofocus="autofocus"
-                placeholder=""
+              <FormInput
+                placeholder="Email"
+                inpuType="email"
+                inputId="email"
+                inpuName="email"
+                v-model="form.email"
               />
             </div>
 
@@ -42,13 +41,12 @@
               >
                 Password
               </label>
-              <Input
-                id="password"
-                type="password"
-                name="password"
-                required="required"
-                autocomplete="current-password"
-                placeholder=""
+              <FormInput
+                placeholder="Password"
+                inpuType="password"
+                inputId="password"
+                inpuName="password"
+                v-model="form.password"
               />
             </div>
 

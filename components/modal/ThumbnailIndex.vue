@@ -32,7 +32,7 @@ export default {
       this.$modal.hide('thumbnailIndexModal')
     },
     testShow() {
-      this.$modal.show('thumbnailIndexModal')
+      this.$modal.hide('thumbnailIndexModal')
     },
     async getImages(page = this.$route.query.page, query = this.$route.query) {
       await this.$axios

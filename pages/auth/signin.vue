@@ -27,9 +27,9 @@
               </label>
               <FormInput
                 placeholder="Email"
-                inpuType="email"
-                inputId="email"
-                inpuName="email"
+                type="email"
+                id="email"
+                name="email"
                 v-model="form.email"
               />
             </div>
@@ -43,9 +43,9 @@
               </label>
               <FormInput
                 placeholder="Password"
-                inpuType="password"
-                inputId="password"
-                inpuName="password"
+                type="password"
+                id="password"
+                name="password"
                 v-model="form.password"
               />
             </div>

@@ -7,10 +7,12 @@
             <div class="my-3">
               <div sm="2">
                 <label for="photo">Photo:</label>
+                {{ form.photo }}show
               </div>
               <div sm="10">
                 <input
                   type="file"
+                  :state="Boolean(form.photo)"
                   placeholder="Choose a file..."
                   drop-placeholder="Drop file here..."
                   @change="selectingThumbnail"
@@ -52,11 +54,7 @@
                   <label for="caption">Caption:</label>
                 </div>
                 <div sm="10">
-                  <!-- <b-form-input
-                    id="caption"
-                    type="text"
-                    v-model="form.caption"
-                  ></b-form-input> -->
+                  <input id="caption" type="text" v-model="form.caption" />
                   <!-- <span class="help-block" v-if="errors.caption">{{
                     errors.caption[0]
                   }}</span> -->
@@ -403,7 +401,7 @@ export default {
     }
   },
   methods: {
-    async selectingThumbnail() {
+    async selectingThumbnail(e) {
       if ((this.uploading = true)) {
         if (
           !event ||
@@ -413,7 +411,7 @@ export default {
         ) {
           return
         }
-
+        this.form.photo = e.target.files[0]
         const file = event.target.files[0]
 
         this.temporaryThumb = URL.createObjectURL(file)
@@ -437,35 +435,35 @@ export default {
     async uploadThumbnail() {
       console.log('uploadThumbnail')
       console.log(this.form.photo)
-      // try {
-      //   let formData = new FormData()
-      //   formData.append('photo', this.form.photo)
-      //   formData.append('name', this.form.name)
-      //   formData.append('path', this.form.path)
-      //   formData.append('location', this.form.location)
-      //   formData.append('source', this.form.source)
-      //   formData.append('comment', this.form.comment)
-      //   formData.append('caption', this.form.caption)
-      //   formData.append('acceptSize', this.form.acceptSize)
-      //   formData.append('cropX', this.form.cropX)
-      //   formData.append('cropY', this.form.cropY)
-      //   formData.append('cropWidth', this.form.cropWidth)
-      //   formData.append('cropHeight', this.form.cropHeight)
-
-      //   await this.$axios.post(`photos`, formData).then(({ data }) => {
-      //     this.uploading = false
-      //     this.$toast.success(`Photo uploaded successfully...`, {
-      //       icon: 'file-image-o',
-      //     })
-      //     this.$emit('photos:upload', data.data)
-      //     this.resetForm()
-      //     this.$modal.hide('photos-upload')
-      //   })
-      // } catch (e) {
-      //   this.$toast.error('Failed to uplaod image.', {
-      //     icon: 'times-circle',
-      //   })
-      // }
+      try {
+        let formData = new FormData()
+        formData.append('photo', this.form.photo)
+        formData.append('name', this.form.name)
+        formData.append('path', this.form.path)
+        formData.append('location', this.form.location)
+        formData.append('source', this.form.source)
+        formData.append('comment', this.form.comment)
+        formData.append('caption', this.form.caption)
+        formData.append('acceptSize', this.form.acceptSize)
+        formData.append('cropX', this.form.cropX)
+        formData.append('cropY', this.form.cropY)
+        formData.append('cropWidth', this.form.cropWidth)
+        formData.append('cropHeight', this.form.cropHeight)
+        console.log(formData)
+        await this.$axios.post(`images`, this.form.photo).then(({ data }) => {
+          this.uploading = false
+          // this.$toast.success(`Photo uploaded successfully...`, {
+          //   icon: 'file-image-o',
+          // })
+          // this.$emit('photos:upload', data.data)
+          // this.resetForm()
+          // this.$modal.hide('photos-upload')
+        })
+      } catch (e) {
+        // this.$toast.error('Failed to uplaod image.', {
+        //   icon: 'times-circle',
+        // })
+      }
     },
   },
 }

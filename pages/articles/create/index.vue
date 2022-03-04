@@ -202,26 +202,7 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '@/components/Breadcrumb'
-import FormLabel from '@/components/form/Label'
-import FormInput from '@/components/form/Input'
-import FormInputError from '@/components/form/InputError'
-import FormTextArea from '@/components/form/TextArea'
-
-import FormCheckbox from '@/components/form/Checkbox'
-import FormSelect from '@/components/form/Select'
-import FormButton from '@/components/form/Button'
-
 export default {
-  components: {
-    Breadcrumb,
-    FormLabel,
-    FormInput,
-    FormInputError,
-    FormCheckbox,
-    FormSelect,
-    FormButton,
-    FormTextArea,
-  },
+  components: {},
 }
 </script>

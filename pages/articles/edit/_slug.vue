@@ -12,47 +12,47 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Title</FormLabel>
-                <FormInput
+                <AppLabel>Title</AppLabel>
+                <AppInput
                   placeholder="Title"
                   type="text"
                   id="title"
                   name="title"
                   v-model="form.title"
                 />
-                <FormInputError v-if="errors.title">
+                <AppInputError v-if="errors.title">
                   {{ errors.title[0] }}
-                </FormInputError>
+                </AppInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Slug</FormLabel>
-                <FormInput
+                <AppLabel>Slug</AppLabel>
+                <AppInput
                   placeholder="Slug"
                   type="text"
                   id="slug"
                   name="slug"
                   v-model="form.slug"
                 />
-                <FormInputError v-if="errors.slug">
+                <AppInputError v-if="errors.slug">
                   {{ errors.slug[0] }}
-                </FormInputError>
+                </AppInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Kicker</FormLabel>
-                <FormInput
+                <AppLabel>Kicker</AppLabel>
+                <AppInput
                   placeholder="Kicker"
                   type="text"
                   id="kicker"
                   name="kicker"
                   v-model="form.kicker"
                 />
-                <FormInputError v-if="errors.kicker">
+                <AppInputError v-if="errors.kicker">
                   {{ errors.kicker[0] }}
-                </FormInputError>
+                </AppInputError>
               </div>
               <div class="w-full px-2 py-4 md:w-6/12">
-                <FormLabel>Author</FormLabel>
-                <FormInput
+                <AppLabel>Author</AppLabel>
+                <AppInput
                   placeholder="Author"
                   type="text"
                   id="author"
@@ -63,7 +63,7 @@
               </div>
 
               <div class="w-full px-2 py-4 md:w-full">
-                <FormLabel>Teaser</FormLabel>
+                <AppLabel>Teaser</AppLabel>
                 <FormTextArea
                   rows="5"
                   placeholder="Teaser"
@@ -71,15 +71,15 @@
                   name="teaser"
                   v-model="form.teaser"
                 />
-                <FormInputError v-if="errors.teaser">
+                <AppInputError v-if="errors.teaser">
                   {{ errors.teaser[0] }}
-                </FormInputError>
+                </AppInputError>
               </div>
             </div>
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
-              <FormLabel>Content</FormLabel>
+              <AppLabel>Content</AppLabel>
               <FormTextArea
                 rows="10"
                 placeholder="Content"
@@ -87,9 +87,9 @@
                 name="content"
                 v-model="form.content"
               />
-              <FormInputError v-if="errors.content">
+              <AppInputError v-if="errors.content">
                 {{ errors.content[0] }}
-              </FormInputError>
+              </AppInputError>
             </div>
           </div>
 
@@ -97,7 +97,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  <FormLabel>Categories</FormLabel>
+                  <AppLabel>Categories</AppLabel>
                   <div
                     class="flex flex-wrap p-2 my-3 border rounded-md"
                     v-for="category in categories"
@@ -139,9 +139,9 @@
                       </label>
                     </div>
                   </div>
-                  <FormInputError v-if="errors.categories">
+                  <AppInputError v-if="errors.categories">
                     {{ errors.categories[0] }}
-                  </FormInputError>
+                  </AppInputError>
                 </div>
               </div>
             </div>
@@ -151,7 +151,7 @@
         <div class="col-span-12 2md:col-span-4">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              <FormLabel>Status</FormLabel>
+              <AppLabel>Status</AppLabel>
               <FormSelect v-model="form.status" id="status" name="status">
                 <option value="draft">Draft</option>
                 <option value="published">Published</option>
@@ -162,7 +162,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="mt-4 sm:mt-0 sm:col-span-2">
-                  <FormLabel>Make Aeticle</FormLabel>
+                  <AppLabel>Make Aeticle</AppLabel>
                   <div class="flex flex-wrap p-1 -pl-2">
                     <div class="relative flex items-start mt-2">
                       <div class="flex items-center">
@@ -194,7 +194,7 @@
                       alt="img"
                       class="w-full border"
                     />
-                    <FormInput
+                    <AppInput
                       placeholder="Thumbnail URL"
                       type="text"
                       class="mt-3"
@@ -218,7 +218,7 @@
                   >
                     <div
                       class="space-y-1 text-center"
-                      @click.prevent="showThumbnailIndexModal"
+                      @click.prevent="showAppImageModal"
                     >
                       <ImagePlus />
                       <div class="flex text-sm text-gray-600"></div>
@@ -233,7 +233,7 @@
           </div>
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
-              <FormLabel>Tags</FormLabel>
+              <AppLabel>Tags</AppLabel>
               <multiselect
                 v-model="selectedTags"
                 tag-placeholder="Add this as new tag"
@@ -246,13 +246,13 @@
                 :taggable="true"
                 @tag="newTagAdd"
               ></multiselect>
-              <FormInputError v-if="errors.tags">
+              <AppInputError v-if="errors.tags">
                 {{ errors.tags[0] }}
-              </FormInputError>
+              </AppInputError>
             </div>
 
             <div class="w-full px-2 py-4">
-              <FormLabel>Regions</FormLabel>
+              <AppLabel>Regions</AppLabel>
               <multiselect
                 v-model="selectedRegions"
                 placeholder="Search region"
@@ -263,13 +263,13 @@
                 :hideSelected="true"
                 :regionable="true"
               ></multiselect>
-              <FormInputError v-if="errors.regions">
+              <AppInputError v-if="errors.regions">
                 {{ errors.regions[0] }}
-              </FormInputError>
+              </AppInputError>
             </div>
 
             <div class="w-full px-2 py-4">
-              <FormLabel>Topics</FormLabel>
+              <AppLabel>Topics</AppLabel>
               <multiselect
                 v-model="selectedTopics"
                 placeholder="Search a topic"
@@ -280,18 +280,18 @@
                 :hideSelected="true"
                 :topicable="true"
               ></multiselect>
-              <FormInputError v-if="errors.topics">
+              <AppInputError v-if="errors.topics">
                 {{ errors.topics[0] }}
-              </FormInputError>
+              </AppInputError>
             </div>
           </div>
         </div>
       </div>
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
-        <FormButton
+        <AppButton
           type="submit"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500 hover:ring-1"
-          >Submit</FormButton
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+          >Submit</AppButton
         >
       </div>
     </form>
@@ -382,8 +382,8 @@ export default {
     },
   },
   methods: {
-    showThumbnailIndexModal() {
-      this.$modal.show('thumbnailIndexModal')
+    showAppImageModal() {
+      this.$modal.show('app-image-iodal')
     },
 
     errorMessage() {
@@ -445,9 +445,6 @@ export default {
     },
     async photosUploaded(photo) {
       this.form.thumbnail = photo.href.origin
-    },
-    async thumbnailIndexModal() {
-      this.$modal.show('photos-index')
     },
   },
 }

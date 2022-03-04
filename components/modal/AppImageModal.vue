@@ -1,5 +1,5 @@
 <template>
-  <modal class="relative" name="AppImageModal">
+  <modal class="relative" name="app-image-iodal">
     <div class="absolute top-2 right-2">
       <XIcon
         class="
@@ -23,9 +23,9 @@
         >
           <img :src="image.thumb160x84" class="w-full h-auto" alt="img" />
           <div>
-            <p><strong>Name</strong> : name</p>
-            <p><strong>URL</strong> : name</p>
-            <p><strong>Date</strong> : name</p>
+            <p>{{ image.name }}</p>
+            <p><AppInput type="text" :value="image.original" /></p>
+            <p>{{ image.created_at }}</p>
           </div>
         </div>
       </div>
@@ -46,10 +46,10 @@ export default {
   },
   methods: {
     hideAppImageModal() {
-      this.$modal.hide('AppImageModal')
+      this.$modal.hide('app-image-iodal')
     },
     testShow() {
-      this.$modal.show('AppImageModal')
+      this.$modal.show('app-image-iodal')
     },
     async getImages(page = this.$route.query.page, query = this.$route.query) {
       await this.$axios

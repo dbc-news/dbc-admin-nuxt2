@@ -373,6 +373,7 @@ export default {
       uploading: false,
       isLoading: false,
       temporaryThumb: null,
+      image: null,
       form: {
         photo: null,
         name: '',
@@ -403,16 +404,11 @@ export default {
   methods: {
     async selectingThumbnail(e) {
       if ((this.uploading = true)) {
-        if (
-          !event ||
-          !event.target ||
-          !event.target.files ||
-          event.target.files.length === 0
-        ) {
+        if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
           return
         }
-        this.form.photo = e.target.files[0]
-        const file = event.target.files[0]
+        this.image = e.target.files[0]
+        const file = e.target.files[0]
 
         this.temporaryThumb = URL.createObjectURL(file)
 
@@ -433,37 +429,26 @@ export default {
     },
 
     async uploadThumbnail() {
-      console.log('uploadThumbnail')
-      console.log(this.form.photo)
+      console.log(this.image)
       try {
         let formData = new FormData()
-        formData.append('photo', this.form.photo)
-        formData.append('name', this.form.name)
-        formData.append('path', this.form.path)
-        formData.append('location', this.form.location)
-        formData.append('source', this.form.source)
-        formData.append('comment', this.form.comment)
-        formData.append('caption', this.form.caption)
-        formData.append('acceptSize', this.form.acceptSize)
-        formData.append('cropX', this.form.cropX)
-        formData.append('cropY', this.form.cropY)
-        formData.append('cropWidth', this.form.cropWidth)
-        formData.append('cropHeight', this.form.cropHeight)
+        formData.append('image', this.image)
         console.log(formData)
-        await this.$axios.post(`images`, this.form.photo).then(({ data }) => {
-          this.uploading = false
-          // this.$toast.success(`Photo uploaded successfully...`, {
-          //   icon: 'file-image-o',
-          // })
-          // this.$emit('photos:upload', data.data)
-          // this.resetForm()
-          // this.$modal.hide('photos-upload')
+        // formData.append('name', this.form.name)
+        // formData.append('path', this.form.path)
+        // formData.append('location', this.form.location)
+        // formData.append('source', this.form.source)
+        // formData.append('comment', this.form.comment)
+        // formData.append('caption', this.form.caption)
+        // formData.append('acceptSize', this.form.acceptSize)
+        // formData.append('cropX', this.form.cropX)
+        // formData.append('cropY', this.form.cropY)
+        // formData.append('cropWidth', this.form.cropWidth)
+        // formData.append('cropHeight', this.form.cropHeight)
+        await this.$axios.post(`images`, formData).then(({ data }) => {
+          // this.uploading = false
         })
-      } catch (e) {
-        // this.$toast.error('Failed to uplaod image.', {
-        //   icon: 'times-circle',
-        // })
-      }
+      } catch (e) {}
     },
   },
 }

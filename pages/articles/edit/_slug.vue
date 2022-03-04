@@ -295,7 +295,7 @@
         >
       </div>
     </form>
-    <ThumbnailIndex />
+    <AppImageModal />
   </div>
 </template>
 

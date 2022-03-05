@@ -15,7 +15,27 @@
       />
     </div>
     <div class="p-2 sm:gap-2 sm:p-4 lg:p-8">
-      <div class="grid grid-cols-12 gap-3" v-if="images.length">
+      <div class="flex">
+        <div
+          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+          :class="tab === 'thumbnail' ? '-mb-0.5  border-2' : ''"
+          @click.prevent="showThumbnails('thumbnail')"
+        >
+          Thumbnails
+        </div>
+        <div
+          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+          :class="tab === 'upload' ? '-mb-0.5  border-2' : ''"
+          @click.prevent="showThumbnails('upload')"
+        >
+          Upload
+        </div>
+      </div>
+      <div
+        class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        v-if="images.length"
+        v-show="tab === 'thumbnail'"
+      >
         <div
           class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
           v-for="image in images"
@@ -52,6 +72,12 @@
           </div>
         </div>
       </div>
+      <div
+        class="p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        v-show="tab === 'upload'"
+      >
+        upload
+      </div>
     </div>
   </modal>
 </template>
@@ -63,6 +89,7 @@ export default {
     return {
       images: [],
       selectedImg: null,
+      tab: 'thumbnail',
     }
   },
   components: {
@@ -82,6 +109,9 @@ export default {
     },
     testShow() {
       this.$modal.show('app-image-iodal')
+    },
+    showThumbnails(arg) {
+      this.tab = arg
     },
     async getImages(page = this.$route.query.page, query = this.$route.query) {
       await this.$axios

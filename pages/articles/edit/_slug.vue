@@ -298,7 +298,10 @@
         >
       </div>
     </form>
-    <AppImageModal @selectedImage="selectedImage" />
+    <AppImageModal
+      @selectedImageFromModal="selectedImageFromModal"
+      :thumbnail="selectedThumbnails"
+    />
   </div>
 </template>
 
@@ -410,7 +413,7 @@ export default {
         title: 'News Updated successfully',
       })
     },
-    selectedImage(image) {
+    selectedImageFromModal(image) {
       this.selectedThumbnails = image
       this.form.thumbnail = image.id
 

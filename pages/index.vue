@@ -40,7 +40,9 @@
                   <img
                     class="w-16 h-16 text-gray-300 bg-white border border-gray-300 rounded-sm "
                     :src="article.thumbnails.thumb160x84"
-                    alt="article"
+                    v-if="article.thumbnails.thumb160x84"
+                    v-lazy="article.thumbnails.thumb160x84"
+                    :alt="article.name"
                   />
                 </div>
                 <div class="flex-shrink-0 mb-4 sm:mb-0" v-else>

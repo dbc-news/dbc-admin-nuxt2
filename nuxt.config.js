@@ -20,9 +20,9 @@ export default {
 
   plugins: [
     '~/plugins/components',
-    '@/plugins/VueObserveVisibility',
     '@/plugins/VueSweetAlert',
     '@/plugins/VueJsModal',
+    '@/plugins/VueLazyload',
   ],
 
   components: true,

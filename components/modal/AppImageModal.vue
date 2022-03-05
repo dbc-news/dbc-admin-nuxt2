@@ -17,15 +17,38 @@
     <div class="p-2 sm:gap-2 sm:p-4 lg:p-8">
       <div class="grid grid-cols-12 gap-3" v-if="images.length">
         <div
-          class="col-span-6 sm:col-span-4 md:col-span-3 lg:col-span-2"
+          class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
           v-for="image in images"
           :key="image.id"
         >
-          <img :src="image.thumb160x84" class="w-full h-auto" alt="img" />
-          <div>
-            <p>{{ image.name }}</p>
-            <p><AppInput type="text" :value="image.original" /></p>
-            <p>{{ image.created_at }}</p>
+          <input
+            type="checkbox"
+            :id="image.id"
+            :name="image.id"
+            :value="image.id"
+            :checked="selectedImg == image"
+            class="absolute top-0 right-0"
+            :class="{
+              hidden: image != selectedImg,
+            }"
+          />
+          <div @click.prevent="selectingImage(image)">
+            <label :for="image.id">
+              <img :src="image.thumb160x84" class="w-full h-auto" alt="img" />
+              <div class="px-1 py-2">
+                <p class="text-sm tracking-wider truncate">{{ image.name }}</p>
+                <p class="py-1">
+                  <AppInput
+                    type="text"
+                    class="py-1 text-xs h-7"
+                    :value="image.original"
+                  />
+                </p>
+                <p class="text-xs tracking-wider truncate">
+                  {{ image.formatted_date_time }}
+                </p>
+              </div>
+            </label>
           </div>
         </div>
       </div>
@@ -39,12 +62,21 @@ export default {
   data() {
     return {
       images: [],
+      selectedImg: null,
     }
   },
   components: {
     XIcon,
   },
+  watch: {
+    selectedImg(image) {
+      this.$emit('selectedImage', image)
+    },
+  },
   methods: {
+    selectingImage(arg) {
+      this.selectedImg = arg
+    },
     hideAppImageModal() {
       this.$modal.hide('app-image-iodal')
     },

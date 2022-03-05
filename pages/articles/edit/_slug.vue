@@ -13,6 +13,7 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Title</AppLabel>
+                {{ selectedThumbnails }}
                 <AppInput
                   placeholder="Title"
                   type="text"
@@ -188,20 +189,20 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2">
                 <div class="w-full py-4">
-                  <div v-if="article.thumbnails">
+                  <div v-if="selectedThumbnails">
                     <img
-                      :src="article.thumbnails.original"
+                      :src="selectedThumbnails.original"
                       alt="img"
                       class="w-full border"
                     />
-                    <AppInput
+                    <!-- <AppInput
                       placeholder="Thumbnail URL"
                       type="text"
                       class="mt-3"
                       name="thumbnail_url"
                       id="thumbnail_url"
-                      v-model="form.thumbnail.original"
-                    />
+                      v-model="selectedThumbnails.original"
+                    /> -->
                   </div>
                   <div v-else>
                     <img
@@ -295,7 +296,7 @@
         >
       </div>
     </form>
-    <AppImageModal />
+    <AppImageModal @selectedImage="selectedImage" />
   </div>
 </template>
 
@@ -314,6 +315,7 @@ export default {
       selectedTags: [],
       selectedRegions: [],
       selectedTopics: [],
+      selectedThumbnails: null,
 
       errors: '',
     }
@@ -345,18 +347,17 @@ export default {
         selectedTags: article.tags,
         selectedRegions: article.regions,
         selectedTopics: article.topics,
-
+        selectedThumbnails: article.thumbnails,
         form: {
           title: article.title,
           slug: article.slug,
           kicker: article.kicker,
-          thumbnail: article.thumbnail,
           teaser: article.teaser,
           content: article.content,
           pinned: article.pinned,
           status: article.status,
           user: article.user,
-          thumbnail: article.thumbnails,
+          thumbnail: article.thumbnails ? article.thumbnails.id : null,
           categories: map(article.categories, 'id'),
           tags: map(article.tags, 'id'),
           regions: map(article.regions, 'id'),
@@ -410,7 +411,14 @@ export default {
         title: 'News Updated successfully',
       })
     },
+    selectedImage(image) {
+      this.selectedThumbnails = image
+      this.form.thumbnail = image.id
+
+      this.$modal.hide('app-image-iodal')
+    },
     async articleUpdate() {
+      console.log(this.form)
       try {
         await this.$axios
           .patch(`articles/${this.article.slug}`, this.form)
@@ -443,9 +451,9 @@ export default {
         this.errorMessage()
       }
     },
-    async photosUploaded(photo) {
-      this.form.thumbnail = photo.href.origin
-    },
+    // async photosUploaded(photo) {
+    //   this.form.thumbnail = photo.href.origin
+    // },
   },
 }
 </script>

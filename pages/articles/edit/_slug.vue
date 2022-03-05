@@ -190,7 +190,7 @@
                 <div class="w-full py-4">
                   <div v-if="selectedThumbnails">
                     <img
-                      :src="selectedThumbnails.original"
+                      :src="selectedThumbnails.thumb600x314"
                       alt="img"
                       class="w-full border"
                     />
@@ -200,7 +200,7 @@
                       class="mt-3"
                       name="thumbnail_url"
                       id="thumbnail_url"
-                      v-model="selectedThumbnails.original"
+                      v-model="selectedThumbnails.thumb600x314"
                     /> -->
                   </div>
                   <div v-else>

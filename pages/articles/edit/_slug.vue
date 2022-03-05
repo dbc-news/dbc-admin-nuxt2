@@ -218,11 +218,9 @@
                   <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
                     class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                    @click.prevent="showAppImageModal"
                   >
-                    <div
-                      class="space-y-1 text-center"
-                      @click.prevent="showAppImageModal"
-                    >
+                    <div class="space-y-1 text-center">
                       <ImagePlus />
                       <div class="flex text-sm text-gray-600"></div>
                       <p class="text-xs text-gray-500">

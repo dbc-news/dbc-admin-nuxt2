@@ -39,7 +39,6 @@
                 >
                   <img
                     class="w-16 h-16 text-gray-300 bg-white border border-gray-300 rounded-sm "
-                    :src="article.thumbnails.thumb160x84"
                     v-if="article.thumbnails.thumb160x84"
                     v-lazy="article.thumbnails.thumb160x84"
                     :alt="article.name"

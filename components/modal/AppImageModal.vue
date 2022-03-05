@@ -55,14 +55,19 @@
           />
           <div @click.prevent="selectingImage(image)">
             <label :for="image.id">
-              <img :src="image.thumb160x84" class="w-full h-auto" alt="img" />
+              <img
+                v-if="image.thumb160x84"
+                v-lazy="image.thumb160x84"
+                :alt="image.name"
+                class="w-full h-auto"
+              />
               <div class="px-1 py-2">
                 <p class="text-sm tracking-wider truncate">{{ image.name }}</p>
                 <p class="py-1">
                   <AppInput
                     type="text"
                     class="py-1 text-xs h-7"
-                    :value="image.original"
+                    :value="image.thumb160x84"
                   />
                 </p>
                 <p class="text-xs tracking-wider truncate">

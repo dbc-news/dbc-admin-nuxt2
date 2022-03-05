@@ -127,7 +127,8 @@ export default {
     },
   },
   mounted() {
-    this.testShow(), this.getImages()
+    // this.testShow(),
+    this.getImages()
   },
 }
 </script>

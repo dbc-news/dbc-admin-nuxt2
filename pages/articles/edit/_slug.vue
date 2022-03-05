@@ -13,7 +13,6 @@
             <div class="flex flex-wrap">
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Title</AppLabel>
-                {{ selectedThumbnails }}
                 <AppInput
                   placeholder="Title"
                   type="text"
@@ -211,6 +210,9 @@
                       class="w-full border rounded-md h-52"
                     />
                   </div>
+                  <AppInputError v-if="errors.thumbnail">
+                    {{ errors.thumbnail[0] }}
+                  </AppInputError>
                 </div>
                 <div class="mt-1">
                   <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
@@ -365,9 +367,6 @@ export default {
         },
       }
     } catch (e) {
-      // error({
-      //   statusCode: e.response.status,
-      // }),
       console.log(e.response.data.errors)
     }
   },
@@ -424,6 +423,9 @@ export default {
           .patch(`articles/${this.article.slug}`, this.form)
           .then(({ data }) => {
             this.successMessage()
+          })
+          .then(() => {
+            this.errors = []
           })
       } catch (e) {
         ;(this.errors = e.response.data.errors), this.errorMessage()

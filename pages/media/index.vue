@@ -1,7 +1,7 @@
   <template>
-  <div class="flex">
-    <div class="w-9/12">
-      <div class="p-4">
+  <div class="sm:flex">
+    <div class="w-full sm:w-8/12 2md:w-8/12 xl:w-9/12">
+      <div class="px-2 mx-auto sm:px-4 lg:px-8">
         <div name="photos-upload">
           <form @submit.prevent="uploadThumbnail">
             <div class="my-3">
@@ -146,33 +146,36 @@
             <button type="submit" block variant="primary">Upload</button>
           </form>
         </div>
-      </div>
 
-      <!-- <ul
-        role="list"
-        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
-      >
-        <li v-for="image in images" :key="image.id" class="relative">
-          <div
-            class="block w-full overflow-hidden bg-gray-100 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
-          >
-            <img
-              :src="image.original"
-              alt=""
-              class="object-cover pointer-events-none group-hover:opacity-75"
-            />
-          </div>
-        </li>
-      </ul> -->
+        <div class="">
+          <ul role="list" class="grid grid-cols-12 gap-3">
+            <li
+              v-for="image in images"
+              :key="image.id"
+              class="relative col-span-6  md:col-span-4 2md:col-span-3 lg:col-span-2"
+            >
+              <div
+                class="block w-full overflow-hidden bg-gray-100 rounded-lg  group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
+              >
+                <img
+                  :src="image.original"
+                  alt=""
+                  class="object-cover pointer-events-none  group-hover:opacity-75"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <!-- <div class="w-3/12">
+    <div class="w-full mt-5 sm:w-4/12 2md:4/12 2md:w-4/12 xl:w-3/12">
       <aside
-        class="hidden p-8 overflow-y-auto bg-white border-l border-gray-200 w-96 lg:block"
+        class="w-full px-2 mx-auto overflow-y-auto bg-white border-l border-gray-200  sm:px-4 lg:px-8"
       >
         <div class="pb-16 space-y-6">
           <div>
             <div
-              class="block w-full overflow-hidden rounded-lg aspect-w-10 aspect-h-7"
+              class="block w-full overflow-hidden rounded-lg  aspect-w-10 aspect-h-7"
             >
               <img
                 src="https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=512&amp;q=80"
@@ -189,7 +192,7 @@
               </div>
               <button
                 type="button"
-                class="flex items-center justify-center w-8 h-8 ml-4 text-gray-400 bg-white rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="flex items-center justify-center w-8 h-8 ml-4 text-gray-400 bg-white rounded-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <svg
                   class="w-6 h-6"
@@ -250,7 +253,7 @@
               </p>
               <button
                 type="button"
-                class="flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="flex items-center justify-center w-8 h-8 text-gray-400 bg-white rounded-full  hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <svg
                   class="w-5 h-5"
@@ -287,7 +290,7 @@
                 </div>
                 <button
                   type="button"
-                  class="ml-6 text-sm font-medium text-indigo-600 bg-white rounded-md hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  class="ml-6 text-sm font-medium text-indigo-600 bg-white rounded-md  hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Remove<span class="sr-only"> Aimee Douglas</span>
                 </button>
@@ -306,7 +309,7 @@
                 </div>
                 <button
                   type="button"
-                  class="ml-6 text-sm font-medium text-indigo-600 bg-white rounded-md hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  class="ml-6 text-sm font-medium text-indigo-600 bg-white rounded-md  hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Remove<span class="sr-only"> Andrea McMillan</span>
                 </button>
@@ -315,7 +318,7 @@
               <li class="flex items-center justify-between py-2">
                 <button
                   type="button"
-                  class="flex items-center p-1 -ml-1 bg-white rounded-md group focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  class="flex items-center p-1 -ml-1 bg-white rounded-md  group focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <span
                     class="flex items-center justify-center w-8 h-8 text-gray-400 border-2 border-gray-300 border-dashed rounded-full "
@@ -336,7 +339,7 @@
                     </svg>
                   </span>
                   <span
-                    class="ml-4 text-sm font-medium text-indigo-600 group-hover:text-indigo-500"
+                    class="ml-4 text-sm font-medium text-indigo-600  group-hover:text-indigo-500"
                     >Share</span
                   >
                 </button>
@@ -346,20 +349,20 @@
           <div class="flex">
             <button
               type="button"
-              class="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Download
             </button>
             <button
               type="button"
-              class="flex-1 px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              class="flex-1 px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Delete
             </button>
           </div>
         </div>
       </aside>
-    </div> -->
+    </div>
   </div>
 </template>
 

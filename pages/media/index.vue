@@ -1,34 +1,63 @@
   <template>
   <div class="sm:flex">
-    <div class="w-full sm:w-8/12 2md:w-8/12 xl:w-9/12">
+    <div class="w-full">
       <div class="px-2 mx-auto sm:px-4 lg:px-8">
-        <div name="photos-upload">
+        <div class="p-4 mt-8 mb-3 bg-white border rounded-md shadow-sm">
           <form @submit.prevent="uploadThumbnail">
-            <div class="my-3">
-              <div sm="2">
-                <label for="photo">Photo:</label>
-                {{ form.photo }}show
-              </div>
-              <div sm="10">
-                <input
-                  type="file"
-                  :state="Boolean(form.photo)"
-                  placeholder="Choose a file..."
-                  drop-placeholder="Drop file here..."
-                  @change="selectingThumbnail"
-                />
-                <!-- <div class="mt-3" v-if="form.photo">
-                  Selected photo: {{ form.photo ? form.photo.name : '' }}
+            <div class="flex flex-wrap" v-if="!uploading">
+              <div class="w-full">
+                <div class="mt-1">
+                  <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
+                  <div
+                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                  >
+                    <div class="space-y-1 text-center">
+                      <ImagePlus />
+                      <div class="flex text-sm text-gray-600">
+                        <label
+                          for="file-upload"
+                          class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            type="file"
+                            id="file-upload"
+                            name="file-upload"
+                            placeholder="Choose a file..."
+                            drop-placeholder="Drop file here..."
+                            @change="selectingThumbnail"
+                            class="sr-only"
+                          />
+                        </label>
+                        <p class="pl-1">or drag and drop</p>
+                      </div>
+                      <p class="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="help-block" v-if="errors.photo">
-                  {{ errors.photo[0] }}
-                </div> -->
               </div>
             </div>
-            <div v-if="uploading">
+
+            <div class="relative" v-else>
+              <div class="absolute top-2 right-2">
+                <XIcon
+                  class="
+                    w-5
+                    h-5
+                    text-red-600
+                    border border-red-500
+                    rounded-full
+                    cursor-pointer
+                    p-0.5
+                  "
+                  @click="hidePreview"
+                />
+              </div>
               <div class="my-1">
                 <div sm="2">
-                  <label for="caption">Preview:</label>
+                  <AppLabel for="caption">Preview:</AppLabel>
                 </div>
                 <div sm="10">
                   <vue-cropper
@@ -47,17 +76,25 @@
                   >
                   </vue-cropper>
                 </div>
+                <AppInputError v-if="errors.thumbnail">
+                  {{ errors.thumbnail[0] }}
+                </AppInputError>
               </div>
 
               <div class="my-1">
                 <div sm="2">
-                  <label for="caption">Caption:</label>
+                  <AppLabel for="caption">Caption:</AppLabel>
                 </div>
                 <div sm="10">
-                  <input id="caption" type="text" v-model="form.caption" />
-                  <!-- <span class="help-block" v-if="errors.caption">{{
-                    errors.caption[0]
-                  }}</span> -->
+                  <AppInput
+                    id="caption"
+                    placeholder="Caption"
+                    type="text"
+                    v-model="form.caption"
+                  />
+                  <AppInputError v-if="errors.caption">
+                    {{ errors.caption[0] }}
+                  </AppInputError>
                 </div>
               </div>
 
@@ -142,8 +179,14 @@
                   }}</span>
                 </b-col>
               </b-row> -->
+              <div class="col-span-12 mt-3">
+                <AppButton
+                  type="submit"
+                  class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  >Submit</AppButton
+                >
+              </div>
             </div>
-            <button type="submit" block variant="primary">Upload</button>
           </form>
         </div>
 
@@ -152,7 +195,7 @@
             <li
               v-for="image in images"
               :key="image.id"
-              class="relative col-span-6  md:col-span-4 2md:col-span-3 lg:col-span-2"
+              class="relative col-span-6 md:col-span-4 2md:col-span-3"
             >
               <div
                 class="block w-full overflow-hidden bg-gray-100 rounded-lg  group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
@@ -168,9 +211,9 @@
         </div>
       </div>
     </div>
-    <div class="w-full mt-5 sm:w-4/12 2md:4/12 2md:w-4/12 xl:w-3/12">
+    <div class="w-full sm:w-96">
       <aside
-        class="w-full px-2 mx-auto overflow-y-auto bg-white border-l border-gray-200  sm:px-4 lg:px-8"
+        class="w-full px-2 pt-3 mx-auto overflow-y-auto bg-white border-l border-gray-200  sm:px-4 lg:px-8"
       >
         <div class="pb-16 space-y-6">
           <div>
@@ -367,16 +410,18 @@
 </template>
 
 <script>
+import { XIcon } from '@vue-hero-icons/outline'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 export default {
   data() {
     return {
       images: [],
-      uploading: false,
+      uploading: true,
       isLoading: false,
       temporaryThumb: null,
-      image: null,
+      thumbnail: null,
+      errors: '',
       form: {
         photo: null,
         name: '',
@@ -393,7 +438,7 @@ export default {
       },
     }
   },
-  components: { VueCropper },
+  components: { VueCropper, XIcon },
   async asyncData({ app, error }) {
     try {
       let response = await app.$axios.$get('images')
@@ -410,7 +455,7 @@ export default {
         if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
           return
         }
-        this.image = e.target.files[0]
+        this.thumbnail = e.target.files[0]
         const file = e.target.files[0]
 
         this.temporaryThumb = URL.createObjectURL(file)
@@ -423,6 +468,9 @@ export default {
         // const ext = name.substring(lastDot + 1);
       }
     },
+    hidePreview() {
+      this.uploading = false
+    },
 
     cropThumb(event) {
       this.form.cropX = event.detail.x
@@ -430,12 +478,35 @@ export default {
       this.form.cropWidth = event.detail.width
       this.form.cropHeight = event.detail.height
     },
-
+    errorMessage() {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: 'error',
+        title: 'Something wrong!',
+      })
+    },
+    successMessage() {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: 'success',
+        title: 'News Updated successfully',
+      })
+    },
     async uploadThumbnail() {
-      console.log(this.image)
+      console.log(this.thumbnail)
       try {
         let formData = new FormData()
-        formData.append('image', this.image)
+        formData.append('thumbnail', this.thumbnail)
         console.log(formData)
         formData.append('name', this.form.name)
         formData.append('path', this.form.path)
@@ -449,9 +520,13 @@ export default {
         formData.append('cropWidth', this.form.cropWidth)
         formData.append('cropHeight', this.form.cropHeight)
         await this.$axios.post(`images`, formData).then(({ data }) => {
-          // this.uploading = false
+          this.successMessage()
+          this.uploading = false
         })
-      } catch (e) {}
+      } catch (e) {
+        this.errors = e.response.data.errors
+        this.errorMessage()
+      }
     },
   },
 }

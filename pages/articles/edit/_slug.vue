@@ -296,7 +296,7 @@
         >
       </div>
     </form>
-    <AppImageModal
+    <AppImageIndexModal
       @selectedImageFromModal="selectedImageFromModal"
       :thumbnail="selectedThumbnails"
     />
@@ -424,8 +424,6 @@ export default {
           .patch(`articles/${this.article.slug}`, this.form)
           .then(({ data }) => {
             this.successMessage()
-          })
-          .then(() => {
             this.errors = []
           })
       } catch (e) {

@@ -34,7 +34,6 @@
                 x-transition:leave-end="opacity-0"
                 x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
                 class="fixed inset-0 bg-gray-600 bg-opacity-75"
-                @click="open = false"
                 aria-hidden="true"
                 style="display: none"
               ></div>
@@ -66,7 +65,6 @@
                   <button
                     type="button"
                     class="flex items-center justify-center w-10 h-10 ml-1 rounded-full  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                    @click="open = false"
                   >
                     <span class="sr-only">Close sidebar</span>
                     <svg

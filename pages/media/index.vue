@@ -417,7 +417,7 @@ export default {
   data() {
     return {
       images: [],
-      uploading: true,
+      uploading: false,
       isLoading: false,
       temporaryThumb: null,
       thumbnail: null,
@@ -439,17 +439,26 @@ export default {
     }
   },
   components: { VueCropper, XIcon },
-  async asyncData({ app, error }) {
-    try {
-      let response = await app.$axios.$get('images')
-      return {
-        images: response.data,
-      }
-    } catch (e) {
-      console.log(e)
-    }
+  // async asyncData({ app, error }) {
+  //   try {
+  //     let response = await app.$axios.$get('images')
+  //     return {
+  //       images: response.data,
+  //     }
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // },
+  mounted() {
+    this.getImages()
   },
   methods: {
+    async getImages() {
+      try {
+        let response = await this.$axios.$get('images')
+        this.images = response.data
+      } catch (e) {}
+    },
     async selectingThumbnail(e) {
       if ((this.uploading = true)) {
         if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
@@ -521,6 +530,7 @@ export default {
         formData.append('cropHeight', this.form.cropHeight)
         await this.$axios.post(`images`, formData).then(({ data }) => {
           this.successMessage()
+          this.getImages()
           this.uploading = false
         })
       } catch (e) {

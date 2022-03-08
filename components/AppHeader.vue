@@ -79,7 +79,12 @@
               class="block px-4 py-2 text-sm text-gray-700"
               >Your Profile</nuxt-link
             >
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700">Logout</a>
+            <a
+              @click.prevent="logout"
+              href="#"
+              class="block px-4 py-2 text-sm text-gray-700"
+              >Logout</a
+            >
           </div>
         </div>
       </div>
@@ -111,6 +116,18 @@ export default {
   methods: {
     hide() {
       this.profileDropdown = false
+    },
+
+    async logout() {
+      try {
+        await this.$auth.logout()
+
+        // this.$router.push({
+        //   name: 'index',
+        // })
+      } catch (e) {
+        console.error(e)
+      }
     },
   },
   directives: {

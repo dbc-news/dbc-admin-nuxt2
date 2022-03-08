@@ -1,8 +1,10 @@
   <template>
   <div class="sm:flex">
     <div class="w-full">
-      <div class="px-2 mx-auto sm:px-4 lg:px-8">
-        <div class="p-4 mt-8 mb-3 bg-white border rounded-md shadow-sm">
+      <div class="px-1 mx-auto sm:px-3">
+        <div
+          class="p-2 my-2 bg-white border border-gray-200 rounded-md  sm:p-3 sm:my-3"
+        >
           <form @submit.prevent="uploadThumbnail">
             <div class="flex flex-wrap" v-if="!uploading">
               <div class="w-full">
@@ -190,32 +192,34 @@
           </form>
         </div>
 
-        <div class="">
-          <ul role="list" class="grid grid-cols-12 gap-3">
-            <li
-              v-for="image in images"
-              :key="image.id"
-              class="relative col-span-6 md:col-span-4 2md:col-span-3"
-            >
-              <div
-                class="block w-full overflow-hidden bg-gray-100 rounded-lg  group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
+        <div class="p-2 bg-white border border-gray-200 rounded-md sm:p-3">
+          <div class="p-2 border-2 border-dashed rounded-md sm:p-3">
+            <ul role="list" class="grid grid-cols-12 gap-3">
+              <li
+                v-for="image in images"
+                :key="image.id"
+                class="relative col-span-6  md:col-span-4 2md:col-span-3 2xl:col-span-2"
               >
-                <img
-                  :src="image.original"
-                  alt=""
-                  class="object-cover pointer-events-none  group-hover:opacity-75"
-                />
-              </div>
-            </li>
-          </ul>
+                <div
+                  class="block w-full overflow-hidden bg-gray-100 rounded-lg  group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
+                >
+                  <img
+                    :src="image.original"
+                    alt=""
+                    class="object-cover pointer-events-none  group-hover:opacity-75"
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="w-full sm:w-96">
-      <aside
-        class="w-full px-2 pt-3 mx-auto overflow-y-auto bg-white border-l border-gray-200  sm:px-4 lg:px-8"
+    <aside class="px-1 mt-3 sm:mt-0">
+      <div
+        class="w-full mx-auto overflow-y-auto bg-white border-l border-gray-200 rounded-md  sm:rounded-none sm:w-68 md:w-72"
       >
-        <div class="pb-16 space-y-6">
+        <div class="p-2 pb-16 space-y-6 sm:p-3">
           <div>
             <div
               class="block w-full overflow-hidden rounded-lg  aspect-w-10 aspect-h-7"
@@ -404,8 +408,8 @@
             </button>
           </div>
         </div>
-      </aside>
-    </div>
+      </div>
+    </aside>
   </div>
 </template>
 
@@ -439,16 +443,6 @@ export default {
     }
   },
   components: { VueCropper, XIcon },
-  // async asyncData({ app, error }) {
-  //   try {
-  //     let response = await app.$axios.$get('images')
-  //     return {
-  //       images: response.data,
-  //     }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // },
   mounted() {
     this.getImages()
   },

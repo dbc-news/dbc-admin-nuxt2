@@ -132,6 +132,8 @@
 import { mapGetters } from 'vuex'
 import { ClockIcon, UserIcon, ChevronDownIcon } from '@vue-hero-icons/outline'
 export default {
+  middleware: 'authIndent',
+
   components: {
     UserIcon,
     ClockIcon,

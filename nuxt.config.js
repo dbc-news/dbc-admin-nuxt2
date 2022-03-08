@@ -27,9 +27,14 @@ export default {
 
   components: true,
 
+  router: {
+    middleware: ['clearValidationErrors'],
+  },
+
   buildModules: ['@nuxt/postcss8', '@nuxtjs/tailwindcss'],
 
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+
   auth: {
     strategies: {
       laravelSanctum: {
@@ -41,17 +46,9 @@ export default {
           },
         },
       },
-      laravelSanctumRegister: {
-        provider: 'laravel/sanctum',
-        url: 'http://admin.test',
-        endpoints: {
-          login: {
-            url: '/auth/register',
-          },
-        },
-      },
     },
   },
+
   axios: {
     baseURL: 'http://admin.test/admin',
     credentials: true,

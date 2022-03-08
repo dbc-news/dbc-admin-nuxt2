@@ -17,7 +17,7 @@
         <div
           class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md  sm:max-w-md sm:rounded-lg"
         >
-          <form @submit.prevent="signin">
+          <form @submit.prevent="login">
             <div>
               <label
                 class="block mb-1 text-sm font-semibold text-gray-700"
@@ -25,16 +25,15 @@
               >
                 Email
               </label>
-              <FormInput
-                placeholder="Email"
-                type="email"
-                id="email"
-                name="email"
+              <AppInput
                 v-model="form.email"
+                name="email"
+                type="email"
+                label="E-mail Address"
               />
-              <FormInputError v-if="errors.email">
+              <!-- <AppInputError v-if="errors.email">
                 {{ errors.email[0] }}
-              </FormInputError>
+              </AppInputError> -->
             </div>
 
             <div class="mt-4">
@@ -44,16 +43,15 @@
               >
                 Password
               </label>
-              <FormInput
-                placeholder="Password"
-                type="password"
-                id="password"
-                name="password"
+              <AppInput
                 v-model="form.password"
+                name="password"
+                type="password"
+                label="Password"
               />
-              <FormInputError v-if="errors.password">
+              <!-- <AppInputError v-if="errors.password">
                 {{ errors.password[0] }}
-              </FormInputError>
+              </AppInputError> -->
             </div>
 
             <div class="block mt-4">
@@ -101,37 +99,37 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
+  middleware: 'guest',
+
   data() {
     return {
-      isloading: false,
-      errors: '',
       form: {
-        email: '',
-        password: '',
+        email: 'aa@aa.com',
+        password: 'password',
       },
     }
   },
-  middleware: ['redirectIfAuthenticated'],
+
   methods: {
-    async signin() {
+    async login() {
       try {
-        this.isloading = true
         await this.$auth.loginWith('laravelSanctum', {
           data: this.form,
         })
 
-        // if (this.$route.query.redirect) {
-        //   this.$router.replace(this.$route.query.redirect)
-        //   return
-        // }
-        this.$router.replace({
-          name: 'index',
+        this.$router.push({
+          path: this.$route.query.redirect || '/',
         })
+
+        // this.$router.replace({
+        //   name: "index",
+        // });
       } catch (e) {
-        this.isloading = false
-        this.errors = e.response.data.errors
+        console.log(e)
       }
     },
   },

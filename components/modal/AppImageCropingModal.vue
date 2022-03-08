@@ -1,5 +1,5 @@
 <template>
-  <modal class="relative" name="app-image-index-modal">
+  <modal class="relative" name="app-image-modal">
     <div class="absolute top-2 right-2">
       <XIcon
         class="
@@ -11,7 +11,7 @@
           cursor-pointer
           p-0.5
         "
-        @click="hideAppImageIndexModal"
+        @click="hideAppImageCropingModal"
       />
     </div>
 
@@ -117,7 +117,7 @@ export default {
     selectingImage(arg) {
       this.thumbnail = arg
     },
-    hideAppImageIndexModal() {
+    hideAppImageCropingModal() {
       this.$modal.hide('app-image-index-modal')
     },
 
@@ -139,6 +139,7 @@ export default {
   },
   mounted() {
     this.getImages()
+    this.$modal.show('app-image-croping-modal')
   },
 }
 </script>

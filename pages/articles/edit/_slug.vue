@@ -218,7 +218,7 @@
                   <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
                     class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
-                    @click.prevent="showAppImageModal"
+                    @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
                       <ImagePlus />
@@ -383,8 +383,8 @@ export default {
     },
   },
   methods: {
-    showAppImageModal() {
-      this.$modal.show('app-image-iodal')
+    showAppImageIndexModal() {
+      this.$modal.show('app-image-index-modal')
     },
 
     errorMessage() {
@@ -415,7 +415,7 @@ export default {
       this.selectedThumbnails = image
       this.form.thumbnail = image.id
 
-      this.$modal.hide('app-image-iodal')
+      this.$modal.hide('app-image-index-modal')
     },
     async articleUpdate() {
       console.log(this.form)

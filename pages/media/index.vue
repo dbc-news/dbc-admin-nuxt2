@@ -112,6 +112,14 @@
         </div>
 
         <div class="p-2 bg-white border border-gray-200 rounded-md sm:p-3">
+          <div class="mb-3">
+            <AppInput
+              type="search"
+              @keyup="search"
+              placeholder="Search ..."
+              class="h-8 pt-1"
+            />
+          </div>
           <div class="p-2 border-2 border-dashed rounded-md sm:p-3">
             <ul role="list" class="grid grid-cols-12 gap-3">
               <li
@@ -150,6 +158,7 @@ import { XIcon } from '@vue-hero-icons/outline'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
 import AppPagination from '~/components/AppPagination.vue'
+import AppInput from '~/components/form/AppInput.vue'
 
 export default {
   data() {
@@ -178,7 +187,7 @@ export default {
       },
     }
   },
-  components: { VueCropper, XIcon, AppPagination },
+  components: { VueCropper, XIcon, AppPagination, AppInput },
   mounted() {
     this.getImages()
   },
@@ -188,6 +197,15 @@ export default {
     },
   },
   methods: {
+    async search(e) {
+      await this.$router
+        .replace({
+          query: Object.assign({}, this.$route.query, {
+            search: e.target.value,
+          }),
+        })
+        .catch(() => {})
+    },
     selectToViewDetails(image) {
       this.viewSelectedImage = image
     },

@@ -85,17 +85,17 @@
                 </div>
                 <div class="my-5">
                   <div sm="2">
-                    <AppLabel for="caption">Caption:</AppLabel>
+                    <AppLabel for="name">Name:</AppLabel>
                   </div>
                   <div sm="10">
                     <AppInput
-                      id="caption"
-                      placeholder="Caption"
+                      id="name"
+                      placeholder="Name"
                       type="text"
-                      v-model="form.caption"
+                      v-model="form.name"
                     />
-                    <AppInputError v-if="errors.caption">
-                      {{ errors.caption[0] }}
+                    <AppInputError v-if="errors.name">
+                      {{ errors.name[0] }}
                     </AppInputError>
                   </div>
                 </div>
@@ -117,25 +117,33 @@
               <li
                 v-for="image in images"
                 :key="image.id"
-                class="relative col-span-6  md:col-span-4 2md:col-span-3 2xl:col-span-2"
+                class="relative col-span-6 bg-gray-100  md:col-span-4 2md:col-span-3 2xl:col-span-2"
               >
-                <div
-                  class="block w-full overflow-hidden bg-gray-100 rounded-lg  group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500"
+                <button
+                  class="block w-full  group aspect-w-10 aspect-h-7 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  :class="
+                    viewSelectedImage == image ? 'ring-2 ring-purple-600' : ''
+                  "
                   @click="selectToViewDetails(image)"
                 >
                   <img
-                    :src="image.original"
-                    alt=""
+                    v-if="image.thumb160x84"
+                    v-lazy="image.thumb160x84"
+                    :alt="image.name"
                     class="object-cover pointer-events-none  group-hover:opacity-75"
                   />
-                </div>
+                </button>
+                <p class="p-1 text-sm truncate">{{ image.name }}</p>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <MediaAside :image="viewSelectedImage" />
+    <MediaAside
+      :image="viewSelectedImage"
+      @updatedThumbnail="updatedThumbnail"
+    />
   </div>
 </template>
 
@@ -177,6 +185,9 @@ export default {
   methods: {
     selectToViewDetails(image) {
       this.viewSelectedImage = image
+    },
+    updatedThumbnail() {
+      this.getImages()
     },
     hideAppImageCropingModal() {
       this.$modal.hide('app-image-croping-modal')
@@ -284,6 +295,7 @@ export default {
   margin: auto !important;
   left: 0 !important;
   right: 0 !important;
+  overflow: scroll !important;
 }
 
 @media only screen and (max-width: 768px) {

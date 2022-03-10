@@ -29,11 +29,11 @@
                 v-model="form.email"
                 name="email"
                 type="email"
-                label="E-mail Address"
+                placeholder="Email"
               />
-              <!-- <AppInputError v-if="errors.email">
+              <AppInputError v-if="errors.email">
                 {{ errors.email[0] }}
-              </AppInputError> -->
+              </AppInputError>
             </div>
 
             <div class="mt-4">
@@ -47,11 +47,11 @@
                 v-model="form.password"
                 name="password"
                 type="password"
-                label="Password"
+                placeholder="Password"
               />
-              <!-- <AppInputError v-if="errors.password">
+              <AppInputError v-if="errors.password">
                 {{ errors.password[0] }}
-              </AppInputError> -->
+              </AppInputError>
             </div>
 
             <div class="block mt-4">
@@ -107,9 +107,10 @@ export default {
 
   data() {
     return {
+      errors: '',
       form: {
-        email: 'aa@aa.com',
-        password: 'password',
+        email: null,
+        password: null,
       },
     }
   },
@@ -129,7 +130,7 @@ export default {
         //   name: "index",
         // });
       } catch (e) {
-        console.log(e)
+        this.errors = e.response.data.errors
       }
     },
   },

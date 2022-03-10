@@ -19,13 +19,21 @@
         <XFilterationRecordSorting />
       </div> -->
     </div>
-
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
       <div class="flex flex-col">
+        <div class="mb-3">
+          <input
+            type="search"
+            placeholder="Searh"
+            @keyup="search"
+            v-model="searching"
+            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+          />
+        </div>
         <div
           class="min-w-full overflow-hidden overflow-x-auto align-middle shadow  sm:rounded-lg"
         >
-          <div class="pb-3">
+          <div class="">
             <div
               class="items-center justify-between p-2 mb-1 bg-white rounded-md  sm:px-6 lg:px-8 sm:py-3 lg:py-4 sm:flex group"
               v-for="(article, index) in articles"
@@ -120,8 +128,9 @@
                 </div>
               </div>
             </div>
-
-            <!-- <XArticlePaginate /> -->
+          </div>
+          <div class="px-2 pb-2 bg-white">
+            <AppPagination :meta="meta" v-if="meta.last_page > 1" />
           </div>
         </div>
       </div>
@@ -129,24 +138,59 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import { ClockIcon, UserIcon, ChevronDownIcon } from '@vue-hero-icons/outline'
 export default {
-  middleware: 'authIndent',
+  data() {
+    return {
+      searching: '',
+      articles: [],
+      meta: {},
+    }
+  },
+  // middleware: 'authIndent',
 
   components: {
     UserIcon,
     ClockIcon,
     ChevronDownIcon,
   },
-  // middleware: ['redirectIfGuest'],
-
-  computed: {
-    ...mapGetters({
-      articles: 'articles',
-    }),
+  mounted() {
+    this.getArticles()
+    if (this.$route.query.search) {
+      this.searching = this.$route.query.search
+    }
+  },
+  watch: {
+    '$route.query'(query) {
+      this.getArticles(query)
+    },
   },
   methods: {
+    async search(e) {
+      console.log(e)
+      await this.$router
+        .replace({
+          query: Object.assign({}, this.$route.query, {
+            search: e.target.value,
+          }),
+        })
+        .catch(() => {})
+    },
+    async getArticles(query = this.$route.query) {
+      try {
+        await this.$axios
+          .$get('articles?per-page=5', {
+            params: {
+              page: query.page,
+              ...query,
+            },
+          })
+          .then((response) => {
+            this.articles = response.data
+            this.meta = response.meta
+          })
+      } catch (e) {}
+    },
     link(arg) {
       return {
         name: 'articles-edit-slug',

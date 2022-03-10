@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between py-2 bg-white">
+  <div class="flex items-center justify-between pt-2">
     <div class="flex justify-between flex-1 sm:hidden">
       <a
         href="#"

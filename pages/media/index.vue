@@ -220,7 +220,7 @@ export default {
     },
     async getImages(query = this.$route.query) {
       try {
-        let response = await this.$axios
+        await this.$axios
           .$get('images?per-page=12', {
             params: {
               page: query.page,
@@ -231,8 +231,6 @@ export default {
             this.images = response.data
             this.meta = response.meta
           })
-        // this.images = response.data
-        // this.meta = response.meta
       } catch (e) {}
     },
     async selectingThumbnail(e) {

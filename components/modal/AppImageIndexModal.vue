@@ -57,10 +57,10 @@
             :id="image.id"
             :name="image.id"
             :value="image.id"
-            :checked="image.id == (thumbnail ? thumbnail.id : null)"
+            :checked="image.id == (selectedThumb ? selectedThumb.id : null)"
             class="absolute top-0 right-0"
             :class="{
-              hidden: image.id != (thumbnail ? thumbnail.id : null),
+              hidden: image.id != (selectedThumb ? selectedThumb.id : null),
             }"
           />
           <div @click.prevent="selectingImage(image)">
@@ -114,7 +114,7 @@ export default {
     }
   },
   props: {
-    thumbnail: {
+    selectedThumb: {
       required: false,
       type: Object,
       default: null,
@@ -125,7 +125,7 @@ export default {
     AppPagination,
   },
   watch: {
-    thumbnail(image) {
+    selectedThumb(image) {
       this.$emit('selectedImageFromModal', image)
     },
 
@@ -145,7 +145,7 @@ export default {
     },
 
     selectingImage(arg) {
-      this.thumbnail = arg
+      this.selectedThumb = arg
     },
 
     hideAppImageIndexModal() {

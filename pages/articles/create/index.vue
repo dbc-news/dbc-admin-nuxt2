@@ -217,16 +217,7 @@
                 <div class="mt-1">
                   <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
-                    class="
-                      flex
-                      justify-center
-                      px-6
-                      pt-5
-                      pb-6
-                      border-2 border-gray-300 border-dashed
-                      rounded-md
-                      cursor-pointer
-                    "
+                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
                     @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
@@ -300,20 +291,14 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="
-            w-full
-            text-white
-            bg-cyan-600
-            hover:bg-cyan-700
-            focus:ring-cyan-500
-          "
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
           >Submit</AppButton
         >
       </div>
     </form>
     <AppImageIndexModal
       @selectedImageFromModal="selectedImageFromModal"
-      :thumbnail="selectedThumbnails"
+      :selectedThumb="selectedThumbnails"
     />
   </div>
 </template>
@@ -390,7 +375,7 @@ export default {
       this.$modal.show('app-image-index-modal')
     },
 
-    errorMessage() {
+    statusMessage(type, message) {
       const Toast = this.$swal.mixin({
         toast: true,
         position: 'top-end',
@@ -398,20 +383,8 @@ export default {
         timer: 3000,
       })
       Toast.fire({
-        icon: 'error',
-        title: 'Something wrong!',
-      })
-    },
-    successMessage() {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-      })
-      Toast.fire({
-        icon: 'success',
-        title: 'News Updated successfully',
+        icon: type,
+        title: message,
       })
     },
     selectedImageFromModal(image) {
@@ -423,17 +396,18 @@ export default {
     },
     async articleCreate() {
       console.log(this.form)
-      // try {
-      //   await this.$axios
-      //     .patch(`articles/${this.article.slug}`, this.form)
-      //     .then(({ data }) => {
-      //       this.successMessage()
-      //       this.errors = []
-      //     })
-      // } catch (e) {
-      //   ;(this.errors = e.response.data.errors), this.errorMessage()
-      // }
+      try {
+        await this.$axios.post(`articles`, this.form).then(({ data }) => {
+          this.statusMessage('success', 'Article Created Successfully')
+          this.errors = []
+          this.form = []
+        })
+      } catch (e) {
+        ;(this.errors = e.response.data.errors),
+          this.statusMessage('error', 'Something wrong!')
+      }
     },
+
     async newTagAdd(newTag) {
       let name = newTag
       let addedTag = this.addToServer(name)

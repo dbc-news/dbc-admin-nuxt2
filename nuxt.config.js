@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -61,5 +62,25 @@ export default {
         autoprefixer: {},
       },
     },
+
+    plugins: [
+      new webpack.ProvidePlugin({
+        _: 'lodash',
+      }),
+    ],
+
+    // extend(config, ctx) {
+    //   if (ctx.isDev && ctx.isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/,
+    //       options: {
+    //         fix: true,
+    //       },
+    //     })
+    //   }
+    // },
   },
 }

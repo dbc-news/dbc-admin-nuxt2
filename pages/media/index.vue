@@ -137,13 +137,11 @@
               </li>
             </ul>
           </div>
+          <AppPagination :meta="meta" v-if="meta.last_page > 1" />
         </div>
       </div>
     </div>
-    <MediaAside
-      :image="viewSelectedImage"
-      @updatedThumbnail="updatedThumbnail"
-    />
+    <MediaAside :image="viewSelectedImage" @reloadPage="reloadPage" />
   </div>
 </template>
 
@@ -151,10 +149,12 @@
 import { XIcon } from '@vue-hero-icons/outline'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css'
+import AppPagination from '~/components/AppPagination.vue'
 
 export default {
   data() {
     return {
+      meta: {},
       images: [],
       uploading: false,
       isLoading: false,
@@ -178,24 +178,40 @@ export default {
       },
     }
   },
-  components: { VueCropper, XIcon },
+  components: { VueCropper, XIcon, AppPagination },
   mounted() {
     this.getImages()
+  },
+  watch: {
+    '$route.query'(query) {
+      this.getImages(query)
+    },
   },
   methods: {
     selectToViewDetails(image) {
       this.viewSelectedImage = image
     },
-    updatedThumbnail() {
+    reloadPage() {
       this.getImages()
     },
     hideAppImageCropingModal() {
       this.$modal.hide('app-image-croping-modal')
     },
-    async getImages() {
+    async getImages(query = this.$route.query) {
       try {
-        let response = await this.$axios.$get('images')
-        this.images = response.data
+        let response = await this.$axios
+          .$get('images?per-page=12', {
+            params: {
+              page: query.page,
+              ...query,
+            },
+          })
+          .then((response) => {
+            this.images = response.data
+            this.meta = response.meta
+          })
+        // this.images = response.data
+        // this.meta = response.meta
       } catch (e) {}
     },
     async selectingThumbnail(e) {

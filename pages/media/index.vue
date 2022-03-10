@@ -113,11 +113,12 @@
 
         <div class="p-2 bg-white border border-gray-200 rounded-md sm:p-3">
           <div class="mb-3">
-            <AppInput
+            <input
               type="search"
+              placeholder="Searh"
               @keyup="search"
-              placeholder="Search ..."
-              class="h-8 pt-1"
+              v-model="searching"
+              class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
             />
           </div>
           <div class="p-2 border-2 border-dashed rounded-md sm:p-3">
@@ -163,6 +164,7 @@ import AppInput from '~/components/form/AppInput.vue'
 export default {
   data() {
     return {
+      searching: '',
       meta: {},
       images: [],
       uploading: false,
@@ -198,6 +200,7 @@ export default {
   },
   methods: {
     async search(e) {
+      console.log(e)
       await this.$router
         .replace({
           query: Object.assign({}, this.$route.query, {
@@ -314,9 +317,12 @@ export default {
       }
     },
   },
-  // mounted() {
-  //   this.$modal.show('app-image-croping-modal')
-  // },
+  mounted() {
+    if (this.$route.query.search) {
+      this.searching = this.$route.query.search
+    }
+    this.getImages()
+  },
 }
 </script>
 

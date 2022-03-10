@@ -15,7 +15,7 @@
       />
     </div>
 
-    <div class="p-2 sm:gap-2 sm:p-4 lg:p-8">
+    <div class="px-2 pt-8 sm:gap-2 sm:px-4">
       <div class="flex">
         <div
           class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
@@ -24,14 +24,24 @@
         >
           Thumbnails
         </div>
-        <div
-          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+        <!-- <div
+          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer rounded-t-md"
           :class="tab === 'upload' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('upload')"
         >
           Upload
+        </div> -->
+        <div class="flex-grow p-2 pr-0 sm:gap-2 sm:pl-4">
+          <input
+            type="search"
+            placeholder="Searh"
+            @keyup="search"
+            v-model="searching"
+            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+          />
         </div>
       </div>
+
       <div
         class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
         v-if="images.length"
@@ -62,7 +72,9 @@
                 class="w-full h-auto"
               />
               <div class="px-1 py-2">
-                <p class="text-sm tracking-wider truncate">{{ image.name }}</p>
+                <p class="text-sm tracking-wider truncate">
+                  {{ image.name }}
+                </p>
                 <p class="py-1">
                   <AppInput
                     type="text"
@@ -78,6 +90,7 @@
           </div>
         </div>
       </div>
+      <AppPagination :meta="meta" v-if="meta.last_page > 1" />
       <div
         class="p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
         v-show="tab === 'upload'"
@@ -90,12 +103,13 @@
 
 <script>
 import { XIcon } from '@vue-hero-icons/outline'
+import AppPagination from '../AppPagination.vue'
 export default {
   data() {
     return {
       images: [],
-      // thumbnail: null,
       tab: 'thumbnail',
+      meta: {},
     }
   },
   props: {
@@ -107,38 +121,63 @@ export default {
   },
   components: {
     XIcon,
+    AppPagination,
   },
   watch: {
     thumbnail(image) {
       this.$emit('selectedImageFromModal', image)
     },
+
+    '$route.query'(query) {
+      this.getImages(query)
+    },
   },
   methods: {
+    async search(e) {
+      await this.$router
+        .replace({
+          query: Object.assign({}, this.$route.query, {
+            search: e.target.value,
+          }),
+        })
+        .catch(() => {})
+    },
+
     selectingImage(arg) {
       this.thumbnail = arg
     },
+
     hideAppImageIndexModal() {
       this.$modal.hide('app-image-index-modal')
+    },
+    shoeAppImageIndexModal() {
+      this.$modal.show('app-image-index-modal')
     },
 
     showThumbnails(option) {
       this.tab = option
     },
-    async getImages(page = this.$route.query.page, query = this.$route.query) {
-      await this.$axios
-        .$get(`images`, {
-          params: {
-            page,
-            ...query,
-          },
-        })
-        .then((response) => {
-          this.images = response.data
-        })
+
+    async getImages(query = this.$route.query) {
+      try {
+        await this.$axios
+          .$get('images?per-page=12', {
+            params: {
+              page: query.page,
+              ...query,
+            },
+          })
+          .then((response) => {
+            this.images = response.data
+            this.meta = response.meta
+          })
+      } catch (e) {}
     },
   },
+
   mounted() {
     this.getImages()
+    // this.shoeAppImageIndexModal()
   },
 }
 </script>

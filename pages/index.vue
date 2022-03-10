@@ -114,16 +114,18 @@
                       class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  text-bases focus:outline-none focus:ring-2 focus:ring-offset-2 hover:bg-blue-700 focus:ring-blue-500"
                       >Edit
                     </nuxt-link>
-                    <FormSmallButton
-                      class="text-white bg-red-600  hover:bg-red-700 focus:ring-red-500"
+                    <a
+                      href="#"
+                      class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-red-600 border border-transparent rounded-md shadow-sm  hover:bg-red-700 focus:ring-red-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
+                      @click="deleteArticle(article.slug)"
                     >
                       Delete
-                    </FormSmallButton>
-                    <FormSmallButton
+                    </a>
+                    <AppSmallButton
                       class="text-white bg-green-600  hover:bg-green-700 focus:ring-green-500"
                     >
                       View
-                    </FormSmallButton>
+                    </AppSmallButton>
                   </div>
                 </div>
               </div>
@@ -166,8 +168,19 @@ export default {
     },
   },
   methods: {
+    statusMessage(type, message) {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: type,
+        title: message,
+      })
+    },
     async search(e) {
-      console.log(e)
       await this.$router
         .replace({
           query: Object.assign({}, this.$route.query, {
@@ -197,6 +210,21 @@ export default {
         params: {
           slug: arg,
         },
+      }
+    },
+
+    async deleteArticle(articleSlug) {
+      try {
+        await this.$axios.delete(`articles/${articleSlug}`).then(({ data }) => {
+          this.getArticles()
+          this.statusMessage('success', 'Article deleted successfully')
+        })
+      } catch (error) {
+        if (error.response.status === 500) {
+          this.statusMessage('error', 'Server Error')
+        } else {
+          this.statusMessage('error', 'Something went wrong')
+        }
       }
     },
   },

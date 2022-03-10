@@ -191,9 +191,11 @@ export default {
     section() {
       return Math.ceil(this.meta.current_page / this.numbersPerSection)
     },
+
     sections() {
       return Math.ceil(this.meta.last_page / this.numbersPerSection)
     },
+
     lastPage() {
       let lastPage =
         (this.section - 1) * this.numbersPerSection + this.numbersPerSection
@@ -204,6 +206,7 @@ export default {
 
       return lastPage
     },
+
     pages() {
       return _.range(
         (this.section - 1) * this.numbersPerSection + 1,
@@ -215,12 +218,14 @@ export default {
   mounted() {
     if (this.meta.current_page > this.meta.last_page) {
       this.switched(this.meta.last_page)
+      this.startingAndEnding(this.meta.last_page)
+    } else {
+      this.startingAndEnding(this.meta.current_page)
     }
   },
 
   methods: {
     async switched(page) {
-      // console.log(page);
       if (this.pageIsOutOfBounds(page)) {
         return
       }
@@ -230,24 +235,28 @@ export default {
           query: Object.assign({}, this.$route.query, { page: page }),
         })
         .catch(() => {})
-      // await this.$emit("pagination:switched", page);
     },
+
     pageIsOutOfBounds(page) {
       return page <= 0 || page > this.meta.last_page
     },
+
     async goBackwardASection() {
       this.switched(this.firstPageOfSection(this.section - 1))
     },
+
     async goForwardASection() {
       this.switched(this.firstPageOfSection(this.section + 1))
     },
+
     firstPageOfSection(section) {
       return (section - 1) * this.numbersPerSection + 1
     },
+
     startingAndEnding(currentPage) {
-      console.log(currentPage)
       this.from = (currentPage - 1) * this.meta.per_page + 1
-      this.to = currentPage * this.meta.per_page
+      let noOfLastImg = currentPage * this.meta.per_page
+      this.to = noOfLastImg > this.meta.total ? this.meta.total : noOfLastImg
     },
   },
 }

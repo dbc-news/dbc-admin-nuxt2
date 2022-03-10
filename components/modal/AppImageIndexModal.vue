@@ -110,6 +110,7 @@ export default {
       images: [],
       tab: 'thumbnail',
       meta: {},
+      searching: '',
     }
   },
   props: {

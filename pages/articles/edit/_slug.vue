@@ -4,7 +4,7 @@
       leading="Articles"
       trialing="Articles"
       :href="{ name: 'index' }"
-      breadcrumb="Articles / Create"
+      breadcrumb="Articles / Edit"
     />
     <form @submit.prevent="articleUpdate">
       <div class="grid grid-cols-12 gap-6 px-2 mt-8 sm:px-4 lg:px-8">

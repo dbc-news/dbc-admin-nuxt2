@@ -114,7 +114,7 @@
                             <button
                               type="button"
                               class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:ring-blue-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
-                              @click="editTopic(topic.slug)"
+                              @click="editTopic(topic)"
                             >
                               Edit
                             </button>
@@ -141,6 +141,10 @@
         </div>
       </div>
     </div>
+    <AppTopicEditModal
+      :selectedTopic="selectedTopicFromTopicPage"
+      @updatedFromTopicModal="reloadTopics"
+    />
   </div>
 </template>
 <script>
@@ -151,6 +155,7 @@ export default {
       searching: '',
       meta: {},
       topics: [],
+      selectedTopicFromTopicPage: null,
       errors: '',
       form: {
         name: '',
@@ -181,6 +186,10 @@ export default {
         .catch(() => {})
     },
 
+    reloadTopics() {
+      this.getTopics()
+    },
+
     async deleteTopic(topicSlug) {
       try {
         await this.$axios.delete(`topics/${topicSlug}`).then(({ data }) => {
@@ -196,8 +205,9 @@ export default {
       }
     },
 
-    async editTopic(topicSlug) {
-      this.showTopicEditModal()
+    async editTopic(topic) {
+      this.selectedTopicFromTopicPage = topic
+      this.$modal.show('app-topic-edit-modal')
     },
 
     async getTopics(query = this.$route.query) {
@@ -227,18 +237,6 @@ export default {
         icon: type,
         title: message,
       })
-    },
-    async uploadTopic() {
-      console.log(this.form)
-      try {
-        await this.$axios.post(`topics`, this.form).then(({ data }) => {
-          this.statusMessage('success', 'Topic uploaded successfully')
-          this.getTopics()
-        })
-      } catch (e) {
-        this.errors = e.response.data.errors
-        this.statusMessage('error', 'Something wrong')
-      }
     },
   },
   mounted() {

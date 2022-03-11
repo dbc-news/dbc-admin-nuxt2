@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="flex mt-6 space-x-3 md:mt-0 md:ml-4">
+        <div class="flex mt-6 space-x-3 md:mt-0 md:ml-4" v-if="trialing">
           <nuxt-link :to="link()">
             <AppButton
               class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
@@ -69,8 +69,8 @@ export default {
     },
     href: {
       required: false,
-      type: Object,
-      default: null,
+      type: String,
+      default: '#',
     },
     breadcrumb: {
       required: false,

@@ -40,11 +40,11 @@
         </div>
         <div class="flex mt-6 space-x-3 md:mt-0 md:ml-4">
           <nuxt-link :to="link()">
-            <FormButton
+            <AppButton
               class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
             >
               {{ trialing }}
-            </FormButton>
+            </AppButton>
           </nuxt-link>
         </div>
       </div>
@@ -53,13 +53,9 @@
 </template>
 
 <script>
-import FormButton from '@/components/form/Button'
 import { NewspaperIcon } from '@vue-hero-icons/outline'
 
 export default {
-  components: {
-    FormButton,
-  },
   props: {
     leading: {
       required: false,

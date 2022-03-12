@@ -33,6 +33,8 @@ export default {
   data: function () {
     return { myFiles: null }
   },
+  middleware: ['authIndent'],
+
   methods: {
     handleFilePondInit: function () {
       console.log('FilePond has initialized')

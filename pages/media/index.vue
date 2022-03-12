@@ -3,20 +3,48 @@
     <div class="w-full">
       <div class="px-1 mx-auto sm:px-3">
         <div
-          class="p-2 my-2 bg-white border border-gray-200 rounded-md  sm:p-3 sm:my-3"
+          class="
+            p-2
+            my-2
+            bg-white
+            border border-gray-200
+            rounded-md
+            sm:p-3 sm:my-3
+          "
         >
           <div class="flex flex-wrap">
             <div class="w-full">
               <div class="mt-1">
                 <div
-                  class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                  class="
+                    flex
+                    justify-center
+                    px-6
+                    pt-5
+                    pb-6
+                    border-2 border-gray-300 border-dashed
+                    rounded-md
+                    cursor-pointer
+                  "
                 >
                   <div class="space-y-1 text-center">
                     <ImagePlus />
                     <div class="flex text-sm text-gray-600">
                       <label
                         for="file-upload"
-                        class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        class="
+                          relative
+                          font-medium
+                          text-indigo-600
+                          bg-white
+                          rounded-md
+                          cursor-pointer
+                          hover:text-indigo-500
+                          focus-within:outline-none
+                          focus-within:ring-2
+                          focus-within:ring-offset-2
+                          focus-within:ring-indigo-500
+                        "
                       >
                         <span>Upload a file</span>
                         <input
@@ -102,7 +130,13 @@
                 <div class="mt-5">
                   <AppButton
                     type="submit"
-                    class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                    class="
+                      w-full
+                      text-white
+                      bg-cyan-600
+                      hover:bg-cyan-700
+                      focus:ring-cyan-500
+                    "
                     >Upload</AppButton
                   >
                 </div>
@@ -118,7 +152,20 @@
               placeholder="Searh"
               @keyup="search"
               v-model="searching"
-              class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+              class="
+                flex-grow
+                w-full
+                h-8
+                px-2
+                border border-gray-300
+                rounded-md
+                shadow-sm
+                focus:border-cyan-300
+                focus:ring
+                focus:ring-cyan-200
+                focus:ring-opacity-50
+                focus:outline-none
+              "
             />
           </div>
           <div class="p-2 border-2 border-dashed rounded-md sm:p-3">
@@ -126,10 +173,26 @@
               <li
                 v-for="image in images"
                 :key="image.id"
-                class="relative col-span-6 bg-gray-100  md:col-span-4 2md:col-span-3 2xl:col-span-2"
+                class="
+                  relative
+                  col-span-6
+                  bg-gray-100
+                  md:col-span-4
+                  2md:col-span-3
+                  2xl:col-span-2
+                "
               >
                 <button
-                  class="block w-full  group aspect-w-10 aspect-h-7 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  class="
+                    block
+                    w-full
+                    group
+                    aspect-w-10 aspect-h-7
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-purple-600
+                    focus:border-transparent
+                  "
                   :class="
                     viewSelectedImage == image ? 'ring-2 ring-purple-600' : ''
                   "
@@ -139,7 +202,11 @@
                     v-if="image.thumb160x84"
                     v-lazy="image.thumb160x84"
                     :alt="image.name"
-                    class="object-cover pointer-events-none  group-hover:opacity-75"
+                    class="
+                      object-cover
+                      pointer-events-none
+                      group-hover:opacity-75
+                    "
                   />
                 </button>
                 <p class="p-1 text-sm truncate">{{ image.name }}</p>
@@ -187,6 +254,9 @@ export default {
       },
     }
   },
+
+  middleware: ['authIndent'],
+
   components: { VueCropper, XIcon },
   mounted() {
     this.getImages()

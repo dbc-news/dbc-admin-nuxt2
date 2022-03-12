@@ -121,10 +121,11 @@ export default {
     async logout() {
       try {
         await this.$auth.logout()
+        // console.log(this.$auth)
 
-        // this.$router.push({
-        //   name: 'index',
-        // })
+        this.$router.replace({
+          name: 'login',
+        })
       } catch (e) {
         console.error(e)
       }

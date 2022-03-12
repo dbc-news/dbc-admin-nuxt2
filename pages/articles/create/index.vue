@@ -11,7 +11,7 @@
         <div class="col-span-12 2md:col-span-8">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
-              <div class="w-full px-2 py-4 md:w-6/12">
+              <div class="w-full px-2 py-4">
                 <AppLabel>Title</AppLabel>
                 <AppInput
                   placeholder="Title"
@@ -24,7 +24,7 @@
                   {{ errors.title[0] }}
                 </AppInputError>
               </div>
-              <div class="w-full px-2 py-4 md:w-6/12">
+              <div class="w-full px-2 py-4">
                 <AppLabel>Slug</AppLabel>
                 <AppInput
                   placeholder="Slug"
@@ -57,7 +57,7 @@
                   type="text"
                   id="author"
                   name="author"
-                  v-model="form.user"
+                  :value="$auth.user.name"
                   disabled
                 />
               </div>
@@ -296,6 +296,7 @@
         >
       </div>
     </form>
+    {{ $auth.user.name }}
     <AppImageIndexModal
       @selectedImageFromModal="selectedImageFromModal"
       :selectedThumb="selectedThumbnails"
@@ -331,7 +332,7 @@ export default {
         regions: [],
         topics: [],
         categories: [],
-        user: '',
+        user: this.$auth.user.id,
       },
 
       errors: '',
@@ -340,7 +341,8 @@ export default {
   components: {
     Multiselect,
   },
-  // middleware: ['redirectIfGuest'],
+
+  middleware: ['authIndent'],
 
   async asyncData({ params, app, error }) {
     try {

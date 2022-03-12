@@ -1,67 +1,16 @@
 <template>
-  <!-- <div class="min-h-full bg-gray-100">
-    <div class="flex flex-col flex-1 lg:pl-60">
-      <AppHeader />
-      <main class="flex-1 pb-8">
-        header test
-        <Nuxt />
-      </main>
-      <XAppFooter />
-    </div>
-    <AppSidebar />
-  </div> -->
-
   <div>
     <div class="overflow-hidden font-sans antialiased bg-gray-200">
       <div class="" style="">
         <div class="h-full overflow-y-auto bg-gray-100">
           <div class="min-h-full">
-            <div
-              x-show="open"
-              class="fixed inset-0 z-40 flex lg:hidden"
-              x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state."
-              x-ref="dialog"
-              aria-modal="true"
-              style="display: none"
-            >
-              <div
-                x-show="open"
-                x-transition:enter="transition-opacity ease-linear duration-300"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition-opacity ease-linear duration-300"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                x-description="Off-canvas menu overlay, show/hide based on off-canvas menu state."
-                class="fixed inset-0 bg-gray-600 bg-opacity-75"
-                aria-hidden="true"
-                style="display: none"
-              ></div>
+            <div class="fixed inset-0 z-40 flex lg:hidden">
+              <div class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
 
               <div
-                x-show="open"
-                x-transition:enter="transition ease-in-out duration-300 transform"
-                x-transition:enter-start="-translate-x-full"
-                x-transition:enter-end="translate-x-0"
-                x-transition:leave="transition ease-in-out duration-300 transform"
-                x-transition:leave-start="translate-x-0"
-                x-transition:leave-end="-translate-x-full"
-                x-description="Off-canvas menu, show/hide based on off-canvas menu state."
                 class="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4  bg-cyan-700"
-                style="display: none"
               >
-                <div
-                  x-show="open"
-                  x-transition:enter="ease-in-out duration-300"
-                  x-transition:enter-start="opacity-0"
-                  x-transition:enter-end="opacity-100"
-                  x-transition:leave="ease-in-out duration-300"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0"
-                  x-description="Close button, show/hide based on off-canvas menu state."
-                  class="absolute top-0 right-0 pt-2 -mr-12"
-                  style="display: none"
-                >
+                <div class="absolute top-0 right-0 pt-2 -mr-12">
                   <button
                     type="button"
                     class="flex items-center justify-center w-10 h-10 ml-1 rounded-full  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -101,10 +50,6 @@
                     <a
                       href="#"
                       class="flex items-center px-2 py-2 text-base font-medium text-white rounded-md  bg-cyan-800 group"
-                      x-state:on="Current"
-                      x-state:off="Default"
-                      aria-current="page"
-                      x-state-description='Current: "bg-cyan-800 text-white", Default: "text-cyan-100 hover:text-white hover:bg-cyan-600"'
                     >
                       <svg
                         class="flex-shrink-0 w-6 h-6 mr-4 text-cyan-200"
@@ -329,7 +274,6 @@
               <div class="flex-shrink-0 w-14" aria-hidden="true"></div>
             </div>
 
-            <!-- static  -->
             <AppSidebar />
 
             <div class="flex flex-col flex-1 lg:pl-64">
@@ -343,7 +287,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="bg-gray-100" v-else><Nuxt /></div> -->
   </div>
 </template>
+
 

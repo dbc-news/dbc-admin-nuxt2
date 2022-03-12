@@ -18,7 +18,16 @@
                     Name
                   </label>
                   <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    class="
+                      w-full
+                      border-gray-300
+                      rounded-md
+                      shadow-sm
+                      focus:border-indigo-300
+                      focus:ring
+                      focus:ring-indigo-200
+                      focus:ring-opacity-50
+                    "
                     type="text"
                     placeholder="Name"
                     id="name"
@@ -37,7 +46,16 @@
                     Slug
                   </label>
                   <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    class="
+                      w-full
+                      border-gray-300
+                      rounded-md
+                      shadow-sm
+                      focus:border-indigo-300
+                      focus:ring
+                      focus:ring-indigo-200
+                      focus:ring-opacity-50
+                    "
                     type="text"
                     placeholder="Slug"
                     id="slug"
@@ -51,10 +69,22 @@
               </div>
 
               <div
-                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
+                class="
+                  flex
+                  items-center
+                  mt-3
+                  mb-1
+                  text-right
+                  sm:rounded-bl-md sm:rounded-br-md
+                "
               >
                 <AppButton
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-cyan-600
+                    hover:bg-cyan-700
+                    focus:ring-cyan-500
+                  "
                 >
                   Submit
                 </AppButton>
@@ -68,19 +98,50 @@
               <div class="overflow-hidden border-2 border-dashed rounded-md">
                 <div>
                   <div
-                    class="flex flex-wrap items-center justify-between w-full p-2 bg-white border-b border-gray-200  sm:px-6 lg:px-8 sm:py-3 lg:py-4"
+                    class="
+                      flex flex-wrap
+                      items-center
+                      justify-between
+                      w-full
+                      p-2
+                      bg-white
+                      border-b border-gray-200
+                      sm:px-6
+                      lg:px-8
+                      sm:py-3
+                      lg:py-4
+                    "
                   >
                     <div class="flex-grow">
                       <div class="flex mt-1">
                         <div
-                          class="relative flex items-stretch flex-grow  focus-within:z-10"
+                          class="
+                            relative
+                            flex
+                            items-stretch
+                            flex-grow
+                            focus-within:z-10
+                          "
                         >
                           <input
                             type="search"
                             placeholder="Searh"
                             @keyup="search"
                             v-model="searching"
-                            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+                            class="
+                              flex-grow
+                              w-full
+                              h-8
+                              px-2
+                              border border-gray-300
+                              rounded-md
+                              shadow-sm
+                              focus:border-cyan-300
+                              focus:ring
+                              focus:ring-cyan-200
+                              focus:ring-opacity-50
+                              focus:outline-none
+                            "
                           />
                         </div>
                       </div>
@@ -89,14 +150,35 @@
                   <div class="divide-y divide-gray-200">
                     <div v-for="topic in topics" :key="topic.id">
                       <div
-                        class="justify-between p-2 bg-white  sm:px-6 lg:px-8 sm:py-3 lg:py-4 sm:flex group"
+                        class="
+                          justify-between
+                          p-2
+                          bg-white
+                          sm:px-6
+                          lg:px-8
+                          sm:py-3
+                          lg:py-4
+                          sm:flex
+                          group
+                        "
                       >
                         <div
-                          class="flex flex-wrap items-center justify-between w-full "
+                          class="
+                            flex flex-wrap
+                            items-center
+                            justify-between
+                            w-full
+                          "
                         >
                           <div class="w-full mb-2 md:mb-0 md:w-4/12">
                             <h2
-                              class="pt-1 text-base font-medium leading-none text-gray-700 "
+                              class="
+                                pt-1
+                                text-base
+                                font-medium
+                                leading-none
+                                text-gray-700
+                              "
                             >
                               {{ topic.name }}
                             </h2>
@@ -113,12 +195,37 @@
                           </div>
 
                           <div
-                            class="transition-opacity duration-200 opacity-100  md:opacity-0 group-hover:opacity-100"
+                            class="
+                              transition-opacity
+                              duration-200
+                              opacity-100
+                              md:opacity-0
+                              group-hover:opacity-100
+                            "
                           >
                             <div class="flex items-center space-x-2">
                               <button
                                 type="button"
-                                class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:ring-blue-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
+                                class="
+                                  inline-flex
+                                  items-center
+                                  justify-center
+                                  px-2
+                                  py-1
+                                  font-medium
+                                  tracking-wider
+                                  text-center text-white
+                                  bg-blue-600
+                                  border border-transparent
+                                  rounded-md
+                                  shadow-sm
+                                  hover:bg-blue-700
+                                  focus:ring-blue-500
+                                  text-bases
+                                  focus:outline-none
+                                  focus:ring-2
+                                  focus:ring-offset-2
+                                "
                                 @click="editTopic(topic)"
                               >
                                 Edit
@@ -126,7 +233,26 @@
 
                               <button
                                 type="button"
-                                class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-red-600 border border-transparent rounded-md shadow-sm  hover:bg-red-700 focus:ring-red-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
+                                class="
+                                  inline-flex
+                                  items-center
+                                  justify-center
+                                  px-2
+                                  py-1
+                                  font-medium
+                                  tracking-wider
+                                  text-center text-white
+                                  bg-red-600
+                                  border border-transparent
+                                  rounded-md
+                                  shadow-sm
+                                  hover:bg-red-700
+                                  focus:ring-red-500
+                                  text-bases
+                                  focus:outline-none
+                                  focus:ring-2
+                                  focus:ring-offset-2
+                                "
                                 @click="deleteTopic(topic.slug)"
                               >
                                 Delete
@@ -169,6 +295,8 @@ export default {
       },
     }
   },
+  middleware: ['authIndent'],
+
   components: {
     UserIcon,
     ClockIcon,

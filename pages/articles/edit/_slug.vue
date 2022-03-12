@@ -11,7 +11,7 @@
         <div class="col-span-12 2md:col-span-8">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
-              <div class="w-full px-2 py-4 md:w-6/12">
+              <div class="w-full px-2 py-4">
                 <AppLabel>Title</AppLabel>
                 <AppInput
                   placeholder="Title"
@@ -24,7 +24,7 @@
                   {{ errors.title[0] }}
                 </AppInputError>
               </div>
-              <div class="w-full px-2 py-4 md:w-6/12">
+              <div class="w-full px-2 py-4">
                 <AppLabel>Slug</AppLabel>
                 <AppInput
                   placeholder="Slug"
@@ -57,7 +57,7 @@
                   type="text"
                   id="author"
                   name="author"
-                  v-model="form.user.name"
+                  :value="userName"
                   disabled
                 />
               </div>
@@ -314,6 +314,7 @@ export default {
       tags: [],
       topics: [],
       regions: [],
+      userName: null,
 
       selectedTags: [],
       selectedRegions: [],
@@ -323,10 +324,12 @@ export default {
       errors: '',
     }
   },
+
+  middleware: ['authIndent'],
+
   components: {
     Multiselect,
   },
-  // middleware: ['redirectIfGuest'],
 
   async asyncData({ params, app, error }) {
     try {
@@ -351,6 +354,8 @@ export default {
         selectedRegions: article.regions,
         selectedTopics: article.topics,
         selectedThumbnails: article.thumbnails,
+        userName: article.user.name,
+
         form: {
           title: article.title,
           slug: article.slug,
@@ -359,7 +364,7 @@ export default {
           content: article.content,
           pinned: article.pinned,
           status: article.status,
-          user: article.user,
+          // user: article.user,
           thumbnail: article.thumbnails ? article.thumbnails.id : null,
           categories: map(article.categories, 'id'),
           tags: map(article.tags, 'id'),
@@ -452,9 +457,6 @@ export default {
         this.errorMessage()
       }
     },
-    // async photosUploaded(photo) {
-    //   this.form.thumbnail = photo.href.origin
-    // },
   },
 }
 </script>

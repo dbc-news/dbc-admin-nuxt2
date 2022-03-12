@@ -6,6 +6,7 @@
       :href="{ name: 'index' }"
       breadcrumb="Articles / Edit"
     />
+
     <form @submit.prevent="articleCreate">
       <div class="grid grid-cols-12 gap-6 px-2 mt-8 sm:px-4 lg:px-8">
         <div class="col-span-12 2md:col-span-8">
@@ -24,6 +25,7 @@
                   {{ errors.title[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4">
                 <AppLabel>Slug</AppLabel>
                 <AppInput
@@ -37,6 +39,7 @@
                   {{ errors.slug[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Kicker</AppLabel>
                 <AppInput
@@ -50,6 +53,7 @@
                   {{ errors.kicker[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Author</AppLabel>
                 <AppInput
@@ -77,6 +81,7 @@
               </div>
             </div>
           </div>
+
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
@@ -139,6 +144,7 @@
                       </label>
                     </div>
                   </div>
+
                   <AppInputError v-if="errors.categories">
                     {{ errors.categories[0] }}
                   </AppInputError>
@@ -158,6 +164,7 @@
               </FormSelect>
             </div>
           </div>
+
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <div class="w-full px-2">
@@ -194,14 +201,6 @@
                       alt="img"
                       class="w-full border"
                     />
-                    <!-- <AppInput
-                      placeholder="Thumbnail URL"
-                      type="text"
-                      class="mt-3"
-                      name="thumbnail_url"
-                      id="thumbnail_url"
-                      v-model="selectedThumbnails.thumb600x314"
-                    /> -->
                   </div>
                   <div v-else>
                     <img
@@ -214,8 +213,8 @@
                     {{ errors.thumbnail[0] }}
                   </AppInputError>
                 </div>
+
                 <div class="mt-1">
-                  <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
                     class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
                     @click.prevent="showAppImageIndexModal"
@@ -232,6 +231,7 @@
               </div>
             </div>
           </div>
+
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="w-full px-2 py-4">
               <AppLabel>Tags</AppLabel>
@@ -296,7 +296,7 @@
         >
       </div>
     </form>
-    {{ $auth.user.name }}
+
     <AppImageIndexModal
       @selectedImageFromModal="selectedImageFromModal"
       :selectedThumb="selectedThumbnails"
@@ -309,8 +309,11 @@ import map from 'lodash.map'
 import Multiselect from 'vue-multiselect'
 
 export default {
+  middleware: ['authIndent'],
+
   data() {
     return {
+      errors: [],
       categories: [],
       tags: [],
       topics: [],
@@ -320,11 +323,11 @@ export default {
       selectedRegions: [],
       selectedTopics: [],
       selectedThumbnails: null,
+
       form: {
         title: '',
         slug: '',
         content: '',
-
         status: '',
         pinned: false,
         thumbnail: null,
@@ -334,17 +337,13 @@ export default {
         categories: [],
         user: this.$auth.user.id,
       },
-
-      errors: '',
     }
   },
   components: {
     Multiselect,
   },
 
-  middleware: ['authIndent'],
-
-  async asyncData({ params, app, error }) {
+  async asyncData({ app, error }) {
     try {
       let categoryResponse = await app.$axios.$get('categories')
       let tagResponse = await app.$axios.$get('tags')
@@ -361,17 +360,21 @@ export default {
       console.log(e.response.data.errors)
     }
   },
+
   watch: {
     selectedTags() {
       this.form.tags = map(this.selectedTags, 'id')
     },
+
     selectedRegions() {
       this.form.regions = map(this.selectedRegions, 'id')
     },
+
     selectedTopics() {
       this.form.topics = map(this.selectedTopics, 'id')
     },
   },
+
   methods: {
     showAppImageIndexModal() {
       this.$modal.show('app-image-index-modal')
@@ -389,6 +392,7 @@ export default {
         title: message,
       })
     },
+
     selectedImageFromModal(image) {
       console.log(image)
       this.selectedThumbnails = image
@@ -396,6 +400,7 @@ export default {
 
       this.$modal.hide('app-image-index-modal')
     },
+
     async articleCreate() {
       console.log(this.form)
       try {
@@ -414,6 +419,7 @@ export default {
       let name = newTag
       let addedTag = this.addToServer(name)
     },
+
     async addToServer(name) {
       try {
         let tagForm = {
@@ -432,9 +438,6 @@ export default {
         this.errorMessage()
       }
     },
-    // async photosUploaded(photo) {
-    //   this.form.thumbnail = photo.href.origin
-    // },
   },
 }
 </script>

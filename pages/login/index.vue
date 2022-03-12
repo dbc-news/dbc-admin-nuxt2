@@ -2,7 +2,14 @@
   <div class="container-fluid">
     <div class="font-sans antialiased text-gray-900">
       <div
-        class="flex flex-col items-center min-h-screen pt-6 bg-gray-100  sm:justify-center sm:pt-0"
+        class="
+          flex flex-col
+          items-center
+          min-h-screen
+          pt-6
+          bg-gray-100
+          sm:justify-center sm:pt-0
+        "
       >
         <div>
           <a href="#">
@@ -13,9 +20,17 @@
             />
           </a>
         </div>
-        {{ form }}
         <div
-          class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md  sm:max-w-md sm:rounded-lg"
+          class="
+            w-full
+            px-6
+            py-4
+            mt-6
+            overflow-hidden
+            bg-white
+            shadow-md
+            sm:max-w-md sm:rounded-lg
+          "
         >
           <form @submit.prevent="login">
             <div>
@@ -79,11 +94,34 @@
 
               <button
                 type="submit"
-                class="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition bg-gray-800 border border-transparent rounded-md  hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25"
+                class="
+                  inline-flex
+                  items-center
+                  px-4
+                  py-2
+                  ml-4
+                  text-xs
+                  font-semibold
+                  tracking-widest
+                  text-white
+                  uppercase
+                  transition
+                  bg-gray-800
+                  border border-transparent
+                  rounded-md
+                  hover:bg-gray-700
+                  active:bg-gray-900
+                  focus:outline-none
+                  focus:border-gray-900
+                  focus:ring
+                  focus:ring-gray-300
+                  disabled:opacity-25
+                "
               >
                 Log in
               </button>
             </div>
+
             <div class="flex items-center justify-end mt-4">
               <nuxt-link
                 :to="{ name: 'auth-register' }"
@@ -108,7 +146,8 @@ export default {
 
   data() {
     return {
-      errors: '',
+      errors: [],
+
       form: {
         email: null,
         password: null,
@@ -126,12 +165,8 @@ export default {
         this.$router.push({
           path: this.$route.query.redirect || '/',
         })
-
-        // this.$router.replace({
-        //   name: "index",
-        // });
       } catch (e) {
-        //
+        this.errors = e.response.data.errors
       }
     },
   },

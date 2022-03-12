@@ -1,6 +1,7 @@
 <template>
   <div>
     <Breadcrumb leading="Topics" trialing="" breadcrumb="Topic / list" />
+
     <div class="p-1 mx-auto sm:p-3 lg:p-8">
       <div class="w-full md:flex md:space-x-3 lg:space-x-8">
         <div class="w-full md:w-4/12">
@@ -8,6 +9,7 @@
             <h1 class="text-xl font-semibold text-cyan-500">
               Create New Topic
             </h1>
+
             <form @submit.prevent="createTopic">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
@@ -262,6 +264,7 @@
                         </div>
                       </div>
                     </div>
+
                     <div class="px-2 pb-2 bg-white">
                       <AppPagination :meta="meta" v-if="meta.last_page > 1" />
                     </div>
@@ -272,6 +275,7 @@
           </div>
         </div>
       </div>
+
       <AppTopicEditModal
         :selectedTopic="selectedTopicFromTopicPage"
         @updatedFromTopicModal="reloadTopics"
@@ -282,20 +286,23 @@
 <script>
 import { UserIcon, ClockIcon } from '@vue-hero-icons/outline'
 export default {
+  middleware: ['authIndent'],
+
   data() {
     return {
-      searching: '',
-      meta: {},
+      errors: [],
       topics: [],
+      meta: {},
+
+      searching: '',
       selectedTopicFromTopicPage: null,
-      errors: '',
+
       form: {
         name: '',
         slug: '',
       },
     }
   },
-  middleware: ['authIndent'],
 
   components: {
     UserIcon,
@@ -304,11 +311,13 @@ export default {
   mounted() {
     this.getTopics()
   },
+
   watch: {
     '$route.query'(query) {
       this.getTopics(query)
     },
   },
+
   methods: {
     async search(e) {
       await this.$router
@@ -357,12 +366,14 @@ export default {
         this.statusMessage('error', 'Something wrong')
       }
     },
+
     formClear() {
       this.form = {
         name: '',
         slug: '',
       }
     },
+
     async getTopics(query = this.$route.query) {
       try {
         await this.$axios
@@ -392,6 +403,7 @@ export default {
       })
     },
   },
+
   mounted() {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search

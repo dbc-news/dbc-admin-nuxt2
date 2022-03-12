@@ -6,6 +6,7 @@
       :href="{ name: 'index' }"
       breadcrumb="Articles / Edit"
     />
+
     <form @submit.prevent="articleUpdate">
       <div class="grid grid-cols-12 gap-6 px-2 mt-8 sm:px-4 lg:px-8">
         <div class="col-span-12 2md:col-span-8">
@@ -24,6 +25,7 @@
                   {{ errors.title[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4">
                 <AppLabel>Slug</AppLabel>
                 <AppInput
@@ -37,6 +39,7 @@
                   {{ errors.slug[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Kicker</AppLabel>
                 <AppInput
@@ -50,6 +53,7 @@
                   {{ errors.kicker[0] }}
                 </AppInputError>
               </div>
+
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Author</AppLabel>
                 <AppInput
@@ -77,6 +81,7 @@
               </div>
             </div>
           </div>
+
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
@@ -147,6 +152,7 @@
             </div>
           </div>
         </div>
+
         <!-- aside  -->
         <div class="col-span-12 2md:col-span-4">
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
@@ -158,6 +164,7 @@
               </FormSelect>
             </div>
           </div>
+
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <div class="w-full px-2">
@@ -194,15 +201,8 @@
                       alt="img"
                       class="w-full border"
                     />
-                    <!-- <AppInput
-                      placeholder="Thumbnail URL"
-                      type="text"
-                      class="mt-3"
-                      name="thumbnail_url"
-                      id="thumbnail_url"
-                      v-model="selectedThumbnails.thumb600x314"
-                    /> -->
                   </div>
+
                   <div v-else>
                     <img
                       src="@/assets/images/placeholder.png"
@@ -214,10 +214,19 @@
                     {{ errors.thumbnail[0] }}
                   </AppInputError>
                 </div>
+
                 <div class="mt-1">
-                  <!-- <button class="mt-3 text-blue-600 underline">dfd</button> -->
                   <div
-                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                    class="
+                      flex
+                      justify-center
+                      px-6
+                      pt-5
+                      pb-6
+                      border-2 border-gray-300 border-dashed
+                      rounded-md
+                      cursor-pointer
+                    "
                     @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
@@ -288,14 +297,22 @@
           </div>
         </div>
       </div>
+
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+          class="
+            w-full
+            text-white
+            bg-cyan-600
+            hover:bg-cyan-700
+            focus:ring-cyan-500
+          "
           >Submit</AppButton
         >
       </div>
     </form>
+
     <AppImageIndexModal
       @selectedImageFromModal="selectedImageFromModal"
       :thumbnail="selectedThumbnails"
@@ -308,8 +325,11 @@ import map from 'lodash.map'
 import Multiselect from 'vue-multiselect'
 
 export default {
+  middleware: ['authIndent'],
+
   data() {
     return {
+      errors: [],
       categories: [],
       tags: [],
       topics: [],
@@ -319,13 +339,10 @@ export default {
       selectedTags: [],
       selectedRegions: [],
       selectedTopics: [],
-      selectedThumbnails: null,
 
-      errors: '',
+      selectedThumbnails: null,
     }
   },
-
-  middleware: ['authIndent'],
 
   components: {
     Multiselect,
@@ -364,7 +381,6 @@ export default {
           content: article.content,
           pinned: article.pinned,
           status: article.status,
-          // user: article.user,
           thumbnail: article.thumbnails ? article.thumbnails.id : null,
           categories: map(article.categories, 'id'),
           tags: map(article.tags, 'id'),
@@ -376,13 +392,16 @@ export default {
       console.log(e.response.data.errors)
     }
   },
+
   watch: {
     selectedTags() {
       this.form.tags = map(this.selectedTags, 'id')
     },
+
     selectedRegions() {
       this.form.regions = map(this.selectedRegions, 'id')
     },
+
     selectedTopics() {
       this.form.topics = map(this.selectedTopics, 'id')
     },
@@ -392,7 +411,7 @@ export default {
       this.$modal.show('app-image-index-modal')
     },
 
-    errorMessage() {
+    statusMessage(type, message) {
       const Toast = this.$swal.mixin({
         toast: true,
         position: 'top-end',
@@ -400,45 +419,37 @@ export default {
         timer: 3000,
       })
       Toast.fire({
-        icon: 'error',
-        title: 'Something wrong!',
+        icon: type,
+        title: message,
       })
     },
-    successMessage() {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-      })
-      Toast.fire({
-        icon: 'success',
-        title: 'News Updated successfully',
-      })
-    },
+
     selectedImageFromModal(image) {
       this.selectedThumbnails = image
       this.form.thumbnail = image.id
-
       this.$modal.hide('app-image-index-modal')
     },
+
     async articleUpdate() {
       console.log(this.form)
       try {
         await this.$axios
           .patch(`articles/${this.article.slug}`, this.form)
           .then(({ data }) => {
-            this.successMessage()
+            this.statusMessage('success', 'Article updated')
             this.errors = []
           })
       } catch (e) {
-        ;(this.errors = e.response.data.errors), this.errorMessage()
+        ;(this.errors = e.response.data.errors),
+          this.statusMessage('error', 'Something went wrong')
       }
     },
+
     async newTagAdd(newTag) {
       let name = newTag
       let addedTag = this.addToServer(name)
     },
+
     async addToServer(name) {
       try {
         let tagForm = {
@@ -449,12 +460,13 @@ export default {
             name.substring(0, 2) +
             Math.floor(Math.random() * 10000000),
         }
+
         await this.$axios.post(`tags`, tagForm).then(({ data }) => {
           this.tags.push(data)
           this.selectedTags.push(data)
         })
       } catch (e) {
-        this.errorMessage()
+        this.statusMessage('error', 'Something went wrong')
       }
     },
   },

@@ -30,10 +30,11 @@ const FilePond = vueFilePond(
 )
 
 export default {
+  middleware: ['authIndent'],
+
   data: function () {
     return { myFiles: null }
   },
-  middleware: ['authIndent'],
 
   methods: {
     handleFilePondInit: function () {

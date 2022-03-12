@@ -83,6 +83,7 @@
                     {{ errors.thumbnail[0] }}
                   </AppInputError>
                 </div>
+
                 <div class="my-5">
                   <div sm="2">
                     <AppLabel for="name">Name:</AppLabel>
@@ -99,6 +100,7 @@
                     </AppInputError>
                   </div>
                 </div>
+
                 <div class="mt-5">
                   <AppButton
                     type="submit"
@@ -123,7 +125,11 @@
           </div>
 
           <div class="p-2 border-2 border-dashed rounded-md sm:p-3">
-            <ul role="list" class="grid grid-cols-12 gap-3">
+            <ul
+              role="list"
+              class="grid grid-cols-12 gap-3"
+              v-if="images.length"
+            >
               <li
                 v-for="image in images"
                 :key="image.id"
@@ -146,6 +152,7 @@
                 <p class="p-1 text-sm truncate">{{ image.name }}</p>
               </li>
             </ul>
+            <div class="p-4" v-else>No image uploaded yuet</div>
           </div>
 
           <AppPagination :meta="meta" v-if="meta.last_page > 1" />

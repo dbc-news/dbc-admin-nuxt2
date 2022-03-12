@@ -1,6 +1,7 @@
 <template>
   <div>
     <Breadcrumb leading="Tags" trialing="" breadcrumb="Tag / list" />
+
     <div class="p-1 mx-auto sm:p-3 lg:p-8">
       <div class="w-full md:flex md:space-x-3 lg:space-x-8">
         <div class="w-full md:w-4/12">
@@ -9,12 +10,7 @@
             <form @submit.prevent="createTag">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="name"
-                  >
-                    Name
-                  </label>
+                  <AppLabel> Name </AppLabel>
                   <input
                     class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     type="text"
@@ -27,13 +23,9 @@
                     {{ errors.name[0] }}
                   </AppInputError>
                 </div>
+
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="slug"
-                  >
-                    Slug
-                  </label>
+                  <AppLabel> Slug </AppLabel>
                   <input
                     class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     type="text"
@@ -60,6 +52,7 @@
             </form>
           </div>
         </div>
+
         <div class="w-full h-screen mt-3 overflow-y-auto md:mt-0 md:w-8/12">
           <div class="overflow-hidden border-2 border-dashed rounded-md">
             <div>
@@ -81,10 +74,14 @@
                   </div>
                 </div>
               </div>
+
               <div
                 class="justify-between p-2 bg-white border-t border-gray-200  sm:py-4 sm:px-4 sm:flex group"
               >
-                <div class="flex flex-wrap items-center w-full">
+                <div
+                  class="flex flex-wrap items-center w-full"
+                  v-if="tags.length"
+                >
                   <div
                     class="font-solimanlipi"
                     v-for="tag in tags"
@@ -98,14 +95,16 @@
                       {{ tag.name }}
                     </button>
                   </div>
-
-                  <!-- <div class="py-2 text-center">No Tag listed yet.</div> -->
+                </div>
+                <div class="flex flex-wrap items-center w-full" v-else>
+                  No tag listed yet
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <AppTagEditModal
         :selectedTag="selectedTagFromTagPage"
         @updatedFromTagModal="reloadTags"

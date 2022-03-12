@@ -2,14 +2,7 @@
   <div class="container-fluid">
     <div class="font-sans antialiased text-gray-900">
       <div
-        class="
-          flex flex-col
-          items-center
-          min-h-screen
-          pt-6
-          bg-gray-100
-          sm:justify-center sm:pt-0
-        "
+        class="flex flex-col items-center min-h-screen pt-6 bg-gray-100  sm:justify-center sm:pt-0"
       >
         <div>
           <a href="#">
@@ -21,25 +14,11 @@
           </a>
         </div>
         <div
-          class="
-            w-full
-            px-6
-            py-4
-            mt-6
-            overflow-hidden
-            bg-white
-            shadow-md
-            sm:max-w-md sm:rounded-lg
-          "
+          class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md  sm:max-w-md sm:rounded-lg"
         >
           <form @submit.prevent="login">
             <div>
-              <label
-                class="block mb-1 text-sm font-semibold text-gray-700"
-                for="email"
-              >
-                Email
-              </label>
+              <AppLabel> Email </AppLabel>
               <AppInput
                 v-model="form.email"
                 name="email"
@@ -52,12 +31,7 @@
             </div>
 
             <div class="mt-4">
-              <label
-                class="block mb-1 text-sm font-semibold text-gray-700"
-                for="password"
-              >
-                Password
-              </label>
+              <AppLabel> Password </AppLabel>
               <AppInput
                 v-model="form.password"
                 name="password"
@@ -70,7 +44,7 @@
             </div>
 
             <div class="block mt-4">
-              <label for="remember_me" class="flex items-center">
+              <AppLabel for="remember_me" class="flex items-center">
                 <label class="inline-flex items-center px-2">
                   <input
                     type="checkbox"
@@ -81,7 +55,7 @@
                   <span class="ml-2"> </span>
                 </label>
                 <span class="ml-2 text-sm text-gray-600">Remember me</span>
-              </label>
+              </AppLabel>
             </div>
 
             <div class="flex items-center justify-end mt-4">
@@ -94,29 +68,7 @@
 
               <button
                 type="submit"
-                class="
-                  inline-flex
-                  items-center
-                  px-4
-                  py-2
-                  ml-4
-                  text-xs
-                  font-semibold
-                  tracking-widest
-                  text-white
-                  uppercase
-                  transition
-                  bg-gray-800
-                  border border-transparent
-                  rounded-md
-                  hover:bg-gray-700
-                  active:bg-gray-900
-                  focus:outline-none
-                  focus:border-gray-900
-                  focus:ring
-                  focus:ring-gray-300
-                  disabled:opacity-25
-                "
+                class="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition bg-gray-800 border border-transparent rounded-md  hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25"
               >
                 Log in
               </button>
@@ -140,28 +92,25 @@
 
 
 <script>
+import AppLabel from '~/components/form/AppLabel.vue'
 export default {
   layout: 'guest',
   middleware: 'guest',
-
   data() {
     return {
       errors: [],
-
       form: {
         email: null,
         password: null,
       },
     }
   },
-
   methods: {
     async login() {
       try {
         await this.$auth.loginWith('laravelSanctum', {
           data: this.form,
         })
-
         this.$router.push({
           path: this.$route.query.redirect || '/',
         })
@@ -170,5 +119,6 @@ export default {
       }
     },
   },
+  components: { AppLabel },
 }
 </script>

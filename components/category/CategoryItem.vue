@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <div
+      class="p-2 border sm:px-6 sm:py-3"
+      v-for="category in treeCategories"
+      :key="category.id"
+    >
+      <div class="flex justify-between group">
+        <div class="">{{ category.name }}</div>
+
+        <!-- @if ($region->trashed())
+                <div class="opacity-0 cursor-default group-hover:opacity-100">
+                    <button class="px-2 text-sm text-gray-400 hover:text-gray-500"
+                        wire:click.prevent="$set('showingRestoreModal', {{ $region->id }})">
+                        {{ _('Restore') }}
+                    </button>
+                </div>
+            @else -->
+        <div class="opacity-0 cursor-default group-hover:opacity-100">
+          <button class="px-2 text-sm text-red-400 hover:text-red-500">
+            Delete
+          </button>
+          <button class="px-2 text-sm text-blue-400 hover:text-blue-500">
+            Edit
+          </button>
+        </div>
+      </div>
+
+      <div class="pl-5 space-y-2" v-if="category.children">
+        <CategoryItem :treeCategories="category.children" />
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  props: {
+    treeCategories: {
+      required: true,
+      type: Array,
+    },
+  },
+}
+</script>

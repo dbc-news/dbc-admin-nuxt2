@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Breadcrumb leading="Topics" trialing="" breadcrumb="Topic / list" />
+    <Breadcrumb leading="Categories" trialing="" breadcrumb="Category / list" />
 
     <div class="p-1 mx-auto sm:p-3 lg:p-8">
       <div class="w-full md:flex md:space-x-3 lg:space-x-8">
         <div class="w-full md:w-4/12">
           <div class="p-2 border-2 border-dashed rounded-md sm:p-6 lg:p-8">
             <h1 class="text-xl font-semibold text-cyan-500">
-              Create New Topic
+              Create New Category
             </h1>
 
             <form @submit.prevent="createCategory">
@@ -43,14 +43,15 @@
 
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Parent </AppLabel>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
-                    placeholder="Slug"
-                    id="slug"
-                    name="slug"
-                    v-model="form.slug"
-                  />
+                  <FormSelect v-model="form.status" id="status" name="status">
+                    <option
+                      value="draft"
+                      v-for="category in treeCategories"
+                      :key="category.id"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </FormSelect>
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}
                   </AppInputError>
@@ -70,7 +71,7 @@
           </div>
         </div>
 
-        <div class="w-full h-screen mt-3 overflow-y-auto md:mt-0 md:w-8/12">
+        <div class="w-full mt-3 md:mt-0 md:w-8/12">
           <div class="grid grid-cols-12 md:gap-3">
             <div class="col-span-12 md:mt-0">
               <div class="overflow-hidden border-2 border-dashed rounded-md">
@@ -95,68 +96,17 @@
                     </div>
                   </div>
 
-                  <div class="divide-y divide-gray-200" v-if="topics.length">
-                    <div v-for="topic in topics" :key="topic.id">
-                      <div
-                        class="justify-between p-2 bg-white  sm:px-6 lg:px-8 sm:py-3 lg:py-4 sm:flex group"
-                      >
-                        <div
-                          class="flex flex-wrap items-center justify-between w-full "
-                        >
-                          <div class="w-full mb-2 md:mb-0 md:w-4/12">
-                            <h2
-                              class="pt-1 text-base font-medium leading-none text-gray-700 "
-                            >
-                              {{ topic.name }}
-                            </h2>
-                            <div class="flex items-center">
-                              <UserIcon class="w-4 h-4 mr-1 text-gray-500" />
-                              <div class="text-sm text-gray-500">User</div>
-                            </div>
-                            <div class="flex items-center mt-1">
-                              <ClockIcon class="w-4 h-4 mr-1 text-gray-500" />
-                              <div class="text-sm text-gray-500">
-                                {{ topic.created_at }}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div
-                            class="transition-opacity duration-200 opacity-100  md:opacity-0 group-hover:opacity-100"
-                          >
-                            <div class="flex items-center space-x-2">
-                              <button
-                                type="button"
-                                class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:ring-blue-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
-                                @click="editTopic(topic)"
-                              >
-                                Edit
-                              </button>
-
-                              <button
-                                type="button"
-                                class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-red-600 border border-transparent rounded-md shadow-sm  hover:bg-red-700 focus:ring-red-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
-                                @click="deleteTopic(topic.slug)"
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="w-full p-4" v-else>No category listed yet</div>
+                  <CategoryItem :treeCategories="treeCategories" />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <AppTopicEditModal
-        :selectedTopic="selectedTopicFromTopicPage"
-        @updatedFromTopicModal="reloadTopics"
+      {{ categories }}
+      <AppCategoryEditModal
+        :selectedCategory="selectedCategoryFromCategoryPage"
+        @updatedFromCategoryModal="reloadCategories"
       />
     </div>
   </div>
@@ -169,11 +119,12 @@ export default {
   data() {
     return {
       errors: [],
-      topics: [],
+      categories: [],
+      treeCategories: [],
       meta: {},
 
       searching: '',
-      selectedTopicFromTopicPage: null,
+      selectedCategoryFromCategoryPage: null,
 
       form: {
         name: '',
@@ -187,15 +138,24 @@ export default {
     ClockIcon,
   },
   mounted() {
-    this.getTopics()
+    this.getTreeCategories()
   },
 
   watch: {
     '$route.query'(query) {
-      this.getTopics(query)
+      this.getTreeCategories(query)
     },
   },
-
+  async asyncData({ app, error }) {
+    try {
+      let response = await app.$axios.$get('categories')
+      return {
+        categories: response.data,
+      }
+    } catch (e) {
+      //
+    }
+  },
   methods: {
     async search(e) {
       await this.$router
@@ -207,16 +167,18 @@ export default {
         .catch(() => {})
     },
 
-    reloadTopics() {
-      this.getTopics()
+    reloadCategories() {
+      this.getTreeCategories()
     },
 
-    async deleteTopic(topicSlug) {
+    async deleteCategory(categorySlug) {
       try {
-        await this.$axios.delete(`topics/${topicSlug}`).then(({ data }) => {
-          this.getTopics()
-          this.statusMessage('success', 'Topic deleted successfully')
-        })
+        await this.$axios
+          .delete(`categories/${categorySlug}`)
+          .then(({ data }) => {
+            this.getTreeCategories()
+            this.statusMessage('success', 'Category deleted successfully')
+          })
       } catch (error) {
         if (error.response.status === 500) {
           this.statusMessage('error', 'Server Error')
@@ -226,17 +188,17 @@ export default {
       }
     },
 
-    async editTopic(topic) {
-      this.selectedTopicFromTopicPage = topic
-      this.$modal.show('app-topic-edit-modal')
+    async editCategory(category) {
+      this.selectedCategoryFromCategoryPage = category
+      this.$modal.show('app-category-edit-modal')
     },
 
     async createCategory() {
       console.log(this.form)
       try {
-        await this.$axios.post(`topics`, this.form).then(({ data }) => {
-          this.statusMessage('success', 'Topic uploaded successfully')
-          this.getTopics()
+        await this.$axios.post(`categories`, this.form).then(({ data }) => {
+          this.statusMessage('success', 'Category uploaded successfully')
+          this.getTreeCategories()
           this.formClear()
         })
       } catch (e) {
@@ -252,17 +214,17 @@ export default {
       }
     },
 
-    async getTopics(query = this.$route.query) {
+    async getTreeCategories(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('topics?per-page=7', {
+          .$get('categories?per-page=7', {
             params: {
               page: query.page,
               ...query,
             },
           })
           .then((response) => {
-            this.topics = response.data
+            this.treeCategories = response.data
             this.meta = response.meta
           })
       } catch (e) {}
@@ -286,7 +248,7 @@ export default {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
-    this.getTopics()
+    this.getTreeCategories()
   },
 }
 </script>

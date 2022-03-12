@@ -24,6 +24,7 @@ export default {
     '@/plugins/VueSweetAlert',
     '@/plugins/VueJsModal',
     '@/plugins/VueLazyload',
+    '@/plugins/VueFragment',
   ],
 
   components: true,

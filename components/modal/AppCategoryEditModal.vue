@@ -1,5 +1,5 @@
 <template>
-  <modal class="relative" name="app-topic-edit-modal">
+  <modal class="relative" name="app-category-edit-modal">
     <div class="absolute top-2 right-2">
       <XIcon
         class="
@@ -11,27 +11,26 @@
           cursor-pointer
           p-0.5
         "
-        @click="hideTopicEditModal"
+        @click="hideCategoyEditModal"
       />
     </div>
+    {{ selectedCatFromCatPage }}
+    <br />
+    parent: {{ selectedCatFromCatPage ? selectedCatFromCatPage.parent : null }}
     <div class="p-1 mx-auto sm:p-3">
       <div class="flex items-center justify-center">
         <div class="w-full mt-8 sm:mt-28 md:w-8/12">
           <div class="p-2 border-2 border-dashed rounded-md lg:p-8">
-            <h1 class="text-xl font-semibold text-cyan-500">Edit Topic</h1>
-            <form @submit.prevent="updateTopic">
+            <h1 class="text-xl font-semibold text-cyan-500">
+              Edit Category {{ selectedCatParent }}
+            </h1>
+            <form @submit.prevent="updateCateogy">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="name"
-                  >
-                    Name
-                  </label>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
+                  <AppLabel> Name </AppLabel>
+                  <AppInput
                     placeholder="Name"
+                    type="text"
                     id="name"
                     name="name"
                     v-model="form.name"
@@ -41,22 +40,32 @@
                   </AppInputError>
                 </div>
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="slug"
-                  >
-                    Slug
-                  </label>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
+                  <AppLabel> Slug </AppLabel>
+                  <AppInput
                     placeholder="Slug"
+                    type="text"
                     id="slug"
                     name="slug"
                     v-model="form.slug"
                   />
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}
+                  </AppInputError>
+                </div>
+
+                <div class="w-full py-1 md:py-3">
+                  <AppLabel> Parent </AppLabel>
+                  <multiselect
+                    v-model="selectedCatParent"
+                    placeholder="Search category"
+                    label="name"
+                    track-by="uuid"
+                    :options="categoriesFormCatPage"
+                    :hideSelected="true"
+                    :categoryable="true"
+                  ></multiselect>
+                  <AppInputError v-if="errors.parent_id">
+                    {{ errors.parent_id[0] }}
                   </AppInputError>
                 </div>
               </div>
@@ -80,46 +89,66 @@
 
 <script>
 import { XIcon } from '@vue-hero-icons/outline'
+import Multiselect from 'vue-multiselect'
+
 export default {
   data() {
     return {
-      errors: '',
+      selectedCatParent: null,
+      errors: [],
       form: {
         name: '',
         slug: '',
+        parent_id: null,
       },
     }
   },
-  props: {
-    selectedTopic: {
-      required: false,
-      type: Object,
-      default: null,
+
+  watch: {
+    selectedCatFromCatPage(category) {
+      if (category) {
+        this.form.name = category.name
+        this.form.slug = category.slug
+      }
+      this.filteredCategories()
+    },
+    selectedCatParent(category) {
+      this.form.parent_id = this.selectedCatParent.id
     },
   },
+
+  props: {
+    selectedCatFromCatPage: {
+      required: true,
+      type: Object | null,
+    },
+    categoriesFormCatPage: {
+      required: true,
+      type: Array,
+    },
+  },
+
   components: {
     XIcon,
+    Multiselect,
   },
-  watch: {
-    selectedTopic(topic) {
-      if (topic) {
-        this.form.name = topic.name
-        this.form.slug = topic.slug
-      }
-    },
-  },
+
   methods: {
-    hideTopicEditModal() {
-      this.$modal.hide('app-topic-edit-modal')
+    hideCategoyEditModal() {
+      this.$modal.hide('app-category-edit-modal')
     },
 
-    showTopicEditModal() {
-      this.$modal.show('app-topic-edit-modal')
+    showCategoryEditModal() {
+      this.$modal.show('app-category-edit-modal')
     },
 
     formValue() {
-      this.form.name = selectedTopic.name
-      this.form.slug = selectedTopic.slug
+      this.form.name = selectedCatFromCatPage.name
+      this.form.slug = selectedCatFromCatPage.slug
+      this.form.parent_id = selectedCatFromCatPage.parent
+        ? selectedCatFromCatPage.parent_id
+        : null
+      this.selectedCatParent = this.selectedCatFromCatPage.parent ?? null
     },
 
     statusMessage(type, message) {
@@ -135,24 +164,30 @@ export default {
       })
     },
 
-    async updateTopic() {
-      try {
-        await this.$axios
-          .patch(`topics/${this.selectedTopic.slug}`, this.form)
-          .then(({ data }) => {
-            this.statusMessage('success', 'Topic uploaded successfully')
-            this.hideTopicEditModal()
-            this.$emit('updatedFromTopicModal')
-          })
-      } catch (e) {
-        this.errors = e.response.data.errors
-        this.statusMessage('error', 'Something wrong')
-      }
+    async updateCateogy() {
+      console.log(this.form)
+      // try {
+      //   await this.$axios
+      //     .patch(`categories/${this.selectedCatFromCatPage.slug}`, this.form)
+      //     .then(({ data }) => {
+      //       this.statusMessage('success', 'Category updated successfully')
+      //       this.hideCategoyEditModal()
+      //       this.$emit('updatedFromCategoryModal')
+      //     })
+      // } catch (e) {
+      //   this.errors = e.response.data.errors
+      //   this.statusMessage('error', 'Something wrong')
+      // }
+    },
+    filteredCategories() {
+      let parent = this.categoriesFormCatPage.filter((movie) => movie.id === 1)
+      console.log(parent[0].id)
+      // this.selectedCatParent = this.selectedCatFromCatPage.parent ?? null
     },
   },
 
   mounted() {
-    if (this.selectedTopic) {
+    if (this.selectedCatFromCatPage) {
       this.formValue()
     }
   },

@@ -14,10 +14,9 @@
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Name </AppLabel>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
+                  <AppInput
                     placeholder="Name"
+                    type="text"
                     id="name"
                     name="name"
                     v-model="form.name"
@@ -28,10 +27,9 @@
                 </div>
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Slug </AppLabel>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
+                  <AppInput
                     placeholder="Slug"
+                    type="text"
                     id="slug"
                     name="slug"
                     v-model="form.slug"
@@ -43,17 +41,17 @@
 
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Parent </AppLabel>
-                  <FormSelect v-model="form.status" id="status" name="status">
-                    <option
-                      value="draft"
-                      v-for="category in treeCategories"
-                      :key="category.id"
-                    >
-                      {{ category.name }}
-                    </option>
-                  </FormSelect>
-                  <AppInputError v-if="errors.slug">
-                    {{ errors.slug[0] }}
+                  <multiselect
+                    v-model="selectedCategoryParent"
+                    placeholder="Search category"
+                    label="name"
+                    track-by="uuid"
+                    :options="categories"
+                    :hideSelected="true"
+                    :categoryable="true"
+                  ></multiselect>
+                  <AppInputError v-if="errors.parent_id">
+                    {{ errors.parent_id[0] }}
                   </AppInputError>
                 </div>
               </div>
@@ -96,16 +94,20 @@
                     </div>
                   </div>
 
-                  <CategoryItem :treeCategories="treeCategories" />
+                  <CategoryItem
+                    :treeCategories="treeCategories"
+                    @editCategoryActionFromItem="editCategory"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {{ categories }}
+
       <AppCategoryEditModal
-        :selectedCategory="selectedCategoryFromCategoryPage"
+        :selectedCatFromCatPage="selectedCateogry"
+        :categoriesFormCatPage="categories"
         @updatedFromCategoryModal="reloadCategories"
       />
     </div>
@@ -113,6 +115,8 @@
 </template>
 <script>
 import { UserIcon, ClockIcon } from '@vue-hero-icons/outline'
+import Multiselect from 'vue-multiselect'
+
 export default {
   middleware: ['authIndent'],
 
@@ -124,11 +128,13 @@ export default {
       meta: {},
 
       searching: '',
-      selectedCategoryFromCategoryPage: null,
+      selectedCategoryParent: null,
+      selectedCateogry: null,
 
       form: {
         name: '',
         slug: '',
+        parent_id: null,
       },
     }
   },
@@ -136,19 +142,20 @@ export default {
   components: {
     UserIcon,
     ClockIcon,
-  },
-  mounted() {
-    this.getTreeCategories()
+    Multiselect,
   },
 
   watch: {
     '$route.query'(query) {
       this.getTreeCategories(query)
     },
+    selectedCategoryParent() {
+      this.form.parent_id = this.selectedCategoryParent.id
+    },
   },
   async asyncData({ app, error }) {
     try {
-      let response = await app.$axios.$get('categories')
+      let response = await app.$axios.$get('categories/all')
       return {
         categories: response.data,
       }
@@ -189,7 +196,7 @@ export default {
     },
 
     async editCategory(category) {
-      this.selectedCategoryFromCategoryPage = category
+      this.selectedCateogry = category
       this.$modal.show('app-category-edit-modal')
     },
 
@@ -197,9 +204,10 @@ export default {
       console.log(this.form)
       try {
         await this.$axios.post(`categories`, this.form).then(({ data }) => {
-          this.statusMessage('success', 'Category uploaded successfully')
+          this.statusMessage('success', 'Category created successfully')
           this.getTreeCategories()
           this.formClear()
+          this.errors = []
         })
       } catch (e) {
         this.errors = e.response.data.errors
@@ -211,6 +219,7 @@ export default {
       this.form = {
         name: '',
         slug: '',
+        parent_id: null,
       }
     },
 
@@ -254,6 +263,18 @@ export default {
 </script>
 
 <style>
+@import 'vue-multiselect/dist/vue-multiselect.min.css';
+
+.body-editor {
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.multiselect__input {
+  border-radius: 5px !important;
+  min-height: 40px;
+}
+
 .vm--modal {
   width: 80% !important;
   height: 600px !important;

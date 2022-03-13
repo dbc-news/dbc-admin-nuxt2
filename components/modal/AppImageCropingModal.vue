@@ -54,7 +54,7 @@
             }"
           />
           <div @click.prevent="selectingImage(image)">
-            <label :for="image.id">
+            <AppLabel :for="image.id">
               <img
                 v-if="image.thumb160x84"
                 v-lazy="image.thumb160x84"
@@ -74,7 +74,7 @@
                   {{ image.formatted_date_time }}
                 </p>
               </div>
-            </label>
+            </AppLabel>
           </div>
         </div>
       </div>

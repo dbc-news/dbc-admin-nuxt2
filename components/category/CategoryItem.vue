@@ -17,17 +17,27 @@
                 </div>
             @else -->
         <div class="opacity-0 cursor-default group-hover:opacity-100">
-          <button class="px-2 text-sm text-red-400 hover:text-red-500">
+          <button
+            class="px-2 text-sm text-red-400 hover:text-red-500"
+            :title="category.slug"
+            @click.prevent="deleteCategory(category.slug)"
+          >
             Delete
           </button>
-          <button class="px-2 text-sm text-blue-400 hover:text-blue-500">
+          <button
+            class="px-2 text-sm text-blue-400 hover:text-blue-500"
+            @click.prevent="editCategory(category)"
+          >
             Edit
           </button>
         </div>
       </div>
 
       <div class="pl-5 space-y-2" v-if="category.children">
-        <CategoryItem :treeCategories="category.children" />
+        <CategoryItem
+          @editCategoryActionFromItem="editCategory"
+          :treeCategories="category.children"
+        />
       </div>
     </div>
   </div>
@@ -38,6 +48,14 @@ export default {
     treeCategories: {
       required: true,
       type: Array,
+    },
+  },
+  methods: {
+    editCategory(category) {
+      this.$emit('editCategoryActionFromItem', category)
+    },
+    deleteCategory(slug) {
+      this.$emit('delete-category', slug)
     },
   },
 }

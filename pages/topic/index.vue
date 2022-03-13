@@ -14,10 +14,9 @@
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Name </AppLabel>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    type="text"
+                  <AppInput
                     placeholder="Name"
+                    type="text"
                     id="name"
                     name="name"
                     v-model="form.name"
@@ -28,10 +27,9 @@
                 </div>
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Slug </AppLabel>
-                  <input
-                    class="w-full border-gray-300 rounded-md shadow-sm  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  <AppInput
+                    placeholder="SLug"
                     type="text"
-                    placeholder="Slug"
                     id="slug"
                     name="slug"
                     v-model="form.slug"
@@ -173,9 +171,6 @@ export default {
   components: {
     UserIcon,
     ClockIcon,
-  },
-  mounted() {
-    this.getTopics()
   },
 
   watch: {

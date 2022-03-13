@@ -18,7 +18,13 @@
     <div class="px-2 pt-8 sm:gap-2 sm:px-4">
       <div class="flex">
         <div
-          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+          class="
+            p-3
+            bg-white
+            border-b-0 border-gray-300 border-dashed
+            cursor-pointer
+            rounded-t-md
+          "
           :class="tab === 'thumbnail' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('thumbnail')"
         >
@@ -37,18 +43,45 @@
             placeholder="Searh"
             @keyup="search"
             v-model="searching"
-            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+            class="
+              flex-grow
+              w-full
+              h-8
+              px-2
+              border border-gray-300
+              rounded-md
+              shadow-sm
+              focus:border-cyan-300
+              focus:ring
+              focus:ring-cyan-200
+              focus:ring-opacity-50
+              focus:outline-none
+            "
           />
         </div>
       </div>
 
       <div
-        class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        class="
+          grid grid-cols-12
+          gap-3
+          p-3
+          border-2 border-gray-300 border-dashed
+          rounded-md rounded-tl-none
+        "
         v-if="images.length"
         v-show="tab === 'thumbnail'"
       >
         <div
-          class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
+          class="
+            relative
+            col-span-6
+            border border-gray-100
+            sm:col-span-4
+            md:col-span-3
+            lg:col-span-2
+            bg-gray-50
+          "
           v-for="image in images"
           :key="image.id"
         >
@@ -64,7 +97,7 @@
             }"
           />
           <div @click.prevent="selectingImage(image)">
-            <label :for="image.id">
+            <AppLabel :for="image.id">
               <img
                 v-if="image.thumb160x84"
                 v-lazy="image.thumb160x84"
@@ -86,13 +119,17 @@
                   {{ image.formatted_date_time }}
                 </p>
               </div>
-            </label>
+            </AppLabel>
           </div>
         </div>
       </div>
       <AppPagination :meta="meta" v-if="meta.last_page > 1" />
       <div
-        class="p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        class="
+          p-3
+          border-2 border-gray-300 border-dashed
+          rounded-md rounded-tl-none
+        "
         v-show="tab === 'upload'"
       >
         upload
@@ -108,8 +145,8 @@ export default {
   data() {
     return {
       images: [],
-      tab: 'thumbnail',
       meta: {},
+      tab: 'thumbnail',
       searching: '',
     }
   },

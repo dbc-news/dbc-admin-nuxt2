@@ -22,25 +22,10 @@
             <form @submit.prevent="updateTopic">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="name"
-                  >
-                    Name
-                  </label>
-                  <input
-                    class="
-                      w-full
-                      border-gray-300
-                      rounded-md
-                      shadow-sm
-                      focus:border-indigo-300
-                      focus:ring
-                      focus:ring-indigo-200
-                      focus:ring-opacity-50
-                    "
-                    type="text"
+                  <AppLable> Name </AppLable>
+                  <AppInput
                     placeholder="Name"
+                    type="text"
                     id="name"
                     name="name"
                     v-model="form.name"
@@ -50,25 +35,10 @@
                   </AppInputError>
                 </div>
                 <div class="w-full py-1 md:py-3">
-                  <label
-                    class="block mb-1 text-base font-medium text-gray-700"
-                    for="slug"
-                  >
-                    Slug
-                  </label>
-                  <input
-                    class="
-                      w-full
-                      border-gray-300
-                      rounded-md
-                      shadow-sm
-                      focus:border-indigo-300
-                      focus:ring
-                      focus:ring-indigo-200
-                      focus:ring-opacity-50
-                    "
-                    type="text"
+                  <AppLable> Slug </AppLable>
+                  <AppInput
                     placeholder="Slug"
+                    type="text"
                     id="slug"
                     name="slug"
                     v-model="form.slug"
@@ -80,22 +50,10 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  mt-3
-                  mb-1
-                  text-right
-                  sm:rounded-bl-md sm:rounded-br-md
-                "
+                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
               >
                 <AppButton
-                  class="
-                    text-white
-                    bg-cyan-600
-                    hover:bg-cyan-700
-                    focus:ring-cyan-500
-                  "
+                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
                 >
                   Update
                 </AppButton>
@@ -113,7 +71,7 @@ import { XIcon } from '@vue-hero-icons/outline'
 export default {
   data() {
     return {
-      errors: '',
+      errors: [],
       form: {
         name: '',
         slug: '',

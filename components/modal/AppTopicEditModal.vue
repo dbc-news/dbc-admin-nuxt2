@@ -50,10 +50,22 @@
               </div>
 
               <div
-                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
+                class="
+                  flex
+                  items-center
+                  mt-3
+                  mb-1
+                  text-right
+                  sm:rounded-bl-md sm:rounded-br-md
+                "
               >
                 <AppButton
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-cyan-600
+                    hover:bg-cyan-700
+                    focus:ring-cyan-500
+                  "
                 >
                   Update
                 </AppButton>
@@ -78,6 +90,7 @@ export default {
       },
     }
   },
+
   props: {
     selectedTopic: {
       required: false,
@@ -85,9 +98,11 @@ export default {
       default: null,
     },
   },
+
   components: {
     XIcon,
   },
+
   watch: {
     selectedTopic(topic) {
       if (topic) {
@@ -96,6 +111,7 @@ export default {
       }
     },
   },
+
   methods: {
     hideTopicEditModal() {
       this.$modal.hide('app-topic-edit-modal')
@@ -103,11 +119,6 @@ export default {
 
     showTopicEditModal() {
       this.$modal.show('app-topic-edit-modal')
-    },
-
-    formValue() {
-      this.form.name = selectedTopic.name
-      this.form.slug = selectedTopic.slug
     },
 
     statusMessage(type, message) {
@@ -137,12 +148,6 @@ export default {
         this.statusMessage('error', 'Something wrong')
       }
     },
-  },
-
-  mounted() {
-    if (this.selectedTopic) {
-      this.formValue()
-    }
   },
 }
 </script>

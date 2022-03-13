@@ -14,16 +14,12 @@
         @click="hideCategoyEditModal"
       />
     </div>
-    {{ selectedCatFromCatPage }}
-    <br />
-    parent: {{ selectedCatFromCatPage ? selectedCatFromCatPage.parent : null }}
+
     <div class="p-1 mx-auto sm:p-3">
       <div class="flex items-center justify-center">
         <div class="w-full mt-8 sm:mt-28 md:w-8/12">
           <div class="p-2 border-2 border-dashed rounded-md lg:p-8">
-            <h1 class="text-xl font-semibold text-cyan-500">
-              Edit Category {{ selectedCatParent }}
-            </h1>
+            <h1 class="text-xl font-semibold text-cyan-500">Edit Category</h1>
             <form @submit.prevent="updateCateogy">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
@@ -109,11 +105,15 @@ export default {
       if (category) {
         this.form.name = category.name
         this.form.slug = category.slug
+        this.form.parent_id = category.parent_id
       }
-      this.filteredCategories()
+      this.setSelectedCatParent()
     },
+
     selectedCatParent(category) {
-      this.form.parent_id = this.selectedCatParent.id
+      if (category) {
+        this.form.parent_id = category.id
+      }
     },
   },
 
@@ -142,15 +142,6 @@ export default {
       this.$modal.show('app-category-edit-modal')
     },
 
-    formValue() {
-      this.form.name = selectedCatFromCatPage.name
-      this.form.slug = selectedCatFromCatPage.slug
-      this.form.parent_id = selectedCatFromCatPage.parent
-        ? selectedCatFromCatPage.parent_id
-        : null
-      this.selectedCatParent = this.selectedCatFromCatPage.parent ?? null
-    },
-
     statusMessage(type, message) {
       const Toast = this.$swal.mixin({
         toast: true,
@@ -165,31 +156,26 @@ export default {
     },
 
     async updateCateogy() {
-      console.log(this.form)
-      // try {
-      //   await this.$axios
-      //     .patch(`categories/${this.selectedCatFromCatPage.slug}`, this.form)
-      //     .then(({ data }) => {
-      //       this.statusMessage('success', 'Category updated successfully')
-      //       this.hideCategoyEditModal()
-      //       this.$emit('updatedFromCategoryModal')
-      //     })
-      // } catch (e) {
-      //   this.errors = e.response.data.errors
-      //   this.statusMessage('error', 'Something wrong')
-      // }
+      try {
+        await this.$axios
+          .patch(`categories/${this.selectedCatFromCatPage.slug}`, this.form)
+          .then(({ data }) => {
+            this.statusMessage('success', 'Category updated successfully')
+            this.hideCategoyEditModal()
+            this.$emit('updatedFromCategoryModal')
+          })
+      } catch (e) {
+        this.errors = e.response.data.errors
+        this.statusMessage('error', 'Something wrong')
+      }
     },
-    filteredCategories() {
-      let parent = this.categoriesFormCatPage.filter((movie) => movie.id === 1)
-      console.log(parent[0].id)
-      // this.selectedCatParent = this.selectedCatFromCatPage.parent ?? null
-    },
-  },
 
-  mounted() {
-    if (this.selectedCatFromCatPage) {
-      this.formValue()
-    }
+    setSelectedCatParent() {
+      let matchedCat = this.categoriesFormCatPage.filter(
+        (category) => category.id === this.selectedCatFromCatPage.id
+      )
+      this.selectedCatParent = matchedCat[0].parent ?? null
+    },
   },
 }
 </script>

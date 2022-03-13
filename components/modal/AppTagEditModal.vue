@@ -50,46 +50,16 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  mt-3
-                  mb-1
-                  text-right
-                  sm:rounded-bl-md sm:rounded-br-md
-                "
+                class="flex items-center justify-between mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
               >
                 <AppButton
-                  class="
-                    text-white
-                    bg-cyan-600
-                    hover:bg-cyan-700
-                    focus:ring-cyan-500
-                  "
+                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
                 >
                   Update
                 </AppButton>
                 <button
                   type="button"
-                  class="
-                    inline-flex
-                    items-center
-                    justify-center
-                    px-2
-                    py-1
-                    font-medium
-                    tracking-wider
-                    text-center text-white
-                    bg-red-600
-                    border border-transparent
-                    rounded-md
-                    shadow-sm
-                    hover:bg-red-700
-                    focus:ring-red-500
-                    text-bases
-                    focus:outline-none focus:ring-2 focus:ring-offset-2
-                  "
+                  class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-red-600 border border-transparent rounded-md shadow-sm  hover:bg-red-700 focus:ring-red-500 text-bases focus:outline-none focus:ring-2 focus:ring-offset-2"
                   @click="deleteTag(selectedTag.slug)"
                 >
                   Delete
@@ -142,11 +112,6 @@ export default {
       this.$modal.show('app-tag-edit-modal')
     },
 
-    formValue() {
-      this.form.name = selectedTag.name
-      this.form.slug = selectedTag.slug
-    },
-
     statusMessage(type, message) {
       const Toast = this.$swal.mixin({
         toast: true,
@@ -174,6 +139,7 @@ export default {
         this.statusMessage('error', 'Something wrong')
       }
     },
+
     async deleteTag(tagSlug) {
       try {
         await this.$axios.delete(`tags/${tagSlug}`).then(({ data }) => {
@@ -189,12 +155,6 @@ export default {
         }
       }
     },
-  },
-
-  mounted() {
-    if (this.selectedTag) {
-      this.formValue()
-    }
   },
 }
 </script>

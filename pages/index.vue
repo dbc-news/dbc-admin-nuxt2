@@ -118,13 +118,6 @@
                     >
                       Delete
                     </button>
-
-                    <nuxt-link
-                      to="#"
-                      exact
-                      class="inline-flex items-center justify-center px-2 py-1 font-medium tracking-wider text-center text-white bg-blue-600 border border-transparent rounded-md shadow-sm  text-bases focus:outline-none focus:ring-2 focus:ring-offset-2 hover:bg-blue-700 focus:ring-blue-500"
-                      >View
-                    </nuxt-link>
                   </div>
                 </div>
               </div>

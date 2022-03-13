@@ -97,6 +97,7 @@
                   <CategoryItem
                     :treeCategories="treeCategories"
                     @editCategoryActionFromItem="editCategory"
+                    @deleteCategoryActionFromItem="deleteCategory"
                   />
                 </div>
               </div>
@@ -125,7 +126,6 @@ export default {
       errors: [],
       categories: [],
       treeCategories: [],
-      meta: {},
 
       searching: '',
       selectedCategoryParent: null,
@@ -195,7 +195,7 @@ export default {
       }
     },
 
-    async editCategory(category) {
+    editCategory(category) {
       this.selectedCateogry = category
       this.$modal.show('app-category-edit-modal')
     },
@@ -234,7 +234,6 @@ export default {
           })
           .then((response) => {
             this.treeCategories = response.data
-            this.meta = response.meta
           })
       } catch (e) {}
     },

@@ -36,6 +36,7 @@
       <div class="pl-5 space-y-2" v-if="category.children">
         <CategoryItem
           @editCategoryActionFromItem="editCategory"
+          @deleteCategoryActionFromItem="deleteCategory"
           :treeCategories="category.children"
         />
       </div>
@@ -50,12 +51,13 @@ export default {
       type: Array,
     },
   },
+
   methods: {
     editCategory(category) {
       this.$emit('editCategoryActionFromItem', category)
     },
     deleteCategory(slug) {
-      this.$emit('delete-category', slug)
+      this.$emit('deleteCategoryActionFromItem', slug)
     },
   },
 }

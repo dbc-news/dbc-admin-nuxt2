@@ -200,7 +200,6 @@ export default {
     return {
       errors: [],
       user: null,
-      uploading: false,
       thumbnail: null,
     }
   },
@@ -224,7 +223,6 @@ export default {
           email: user.email,
           phone_number: user.phone_number,
           bio: user.bio,
-          // thumbniail: user.thumbnail,
         },
       }
     } catch (e) {
@@ -265,40 +263,23 @@ export default {
       }
     },
 
-    async selectingThumbnail(e) {
-      if ((this.uploading = true)) {
-        if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
-          return
-        }
-        this.thumbnail = e.target.files[0]
-        const file = e.target.files[0]
-
-        this.temporaryThumb = URL.createObjectURL(file)
-
-        const name = file.name
-        const lastDot = name.lastIndexOf('.')
-
-        // this.form.name = name.substring(0, lastDot)
-        // this.form.caption = name.substring(0, lastDot)
-      }
+    selectingThumbnail(e) {
+      this.thumbnail = e.target.files[0]
     },
 
     async updateProfile() {
-      let formData = new FormData()
-      formData.append('thumbnail', this.thumbnail)
-      formData.append('bio', this.form.bio)
       try {
-        await this.$axios
-          .patch(`users/profile/${this.user.id}`, {
-            formData,
-          })
-          .then(({ data }) => {
-            this.statusMessage('success', 'User updated')
-            this.errors = []
-          })
+        let formData = new FormData()
+        formData.append('thumb', this.thumbnail)
+        formData.append('bio', this.form.bio)
+
+        await this.$axios.post(`users/profile`, formData).then((data) => {
+          this.statusMessage('success', 'User updated')
+          this.errors = []
+        })
       } catch (e) {
-        ;(this.errors = e.response.data.errors),
-          this.statusMessage('error', 'Something went wrong')
+        this.errors = e.response.data.errors
+        this.statusMessage('error', 'Something went wrong')
       }
     },
   },

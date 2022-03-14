@@ -68,7 +68,7 @@
 
               <div class="w-full px-2 py-4 md:w-full">
                 <AppLabel>Teaser</AppLabel>
-                <FormTextArea
+                <AppTextArea
                   rows="5"
                   placeholder="Teaser"
                   id="teaser"
@@ -85,7 +85,7 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
-              <FormTextArea
+              <AppTextArea
                 rows="10"
                 placeholder="Content"
                 id="content"

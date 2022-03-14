@@ -68,7 +68,7 @@
 
               <div class="w-full px-2 py-4 md:w-full">
                 <AppLabel>Teaser</AppLabel>
-                <FormTextArea
+                <AppTextArea
                   rows="5"
                   placeholder="Teaser"
                   id="teaser"
@@ -85,7 +85,7 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
-              <FormTextArea
+              <AppTextArea
                 rows="10"
                 placeholder="Content"
                 id="content"
@@ -308,8 +308,9 @@
             hover:bg-cyan-700
             focus:ring-cyan-500
           "
-          >Submit</AppButton
         >
+          Submit
+        </AppButton>
       </div>
     </form>
 
@@ -431,7 +432,6 @@ export default {
     },
 
     async articleUpdate() {
-      console.log(this.form)
       try {
         await this.$axios
           .patch(`articles/${this.article.slug}`, this.form)

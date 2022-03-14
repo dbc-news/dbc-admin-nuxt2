@@ -25,7 +25,7 @@
           </nuxt-link>
 
           <nuxt-link
-            :to="{ name: 'category' }"
+            :to="{ name: 'categories' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 rounded-md  group text-cyan-100 hover:text-white hover:bg-cyan-600"
           >
             <CollectionIcon
@@ -36,7 +36,7 @@
           </nuxt-link>
 
           <nuxt-link
-            :to="{ name: 'topic' }"
+            :to="{ name: 'topics' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 rounded-md  group text-cyan-100 hover:text-white hover:bg-cyan-600"
           >
             <BookOpenIcon
@@ -47,7 +47,7 @@
           </nuxt-link>
 
           <nuxt-link
-            :to="{ name: 'region' }"
+            :to="{ name: 'regions' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 rounded-md  group text-cyan-100 hover:text-white hover:bg-cyan-600"
           >
             <LocationMarkerIcon
@@ -58,7 +58,7 @@
           </nuxt-link>
 
           <nuxt-link
-            :to="{ name: 'tag' }"
+            :to="{ name: 'tags' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 rounded-md  group text-cyan-100 hover:text-white hover:bg-cyan-600"
           >
             <TagIcon class="w-6 h-6 mr-4 text-cyan-200" aria-hidden="true" />
@@ -73,6 +73,16 @@
               aria-hidden="true"
             />
             Media
+          </nuxt-link>
+          <nuxt-link
+            :to="{ name: 'users' }"
+            class="flex items-center px-2 py-2 text-sm font-medium leading-6 rounded-md  group text-cyan-100 hover:text-white hover:bg-cyan-600"
+          >
+            <UserGroupIcon
+              class="w-6 h-6 mr-4 text-cyan-200"
+              aria-hidden="true"
+            />
+            Users
           </nuxt-link>
         </div>
         <div class="pt-6 mt-6">
@@ -121,6 +131,7 @@ import {
   QuestionMarkCircleIcon,
   ShieldCheckIcon,
   DatabaseIcon,
+  UserGroupIcon,
 } from '@vue-hero-icons/outline'
 import { LocationMarkerIcon, NewspaperIcon } from '@vue-hero-icons/solid'
 
@@ -135,6 +146,7 @@ export default {
     QuestionMarkCircleIcon,
     ShieldCheckIcon,
     DatabaseIcon,
+    UserGroupIcon,
   },
 }
 </script>

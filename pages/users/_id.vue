@@ -17,20 +17,26 @@
             <div class="shadow sm:rounded-md sm:overflow-hidden">
               <div class="px-4 py-5 space-y-6 bg-white sm:p-6">
                 <div>
-                  <AppLabel> Photo</AppLabel>
+                  <AppLabel> Photo dfds</AppLabel>
+
                   <div class="flex items-center mt-1">
                     <span
                       class="inline-block w-12 h-12 mr-3 overflow-hidden bg-gray-100 rounded-full "
                     >
                       <img
-                        :src="user.profile_photo_path"
+                        v-if="this.temporaryThumb"
+                        :src="this.temporaryThumb"
+                        alt="name"
                         class="w-full h-full"
-                        v-if="user"
                       />
-                      <UserCircleIcon
-                        class="w-full h-full text-gray-300"
-                        v-else
-                      />
+
+                      <template v-else>
+                        <img
+                          v-if="user.profile_photo_path"
+                          :src="user.profile_photo_path"
+                          class="w-full h-full"
+                        />
+                      </template>
                     </span>
 
                     <label
@@ -201,6 +207,7 @@ export default {
       errors: [],
       user: null,
       thumbnail: null,
+      temporaryThumb: null,
     }
   },
 
@@ -265,6 +272,9 @@ export default {
 
     selectingThumbnail(e) {
       this.thumbnail = e.target.files[0]
+      const file = e.target.files[0]
+
+      this.temporaryThumb = URL.createObjectURL(file)
     },
 
     async updateProfile() {

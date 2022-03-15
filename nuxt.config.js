@@ -26,6 +26,7 @@ export default {
     '@/plugins/VueJsModal',
     '@/plugins/VueLazyload',
     '@/plugins/VueFragment',
+    // '@/plugins/VueScrollTo',
   ],
 
   components: true,
@@ -36,7 +37,7 @@ export default {
 
   buildModules: ['@nuxt/postcss8', '@nuxtjs/tailwindcss'],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', 'vue-scrollto/nuxt'],
 
   auth: {
     strategies: {

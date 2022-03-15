@@ -21,6 +21,8 @@
                   name="title"
                   v-model="form.title"
                 />
+                <SlugWidget :title="form.title" @slug-changed="updateSlug" />
+
                 <AppInputError v-if="errors.title">
                   {{ errors.title[0] }}
                 </AppInputError>
@@ -309,9 +311,16 @@
 import Editor from '@tinymce/tinymce-vue'
 import map from 'lodash.map'
 import Multiselect from 'vue-multiselect'
+import { LinkIcon } from '@vue-hero-icons/outline'
 
 export default {
   middleware: ['authIndent'],
+
+  components: {
+    Multiselect,
+    Editor,
+    LinkIcon,
+  },
 
   data() {
     return {
@@ -487,10 +496,6 @@ export default {
         ],
       },
     }
-  },
-  components: {
-    Multiselect,
-    Editor,
   },
 
   async asyncData({ app, error }) {

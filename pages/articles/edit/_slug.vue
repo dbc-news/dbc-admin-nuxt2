@@ -85,17 +85,9 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
-              <!-- <AppTextArea
-                rows="10"
-                placeholder="Content"
-                id="content"
-                name="content"
-                v-model="form.content"
-              /> -->
-
               <div id="content">
                 <editor
-                  class="content-editor"
+                  class="body-editor"
                   v-model="form.content"
                   :api-key="tinymceAPI"
                   :init="tinyInit"
@@ -227,7 +219,16 @@
 
                 <div class="mt-1">
                   <div
-                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                    class="
+                      flex
+                      justify-center
+                      px-6
+                      pt-5
+                      pb-6
+                      border-2 border-gray-300 border-dashed
+                      rounded-md
+                      cursor-pointer
+                    "
                     @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
@@ -302,7 +303,13 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+          class="
+            w-full
+            text-white
+            bg-cyan-600
+            hover:bg-cyan-700
+            focus:ring-cyan-500
+          "
         >
           Submit
         </AppButton>
@@ -629,11 +636,5 @@ export default {
 .multiselect__input {
   border-radius: 5px !important;
   min-height: 40px;
-}
-
-.content-editor {
-  min-height: 200px;
-  max-height: 400px;
-  overflow-y: auto;
 }
 </style>

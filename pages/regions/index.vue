@@ -77,7 +77,7 @@ export default {
     async getTreeRegions(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('regions?per-page=7', {
+          .$get('admin/regions?per-page=7', {
             params: {
               page: query.page,
               ...query,

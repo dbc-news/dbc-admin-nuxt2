@@ -179,7 +179,7 @@ export default {
     async getUsers(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('users?per-page=5', {
+          .$get('admin/users?per-page=5', {
             params: {
               page: query.page,
               ...query,
@@ -194,7 +194,7 @@ export default {
     async showUser(id) {
       if (id) {
         try {
-          await this.$axios.$get(`users/${id}`).then((response) => {
+          await this.$axios.$get(`admin/users/${id}`).then((response) => {
             this.user = response.data
           })
         } catch (e) {}

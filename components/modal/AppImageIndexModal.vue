@@ -199,7 +199,7 @@ export default {
     async getImages(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('images?per-page=12', {
+          .$get('admin/images?per-page=12', {
             params: {
               page: query.page,
               ...query,

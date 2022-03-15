@@ -155,7 +155,7 @@ export default {
   },
   async asyncData({ app, error }) {
     try {
-      let response = await app.$axios.$get('categories/all')
+      let response = await app.$axios.$get('admin/categories/all')
       return {
         categories: response.data,
       }
@@ -181,7 +181,7 @@ export default {
     async deleteCategory(categorySlug) {
       try {
         await this.$axios
-          .delete(`categories/${categorySlug}`)
+          .delete(`admin/categories/${categorySlug}`)
           .then(({ data }) => {
             this.getTreeCategories()
             this.statusMessage('success', 'Category deleted successfully')
@@ -201,14 +201,15 @@ export default {
     },
 
     async createCategory() {
-      console.log(this.form)
       try {
-        await this.$axios.post(`categories`, this.form).then(({ data }) => {
-          this.statusMessage('success', 'Category created successfully')
-          this.getTreeCategories()
-          this.formClear()
-          this.errors = []
-        })
+        await this.$axios
+          .post(`admin/categories`, this.form)
+          .then(({ data }) => {
+            this.statusMessage('success', 'Category created successfully')
+            this.getTreeCategories()
+            this.formClear()
+            this.errors = []
+          })
       } catch (e) {
         this.errors = e.response.data.errors
         this.statusMessage('error', 'Something wrong')
@@ -226,7 +227,7 @@ export default {
     async getTreeCategories(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('categories?per-page=7', {
+          .$get('admin/categories?per-page=7', {
             params: {
               page: query.page,
               ...query,

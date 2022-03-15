@@ -235,7 +235,7 @@ export default {
     async getImages(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('images?per-page=12', {
+          .$get('admin/images?per-page=12', {
             params: {
               page: query.page,
               ...query,
@@ -308,7 +308,7 @@ export default {
         formData.append('cropY', this.form.cropY)
         formData.append('cropWidth', this.form.cropWidth)
         formData.append('cropHeight', this.form.cropHeight)
-        await this.$axios.post(`images`, formData).then(({ data }) => {
+        await this.$axios.post(`admin/images`, formData).then(({ data }) => {
           this.statusMessage('success', 'Thumbnail uploaded successfully')
           this.getImages()
           this.hideAppImageCropingModal()

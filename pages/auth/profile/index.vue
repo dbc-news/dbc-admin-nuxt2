@@ -48,13 +48,15 @@
                     <div
                       class="flex flex-col mt-6 space-y-3  justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4"
                     >
-                      <button
+                      <nuxt-link
+                        :to="{ name: 'auth-profile-update' }"
+                        exact
                         type="button"
                         class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
                       >
                         <PencilIcon class="w-5 h-5 mr-2 -ml-1 text-gray-400" />
                         <span>Edit</span>
-                      </button>
+                      </nuxt-link>
                     </div>
                   </div>
                 </div>

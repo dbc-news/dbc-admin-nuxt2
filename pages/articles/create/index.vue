@@ -345,10 +345,10 @@ export default {
 
   async asyncData({ app, error }) {
     try {
-      let categoryResponse = await app.$axios.$get('categories')
-      let tagResponse = await app.$axios.$get('tags')
-      let regionResponse = await app.$axios.$get('regions')
-      let topicResponse = await app.$axios.$get('topics')
+      let categoryResponse = await app.$axios.$get('admin/categories')
+      let tagResponse = await app.$axios.$get('admin/tags')
+      let regionResponse = await app.$axios.$get('admin/regions')
+      let topicResponse = await app.$axios.$get('admin/topics')
 
       return {
         categories: categoryResponse.data,
@@ -404,7 +404,7 @@ export default {
     async articleCreate() {
       console.log(this.form)
       try {
-        await this.$axios.post(`articles`, this.form).then(({ data }) => {
+        await this.$axios.post(`admin/articles`, this.form).then(({ data }) => {
           this.statusMessage('success', 'Article Created Successfully')
           this.errors = []
           this.form = []
@@ -430,7 +430,7 @@ export default {
             name.substring(0, 2) +
             Math.floor(Math.random() * 10000000),
         }
-        await this.$axios.post(`tags`, tagForm).then(({ data }) => {
+        await this.$axios.post(`admin/tags`, tagForm).then(({ data }) => {
           this.tags.push(data)
           this.selectedTags.push(data)
         })

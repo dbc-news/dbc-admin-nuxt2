@@ -236,7 +236,7 @@ export default {
     async createTag() {
       console.log(this.form)
       try {
-        await this.$axios.post(`tags`, this.form).then(({ data }) => {
+        await this.$axios.post(`admin/tags`, this.form).then(({ data }) => {
           this.statusMessage('success', 'Topic uploaded successfully')
           this.getTags()
           this.formClear()
@@ -257,7 +257,7 @@ export default {
     async getTags(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('tags?per-page=7', {
+          .$get('admin/tags?per-page=7', {
             params: {
               page: query.page,
               ...query,

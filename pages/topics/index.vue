@@ -196,10 +196,12 @@ export default {
 
     async deleteTopic(topicSlug) {
       try {
-        await this.$axios.delete(`topics/${topicSlug}`).then(({ data }) => {
-          this.getTopics()
-          this.statusMessage('success', 'Topic deleted successfully')
-        })
+        await this.$axios
+          .delete(`admin/topics/${topicSlug}`)
+          .then(({ data }) => {
+            this.getTopics()
+            this.statusMessage('success', 'Topic deleted successfully')
+          })
       } catch (error) {
         if (error.response.status === 500) {
           this.statusMessage('error', 'Server Error')
@@ -217,7 +219,7 @@ export default {
     async createTopic() {
       console.log(this.form)
       try {
-        await this.$axios.post(`topics`, this.form).then(({ data }) => {
+        await this.$axios.post(`admin/topics`, this.form).then(({ data }) => {
           this.statusMessage('success', 'Topic uploaded successfully')
           this.getTopics()
           this.formClear()
@@ -238,7 +240,7 @@ export default {
     async getTopics(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('topics?per-page=7', {
+          .$get('admin/topics?per-page=7', {
             params: {
               page: query.page,
               ...query,

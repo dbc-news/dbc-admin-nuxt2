@@ -217,16 +217,7 @@
 
                 <div class="mt-1">
                   <div
-                    class="
-                      flex
-                      justify-center
-                      px-6
-                      pt-5
-                      pb-6
-                      border-2 border-gray-300 border-dashed
-                      rounded-md
-                      cursor-pointer
-                    "
+                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
                     @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
@@ -301,13 +292,7 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="
-            w-full
-            text-white
-            bg-cyan-600
-            hover:bg-cyan-700
-            focus:ring-cyan-500
-          "
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
         >
           Submit
         </AppButton>
@@ -352,12 +337,12 @@ export default {
   async asyncData({ params, app, error }) {
     try {
       let articleResponse = await app.$axios.$get(
-        `articles/${encodeURI(params.slug)}`
+        `admin/articles/${encodeURI(params.slug)}`
       )
-      let categoryResponse = await app.$axios.$get('categories')
-      let tagResponse = await app.$axios.$get('tags')
-      let regionResponse = await app.$axios.$get('regions')
-      let topicResponse = await app.$axios.$get('topics')
+      let categoryResponse = await app.$axios.$get('admin/categories')
+      let tagResponse = await app.$axios.$get('admin/tags')
+      let regionResponse = await app.$axios.$get('admin/regions')
+      let topicResponse = await app.$axios.$get('admin/topics')
 
       let article = articleResponse.data
 
@@ -434,7 +419,7 @@ export default {
     async articleUpdate() {
       try {
         await this.$axios
-          .patch(`articles/${this.article.slug}`, this.form)
+          .patch(`admin/articles/${this.article.slug}`, this.form)
           .then(({ data }) => {
             this.statusMessage('success', 'Article updated')
             this.errors = []
@@ -461,7 +446,7 @@ export default {
             Math.floor(Math.random() * 10000000),
         }
 
-        await this.$axios.post(`tags`, tagForm).then(({ data }) => {
+        await this.$axios.post(`admin/tags`, tagForm).then(({ data }) => {
           this.tags.push(data)
           this.selectedTags.push(data)
         })

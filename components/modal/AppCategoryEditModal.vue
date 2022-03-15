@@ -67,10 +67,22 @@
               </div>
 
               <div
-                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
+                class="
+                  flex
+                  items-center
+                  mt-3
+                  mb-1
+                  text-right
+                  sm:rounded-bl-md sm:rounded-br-md
+                "
               >
                 <AppButton
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-cyan-600
+                    hover:bg-cyan-700
+                    focus:ring-cyan-500
+                  "
                 >
                   Update
                 </AppButton>
@@ -158,7 +170,10 @@ export default {
     async updateCateogy() {
       try {
         await this.$axios
-          .patch(`categories/${this.selectedCatFromCatPage.slug}`, this.form)
+          .patch(
+            `admin/categories/${this.selectedCatFromCatPage.slug}`,
+            this.form
+          )
           .then(({ data }) => {
             this.statusMessage('success', 'Category updated successfully')
             this.hideCategoyEditModal()

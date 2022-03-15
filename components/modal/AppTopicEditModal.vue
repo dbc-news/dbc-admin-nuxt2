@@ -137,7 +137,7 @@ export default {
     async updateTopic() {
       try {
         await this.$axios
-          .patch(`topics/${this.selectedTopic.slug}`, this.form)
+          .patch(`admin/topics/${this.selectedTopic.slug}`, this.form)
           .then(({ data }) => {
             this.statusMessage('success', 'Topic uploaded successfully')
             this.hideTopicEditModal()

@@ -205,16 +205,7 @@
 
                 <div class="mt-1">
                   <div
-                    class="
-                      flex
-                      justify-center
-                      px-6
-                      pt-5
-                      pb-6
-                      border-2 border-gray-300 border-dashed
-                      rounded-md
-                      cursor-pointer
-                    "
+                    class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
                     @click.prevent="showAppImageIndexModal"
                   >
                     <div class="space-y-1 text-center">
@@ -289,13 +280,7 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="
-            w-full
-            text-white
-            bg-cyan-600
-            hover:bg-cyan-700
-            focus:ring-cyan-500
-          "
+          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
         >
           Submit
         </AppButton>
@@ -493,7 +478,7 @@ export default {
       )
       let categoryResponse = await app.$axios.$get('admin/categories')
       let tagResponse = await app.$axios.$get('admin/tags')
-      let regionResponse = await app.$axios.$get('admin/regions')
+      let regionResponse = await app.$axios.$get('admin/regions/all')
       let topicResponse = await app.$axios.$get('admin/topics')
 
       let article = articleResponse.data

@@ -137,19 +137,17 @@
                       {{ errors.phone_number[0] }}
                     </AppInputError>
                   </div>
-
                   <div class="col-span-6 sm:col-span-3">
                     <AppLabel>Region</AppLabel>
-                    <select
-                      id="country"
-                      name="country"
-                      autocomplete="country-name"
-                      class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
+                    <multiselect
+                      v-model="selectedRegion"
+                      placeholder="Search region"
+                      label="local_name"
+                      track-by="uuid"
+                      :options="regions"
+                      :hideSelected="true"
+                      :regionable="true"
+                    ></multiselect>
                   </div>
                 </div>
               </div>
@@ -170,21 +168,32 @@
 </template>
 <script>
 import { UserCircleIcon, PhotographIcon } from '@vue-hero-icons/outline'
+import Multiselect from 'vue-multiselect'
 
 export default {
   middleware: ['authIndent'],
   data() {
     return {
       errors: [],
+      selectedRegion: null,
+      regions: [],
+
       user: null,
       thumbnail: null,
       temporaryThumb: null,
     }
   },
 
+  watch: {
+    selectedRegion() {
+      this.form.region_id = this.selectedRegion.id
+    },
+  },
+
   components: {
     UserCircleIcon,
     PhotographIcon,
+    Multiselect,
   },
 
   async asyncData({ params, app }) {
@@ -192,11 +201,14 @@ export default {
       let userResponse = await app.$axios.$get(
         `admin/users/${encodeURI(params.id)}`
       )
+      let regionResponse = await app.$axios.$get('admin/regions/all')
 
       let user = userResponse.data
 
       return {
         user: user,
+        regions: regionResponse.data,
+        selectedRegion: user.region,
         form: {
           name: user.name,
           display_name: user.display_name,
@@ -205,10 +217,12 @@ export default {
           bio: user.bio,
           password: null,
           password_confirmation: null,
+          region_id: user.region_id,
         },
       }
     } catch (e) {
       console.log(e.response.data.errors)
+      // error({ statusCode: 404, message: 'This page could not be found.' })
     }
   },
 
@@ -227,6 +241,7 @@ export default {
     },
 
     async updatePersonalInfo() {
+      console.log(this.form)
       try {
         await this.$axios
           .patch(`admin/users/personal-info/${this.user.id}`, {
@@ -234,6 +249,7 @@ export default {
             display_name: this.form.display_name,
             email: this.form.email,
             phone_number: this.form.phone_number,
+            region_id: this.form.region_id,
           })
           .then(({ data }) => {
             this.statusMessage('success', 'User updated')
@@ -274,3 +290,17 @@ export default {
   },
 }
 </script>
+
+<style >
+@import 'vue-multiselect/dist/vue-multiselect.min.css';
+
+.body-editor {
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.multiselect__input {
+  border-radius: 5px !important;
+  min-height: 40px;
+}
+</style>

@@ -204,7 +204,7 @@ export default {
 
     link(id) {
       return {
-        name: 'users-id',
+        name: 'users-edit-id',
         params: {
           id,
         },

@@ -8,9 +8,18 @@
       class="inline-flex ml-2 overflow-hidden text-center  h-7 whitespace-nowrap text-ellipsis"
     >
       <span class="root-url">{{ url }}</span>
-      <span class="subdirectory-url">/{{ subdirectory }}/</span>
+      <span class="mx-2">/{{ subdirectory }}/</span>
       <span
-        class="p-1 overflow-hidden bg-gray-200 whitespace-nowrap text-ellipsis"
+        class="
+          p-1
+          overflow-hidden
+          bg-gray-200
+          rounded-md
+          whitespace-nowrap
+          text-ellipsis
+          px-2
+          py-0.5
+        "
         v-show="slug && !isEditing"
         >{{ slug }}</span
       >

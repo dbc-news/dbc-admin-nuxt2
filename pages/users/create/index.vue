@@ -26,11 +26,20 @@
               ></path>
             </svg>
           </div>
-          <div class="px-4 pt-4 pb-8 bg-white sm:px-10 rounded-tr-4xl">
+          <div class="px-4 pb-8 bg-white sm:px-10 rounded-tr-4xl">
+            <div class="flex justify-center">
+              <nuxt-link to="/" href="">
+                <img
+                  src="@/assets/images/dbc-red-logo.png"
+                  class="h-auto w-28"
+                  alt="logo"
+                />
+              </nuxt-link>
+            </div>
             <h1 class="text-2xl font-semibold text-center text-gray-900">
               New Register!
             </h1>
-            <form class="mt-8" @submit.prevent="register">
+            <form class="mt-3" @submit.prevent="register">
               <div class="w-full p-2">
                 <AppLabel>Name</AppLabel>
                 <AppInput
@@ -66,7 +75,7 @@
                   type="password"
                   id="password"
                   name="password"
-                  v-model="form.name"
+                  v-model="form.password"
                 />
                 <AppInputError v-if="errors.password">
                   {{ errors.password[0] }}
@@ -108,38 +117,39 @@ export default {
     return {
       errors: [],
       form: {
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+        name: null,
+        email: null,
+        password: null,
+        password_confirmation: null,
       },
     }
   },
 
   methods: {
+    statusMessage(type, message) {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: type,
+        title: message,
+      })
+    },
+
     async register() {
+      console.log(this.form)
       try {
-        await this.$axios.get('sanctum/csrf-cookie')
-        await this.$axios.post('register', this.form)
-        // await this.$auth.login('laravelSanctum', {
-        //   data: { email: this.form.email, password: this.form.password },
-        // })
-        // this.$notify(
-        //   {
-        //     group: 'success',
-        //     title: 'Welcome',
-        //     text: "You've been registered sucessfully!",
-        //   },
-        //   2000
-        // )
+        await this.$axios.post('auth/register', this.form).then((data) => {
+          this.statusMessage('success', 'User Created Successfully!')
+          this.errors = []
+          this.form = []
+        })
       } catch (e) {
-        // this.$notify(
-        //   {
-        //     title: 'Registration Failed',
-        //     text: 'Please enter correct credentials!',
-        //   },
-        //   2000
-        // )
+        this.errors = e.response.data.errors
+        this.statusMessage('error', 'Something wrong!')
       }
     },
   },

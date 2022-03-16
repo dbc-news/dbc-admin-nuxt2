@@ -3,6 +3,14 @@
     class="flex-shrink-0 hidden h-screen bg-white border-r border-gray-200  xl:order-first xl:flex xl:flex-col w-96"
   >
     <div class="px-6 pt-6 pb-4">
+      <div>
+        <nuxt-link
+          :to="{ name: 'users-create' }"
+          class="inline-flex items-center justify-center w-full px-4 py-2 font-medium tracking-wide text-center text-white border border-transparent rounded-md shadow-sm  text-bases focus:outline-none focus:ring-2 focus:ring-offset-2 bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+        >
+          Create New User
+        </nuxt-link>
+      </div>
       <h2 class="text-lg font-medium text-gray-900">Directory</h2>
       <p class="mt-1 text-sm text-gray-600">
         Search directory of {{ users.length }} employees

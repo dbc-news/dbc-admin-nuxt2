@@ -92,7 +92,6 @@
 
 
 <script>
-import AppLabel from '~/components/form/AppLabel.vue'
 export default {
   layout: 'guest',
   middleware: 'guest',
@@ -119,6 +118,5 @@ export default {
       }
     },
   },
-  components: { AppLabel },
 }
 </script>

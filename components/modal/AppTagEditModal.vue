@@ -42,6 +42,8 @@
                     id="slug"
                     name="slug"
                     v-model="form.slug"
+                    class="cursor-not-allowed"
+                    disabled="disabled"
                   />
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}

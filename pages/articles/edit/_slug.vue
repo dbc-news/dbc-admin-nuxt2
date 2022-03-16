@@ -26,20 +26,6 @@
                 </AppInputError>
               </div>
 
-              <div class="w-full px-2 py-4">
-                <AppLabel>Slug</AppLabel>
-                <AppInput
-                  placeholder="Slug"
-                  type="text"
-                  id="slug"
-                  name="slug"
-                  v-model="form.slug"
-                />
-                <AppInputError v-if="errors.slug">
-                  {{ errors.slug[0] }}
-                </AppInputError>
-              </div>
-
               <div class="w-full px-2 py-4 md:w-6/12">
                 <AppLabel>Kicker</AppLabel>
                 <AppInput

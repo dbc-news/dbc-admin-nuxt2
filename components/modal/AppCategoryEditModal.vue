@@ -43,6 +43,8 @@
                     id="slug"
                     name="slug"
                     v-model="form.slug"
+                    class="cursor-not-allowed"
+                    disabled="disabled"
                   />
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}
@@ -189,7 +191,9 @@ export default {
       let matchedCat = this.categoriesFormCatPage.filter(
         (category) => category.id === this.selectedCatFromCatPage.id
       )
-      this.selectedCatParent = matchedCat[0].parent ?? null
+      if (matchedCat.length > 0) {
+        this.selectedCatParent = matchedCat[0].parent
+      }
     },
   },
 }

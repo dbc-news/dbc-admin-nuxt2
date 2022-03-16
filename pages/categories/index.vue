@@ -21,19 +21,13 @@
                     name="name"
                     v-model="form.name"
                   />
+
                   <AppInputError v-if="errors.name">
                     {{ errors.name[0] }}
                   </AppInputError>
-                </div>
-                <div class="w-full py-1 md:py-3">
-                  <AppLabel> Slug </AppLabel>
-                  <AppInput
-                    placeholder="Slug"
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    v-model="form.slug"
-                  />
+
+                  <SlugWidget :title="form.name" @slug-changed="updateSlug" />
+
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}
                   </AppInputError>
@@ -176,6 +170,10 @@ export default {
 
     reloadCategories() {
       this.getTreeCategories()
+    },
+
+    async updateSlug(val) {
+      this.form.slug = val
     },
 
     async deleteCategory(categorySlug) {

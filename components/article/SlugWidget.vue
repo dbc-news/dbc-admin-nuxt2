@@ -25,17 +25,16 @@
       >
       <input
         v-show="isEditing"
-        id="min-w-40 max-w-45"
-        size="sm"
+        id="slug-editor"
         name="slug"
         placeholder="Slug"
-        class="flex-grow w-full px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+        class="flex-grow w-full px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none min-w-40 max-w-45"
         v-model="customSlug"
-        @keyup="adjustWidth"
-        @keydown.esc.prevent
-        @keydown.enter.prevent
       />
     </div>
+    <!-- @keyup="adjustWidth"
+        @keydown.esc.prevent
+        @keydown.enter.prevent -->
 
     <div class="ml-2">
       <button
@@ -116,6 +115,7 @@ export default {
           Math.ceil(ctx.measureText(val).width + 25) + 'px'
       }
     },
+
     editSlug: function () {
       this.customSlug = this.slug
       this.$emit('edit', this.slug)
@@ -124,22 +124,26 @@ export default {
         document.getElementById('slug-editor').focus()
       }, 0) // must set timeout to wait for the thread to become available
     },
+
     saveSlug: function () {
       if (this.customSlug !== this.slug) this.wasEdited = true
       this.setSlug(this.customSlug)
       this.$emit('save', this.slug)
       this.isEditing = false
     },
+
     resetEditing: function () {
       this.setSlug(this.title)
       this.$emit('reset', this.slug)
       this.wasEdited = false
       this.isEditing = false
     },
+
     cancelEditing: function () {
       this.$emit('cancel', this.customSlug, this.slug)
       this.isEditing = false
     },
+
     setSlug(newVal, count = 0) {
       if (newVal === '') return ''
       let slug = this.slugify(newVal + (count > 0 ? `-${count}` : ''))
@@ -155,6 +159,7 @@ export default {
         .replace(/\s/g, delimiter)
     },
   },
+
   watch: {
     title: _.debounce(function () {
       if (this.wasEdited == false) this.setSlug(this.title)

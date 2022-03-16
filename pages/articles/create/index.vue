@@ -21,22 +21,13 @@
                   name="title"
                   v-model="form.title"
                 />
-                <SlugWidget :title="form.title" @slug-changed="updateSlug" />
 
                 <AppInputError v-if="errors.title">
                   {{ errors.title[0] }}
                 </AppInputError>
-              </div>
 
-              <div class="w-full px-2 py-4">
-                <AppLabel>Slug</AppLabel>
-                <AppInput
-                  placeholder="Slug"
-                  type="text"
-                  id="slug"
-                  name="slug"
-                  v-model="form.slug"
-                />
+                <SlugWidget :title="form.title" @slug-changed="updateSlug" />
+
                 <AppInputError v-if="errors.slug">
                   {{ errors.slug[0] }}
                 </AppInputError>
@@ -337,6 +328,8 @@ export default {
 
   data() {
     return {
+      tinymceAPI: process.env.TINY_MCE_API,
+
       errors: [],
       categories: [],
       tags: [],
@@ -546,6 +539,10 @@ export default {
   methods: {
     showAppImageIndexModal() {
       this.$modal.show('app-image-index-modal')
+    },
+
+    async updateSlug(val) {
+      this.form.slug = val
     },
 
     statusMessage(type, message) {

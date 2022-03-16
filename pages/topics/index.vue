@@ -24,16 +24,9 @@
                   <AppInputError v-if="errors.name">
                     {{ errors.name[0] }}
                   </AppInputError>
-                </div>
-                <div class="w-full py-1 md:py-3">
-                  <AppLabel> Slug </AppLabel>
-                  <AppInput
-                    placeholder="SLug"
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    v-model="form.slug"
-                  />
+
+                  <SlugWidget :title="form.name" @slug-changed="updateSlug" />
+
                   <AppInputError v-if="errors.slug">
                     {{ errors.slug[0] }}
                   </AppInputError>
@@ -223,6 +216,7 @@ export default {
           this.statusMessage('success', 'Topic uploaded successfully')
           this.getTopics()
           this.formClear()
+          this.errors = []
         })
       } catch (e) {
         this.errors = e.response.data.errors
@@ -235,6 +229,10 @@ export default {
         name: '',
         slug: '',
       }
+    },
+
+    async updateSlug(val) {
+      this.form.slug = val
     },
 
     async getTopics(query = this.$route.query) {

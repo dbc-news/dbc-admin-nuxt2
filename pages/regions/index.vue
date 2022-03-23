@@ -28,8 +28,12 @@
                       </div>
                     </div>
                   </div>
-
-                  <RegionItem :treeRegions="treeRegions" />
+                  <div v-if="treeRegions.length">
+                    <RegionItem :treeRegions="treeRegions" />
+                  </div>
+                  <div class="w-full p-2 text-center" v-else>
+                    No region listed yet
+                  </div>
                 </div>
               </div>
             </div>

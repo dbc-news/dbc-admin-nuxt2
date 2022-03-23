@@ -87,18 +87,16 @@
                       </div>
                     </div>
                   </div>
-                  <template v-if="treeCategories.length">
+                  <div v-if="treeCategories.length">
                     <CategoryItem
                       :treeCategories="treeCategories"
                       @editCategoryActionFromItem="editCategory"
                       @deleteCategoryActionFromItem="deleteCategory"
                     />
-                  </template>
-                  <template v-else>
-                    <div class="p-2 text-center">
-                      <p class="text-gray-600">No categories found</p>
-                    </div>
-                  </template>
+                  </div>
+                  <div class="w-full p-2 text-center" v-else>
+                    No category listed yet
+                  </div>
                 </div>
               </div>
             </div>
@@ -149,20 +147,10 @@ export default {
     '$route.query'(query) {
       this.getTreeCategories(query)
     },
+
     selectedCategoryParent() {
       this.form.parent_id = this.selectedCategoryParent.id
     },
-  },
-
-  async asyncData({ app, error }) {
-    try {
-      let response = await app.$axios.$get('admin/categories/all')
-      return {
-        categories: response.data,
-      }
-    } catch (e) {
-      //
-    }
   },
 
   async asyncData({ app }) {
@@ -220,6 +208,7 @@ export default {
           .then(({ data }) => {
             this.statusMessage('success', 'Category created successfully')
             this.getTreeCategories()
+            this.getAllCategories()
             this.formClear()
             this.errors = []
           })
@@ -264,12 +253,23 @@ export default {
         title: message,
       })
     },
+
+    async getAllCategories() {
+      try {
+        await this.$axios.$get('admin/categories/all').then((response) => {
+          this.categories = response.data
+        })
+      } catch (e) {
+        //
+      }
+    },
   },
 
   mounted() {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
+    this.getAllCategories()
   },
 }
 </script>

@@ -33,7 +33,7 @@
               :article="article"
             />
           </div>
-          <div class="w-full p-4" v-else>No article listed yet</div>
+          <div class="w-full p-2 text-center" v-else>No article listed yet</div>
 
           <div class="px-2 pb-2 bg-white">
             <AppPagination :meta="meta" v-if="meta.last_page > 1" />

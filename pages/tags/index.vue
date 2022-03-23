@@ -86,7 +86,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="flex flex-wrap items-center w-full" v-else>
+                <div class="w-full p-2 text-center" v-else>
                   No tag listed yet
                 </div>
               </div>

@@ -125,7 +125,9 @@
                       <AppPagination :meta="meta" v-if="meta.last_page > 1" />
                     </div>
                   </div>
-                  <div class="w-full p-4" v-else>No topic listed yet</div>
+                  <div class="w-full p-4 text-center" v-else>
+                    No topic listed yet
+                  </div>
                 </div>
               </div>
             </div>

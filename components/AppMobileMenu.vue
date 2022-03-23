@@ -1,8 +1,9 @@
 <template>
-  <div
-    class="fixed inset-0 z-40 flex transition duration-1000 ease-in-out delay-1000  lg:hidden"
-  >
-    <div class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
+  <div class="fixed inset-0 z-40 flex lg:hidden">
+    <div
+      class="fixed inset-0 bg-gray-600 bg-opacity-75"
+      @click.prevent="closeDrawer"
+    ></div>
 
     <div
       class="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4  bg-cyan-700"
@@ -11,33 +12,18 @@
         <button
           type="button"
           class="flex items-center justify-center w-10 h-10 ml-1 rounded-full  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-          @click="$emit('toggleDrawer')"
+          @click.prevent="closeDrawer"
         >
           <span class="sr-only">Close sidebar</span>
-          <svg
-            class="w-6 h-6 text-white"
-            x-description="Heroicon name: outline/x"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
+          <XIcon class="w-6 h-6 text-white" />
         </button>
       </div>
 
       <div class="flex items-center flex-shrink-0 px-4">
         <img
-          class="w-auto h-8"
-          src="https://tailwindui.com/img/logos/easywire-logo-cyan-300-mark-white-text.svg"
-          alt="Easywire logo"
+          src="@/assets/images/dbc-white-logo.svg"
+          alt="White Logo"
+          class="w-auto h-12"
         />
       </div>
       <nav
@@ -158,6 +144,8 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
+
 import {
   CogIcon,
   TagIcon,
@@ -167,7 +155,9 @@ import {
   ShieldCheckIcon,
   DatabaseIcon,
   UserGroupIcon,
+  XIcon,
 } from '@vue-hero-icons/outline'
+
 import { LocationMarkerIcon, NewspaperIcon } from '@vue-hero-icons/solid'
 export default {
   components: {
@@ -181,6 +171,12 @@ export default {
     ShieldCheckIcon,
     DatabaseIcon,
     UserGroupIcon,
+    XIcon,
+  },
+  methods: {
+    ...mapActions({
+      closeDrawer: 'drawer/close',
+    }),
   },
 }
 </script>

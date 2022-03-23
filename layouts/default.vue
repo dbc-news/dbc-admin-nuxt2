@@ -4,12 +4,18 @@
       <div class="" style="">
         <div class="h-full overflow-y-auto bg-gray-100">
           <div class="min-h-full">
-            <AppMobileMenu v-show="drawer" @toggleDrawer="toggleDrawer" />
+            <AppMobileMenu
+              :class="
+                isOpen
+                  ? 'ml-0  transform transition-all ease-in duration-300'
+                  : 'ml-[-20rem] invisible opacity-0 transform transition-all ease-out duration-300'
+              "
+            />
 
             <AppSidebar />
 
             <div class="flex flex-col flex-1 lg:pl-64">
-              <AppHeader @toggleDrawer="toggleDrawer" />
+              <AppHeader />
 
               <main class="flex-1 pb-8">
                 <Nuxt />
@@ -22,16 +28,13 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      drawer: true,
-    }
-  },
-  methods: {
-    toggleDrawer() {
-      this.drawer = !this.drawer
-    },
+  computed: {
+    ...mapGetters({
+      isOpen: 'drawer/isOpen',
+    }),
   },
 }
 </script>

@@ -54,8 +54,9 @@
             >
               <img
                 class="w-8 h-8 rounded-full"
+                v-if="$auth.user.data.profile_photo_path"
                 :src="$auth.user.data.profile_photo_path"
-                alt=""
+                :alt="$auth.user.data.name"
               />
               <span
                 class="hidden ml-3 text-sm font-medium text-gray-700 lg:block"

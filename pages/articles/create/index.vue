@@ -330,7 +330,7 @@ export default {
         title: '',
         slug: '',
         content: '',
-        status: '',
+        status: 'draft',
         pinned: false,
         thumbnail: null,
         tags: [],

@@ -89,8 +89,20 @@
 </template>
 
 <script>
+import { ClockIcon, UserIcon } from '@vue-hero-icons/outline'
+
 export default {
-  props: ['article'],
+  props: {
+    article: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  components: {
+    ClockIcon,
+    UserIcon,
+  },
 
   methods: {
     link(arg) {
@@ -101,6 +113,7 @@ export default {
         },
       }
     },
+
     async deleteArticle(articleSlug) {
       try {
         await this.$axios

@@ -34,13 +34,13 @@
         </form>
       </div>
       <div class="flex items-center ml-4 md:ml-6">
-        <button
+        <!-- <button
           type="button"
-          class="p-1 text-gray-400 bg-white rounded-full  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+          class="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
         >
           <span class="sr-only">View notifications</span>
           <BellIcon class="w-6 h-6" />
-        </button>
+        </button> -->
 
         <div
           @click.prevent="profileDropdown = !profileDropdown"
@@ -54,13 +54,13 @@
             >
               <img
                 class="w-8 h-8 rounded-full"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                :src="$auth.user.data.profile_photo_path"
                 alt=""
               />
               <span
                 class="hidden ml-3 text-sm font-medium text-gray-700 lg:block"
-                ><span class="sr-only">Open user menu for </span>Emilia
-                Birch</span
+                ><span class="sr-only">Open user menu for </span
+                >{{ $auth.user.data.name }}</span
               >
               <ChevronDownIcon
                 class="flex-shrink-0 hidden w-5 h-5 ml-1 text-gray-400 lg:block"

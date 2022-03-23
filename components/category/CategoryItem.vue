@@ -7,15 +7,6 @@
     >
       <div class="flex justify-between group">
         <div class="">{{ category.name }}</div>
-
-        <!-- @if ($region->trashed())
-                <div class="opacity-0 cursor-default group-hover:opacity-100">
-                    <button class="px-2 text-sm text-gray-400 hover:text-gray-500"
-                        wire:click.prevent="$set('showingRestoreModal', {{ $region->id }})">
-                        {{ _('Restore') }}
-                    </button>
-                </div>
-            @else -->
         <div class="opacity-0 cursor-default group-hover:opacity-100">
           <button
             class="px-2 text-sm text-red-400 hover:text-red-500"
@@ -56,6 +47,7 @@ export default {
     editCategory(category) {
       this.$emit('editCategoryActionFromItem', category)
     },
+    
     deleteCategory(slug) {
       this.$emit('deleteCategoryActionFromItem', slug)
     },

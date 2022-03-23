@@ -32,7 +32,7 @@ export default {
   components: true,
 
   router: {
-    middleware: ['clearValidationErrors'],
+    middleware: ['clearValidationErrors', 'drawerMenuMiddleware'],
   },
 
   buildModules: ['@nuxt/postcss8', '@nuxtjs/tailwindcss'],

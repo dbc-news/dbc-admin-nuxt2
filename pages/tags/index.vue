@@ -134,6 +134,14 @@ export default {
     },
   },
 
+  async asyncData({ app }) {
+    let tagsResponse = await app.$axios.$get('admin/tags?per-page=7')
+    return {
+      tags: tagsResponse.data,
+      meta: tagsResponse.meta,
+    }
+  },
+
   methods: {
     async search(e) {
       await this.$router
@@ -159,7 +167,6 @@ export default {
     },
 
     async createTag() {
-      console.log(this.form)
       try {
         await this.$axios.post(`admin/tags`, this.form).then(({ data }) => {
           this.statusMessage('success', 'Topic uploaded successfully')
@@ -214,8 +221,6 @@ export default {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
-
-    this.getTags()
   },
 }
 </script>

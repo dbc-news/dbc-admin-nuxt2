@@ -87,12 +87,18 @@
                       </div>
                     </div>
                   </div>
-
-                  <CategoryItem
-                    :treeCategories="treeCategories"
-                    @editCategoryActionFromItem="editCategory"
-                    @deleteCategoryActionFromItem="deleteCategory"
-                  />
+                  <template v-if="treeCategories.length">
+                    <CategoryItem
+                      :treeCategories="treeCategories"
+                      @editCategoryActionFromItem="editCategory"
+                      @deleteCategoryActionFromItem="deleteCategory"
+                    />
+                  </template>
+                  <template v-else>
+                    <div class="p-2 text-center">
+                      <p class="text-gray-600">No categories found</p>
+                    </div>
+                  </template>
                 </div>
               </div>
             </div>
@@ -147,6 +153,7 @@ export default {
       this.form.parent_id = this.selectedCategoryParent.id
     },
   },
+
   async asyncData({ app, error }) {
     try {
       let response = await app.$axios.$get('admin/categories/all')
@@ -157,6 +164,14 @@ export default {
       //
     }
   },
+
+  async asyncData({ app }) {
+    let categoriesResponse = await app.$axios.$get('admin/categories')
+    return {
+      treeCategories: categoriesResponse.data,
+    }
+  },
+
   methods: {
     async search(e) {
       await this.$router
@@ -225,7 +240,7 @@ export default {
     async getTreeCategories(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('admin/categories?per-page=7', {
+          .$get('admin/categories', {
             params: {
               page: query.page,
               ...query,
@@ -255,7 +270,6 @@ export default {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
-    this.getTreeCategories()
   },
 }
 </script>

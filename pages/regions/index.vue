@@ -63,6 +63,13 @@ export default {
     },
   },
 
+  async asyncData({ app }) {
+    let regionsResponse = await app.$axios.$get('admin/regions')
+    return {
+      treeRegions: regionsResponse.data,
+    }
+  },
+
   methods: {
     async search(e) {
       await this.$router
@@ -77,7 +84,7 @@ export default {
     async getTreeRegions(query = this.$route.query) {
       try {
         await this.$axios
-          .$get('admin/regions?per-page=7', {
+          .$get('admin/regions', {
             params: {
               page: query.page,
               ...query,
@@ -108,7 +115,6 @@ export default {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
-    this.getTreeRegions()
   },
 }
 </script>

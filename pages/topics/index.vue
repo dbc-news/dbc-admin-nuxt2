@@ -172,6 +172,14 @@ export default {
     },
   },
 
+  async asyncData({ app }) {
+    let topicsResponse = await app.$axios.$get('admin/topics?per-page=7')
+    return {
+      topics: topicsResponse.data,
+      meta: topicsResponse.meta,
+    }
+  },
+
   methods: {
     async search(e) {
       await this.$router
@@ -269,7 +277,6 @@ export default {
     if (this.$route.query.search) {
       this.searching = this.$route.query.search
     }
-    this.getTopics()
   },
 }
 </script>

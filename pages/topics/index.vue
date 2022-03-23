@@ -121,8 +121,8 @@
                       </div>
                     </div>
 
-                    <div class="px-2 pb-2 bg-white">
-                      <AppPagination :meta="meta" v-if="meta.last_page > 1" />
+                    <div class="px-2 pb-2 bg-white" v-if="meta.last_page > 1">
+                      <AppPagination :meta="meta" />
                     </div>
                   </div>
                   <div class="w-full p-4 text-center" v-else>

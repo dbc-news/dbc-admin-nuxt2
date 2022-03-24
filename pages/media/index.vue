@@ -63,7 +63,17 @@
                     >Image Preview :</AppLabel
                   >
                   <div sm="10">
-                    <vue-cropper
+                    <img
+                      :src="temporaryThumb"
+                      alt=""
+                      style="
+                        width: 100%;
+                        max-width: 100%;
+                        height: auto;
+                        max-height: 560px;
+                      "
+                    />
+                    <!-- <vue-cropper
                       v-if="temporaryThumb"
                       ref="cropper"
                       :aspect-ratio="600 / 352"
@@ -77,7 +87,7 @@
                         max-height: 560px;
                       "
                     >
-                    </vue-cropper>
+                    </vue-cropper> -->
                   </div>
                   <AppInputError v-if="errors.thumbnail">
                     {{ errors.thumbnail[0] }}

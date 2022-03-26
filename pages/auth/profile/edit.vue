@@ -12,13 +12,13 @@
             </p>
           </div>
         </div>
+
         <div class="mt-5 md:mt-0 md:col-span-2">
           <form @submit.prevent="updateProfile">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
               <div class="px-4 py-5 space-y-6 bg-white sm:p-6">
                 <div>
-                  <AppLabel> Photo dfds</AppLabel>
-
+                  <AppLabel> Photo</AppLabel>
                   <div class="flex items-center mt-1">
                     <span
                       class="inline-block w-12 h-12 mr-3 overflow-hidden bg-gray-100 rounded-full "
@@ -291,7 +291,9 @@ export default {
 
   watch: {
     selectedRegion() {
-      this.form.region_id = this.selectedRegion.id
+      if (this.selectedRegion) {
+        this.form.region_id = this.selectedRegion.id
+      }
     },
   },
 

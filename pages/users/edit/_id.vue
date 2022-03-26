@@ -14,6 +14,7 @@
             </p>
           </div>
         </div>
+
         <div class="mt-5 md:mt-0 md:col-span-2">
           <form @submit.prevent="changePassword">
             <div class="overflow-hidden shadow sm:rounded-md">
@@ -45,6 +46,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
@@ -77,6 +79,7 @@
             </p>
           </div>
         </div>
+
         <div class="mt-5 md:mt-0 md:col-span-2">
           <form @submit.prevent="updatePersonalInfo">
             <div class="overflow-hidden shadow sm:rounded-md">
@@ -137,6 +140,7 @@
                       {{ errors.phone_number[0] }}
                     </AppInputError>
                   </div>
+
                   <div class="col-span-6 sm:col-span-3">
                     <AppLabel>Region</AppLabel>
                     <multiselect
@@ -151,6 +155,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
@@ -186,7 +191,9 @@ export default {
 
   watch: {
     selectedRegion() {
-      this.form.region_id = this.selectedRegion.id
+      if (this.selectedRegion) {
+        this.form.region_id = this.selectedRegion.id
+      }
     },
   },
 

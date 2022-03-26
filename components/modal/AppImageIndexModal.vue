@@ -18,70 +18,37 @@
     <div class="px-2 pt-8 sm:gap-2 sm:px-4">
       <div class="flex">
         <div
-          class="
-            p-3
-            bg-white
-            border-b-0 border-gray-300 border-dashed
-            cursor-pointer
-            rounded-t-md
-          "
+          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
           :class="tab === 'thumbnail' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('thumbnail')"
         >
           Thumbnails
         </div>
-        <!-- <div
-          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer rounded-t-md"
+        <div
+          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
           :class="tab === 'upload' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('upload')"
         >
           Upload
-        </div> -->
+        </div>
         <div class="flex-grow p-2 pr-0 sm:gap-2 sm:pl-4">
           <input
             type="search"
             placeholder="Searh"
             @keyup="search"
             v-model="searching"
-            class="
-              flex-grow
-              w-full
-              h-8
-              px-2
-              border border-gray-300
-              rounded-md
-              shadow-sm
-              focus:border-cyan-300
-              focus:ring
-              focus:ring-cyan-200
-              focus:ring-opacity-50
-              focus:outline-none
-            "
+            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
           />
         </div>
       </div>
 
       <div
-        class="
-          grid grid-cols-12
-          gap-3
-          p-3
-          border-2 border-gray-300 border-dashed
-          rounded-md rounded-tl-none
-        "
+        class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
         v-if="images.length"
         v-show="tab === 'thumbnail'"
       >
         <div
-          class="
-            relative
-            col-span-6
-            border border-gray-100
-            sm:col-span-4
-            md:col-span-3
-            lg:col-span-2
-            bg-gray-50
-          "
+          class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
           v-for="image in images"
           :key="image.id"
         >
@@ -125,14 +92,122 @@
       </div>
       <AppPagination :meta="meta" v-if="meta.last_page > 1" />
       <div
-        class="
-          p-3
-          border-2 border-gray-300 border-dashed
-          rounded-md rounded-tl-none
-        "
+        class="p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
         v-show="tab === 'upload'"
       >
-        upload
+        <div class="flex flex-wrap">
+          <div class="w-full">
+            <div class="mt-1">
+              <div
+                class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+              >
+                <div class="space-y-1 text-center">
+                  <ImagePlus />
+                  <div class="flex text-sm text-gray-600">
+                    <label
+                      for="file-upload"
+                      class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        type="file"
+                        id="file-upload"
+                        name="file-upload"
+                        placeholder="Choose a file..."
+                        drop-placeholder="Drop file here..."
+                        @change="selectingThumbnail"
+                        class="sr-only"
+                      />
+                    </label>
+                    <p class="pl-1">or drag and drop</p>
+                  </div>
+                  <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                </div>
+              </div>
+              <modal class="relative" name="app-image-croping-modal">
+                <div class="absolute top-2 right-2">
+                  <XIcon
+                    class="
+                      w-5
+                      h-5
+                      text-red-600
+                      border border-red-500
+                      rounded-full
+                      cursor-pointer
+                      p-0.5
+                    "
+                    @click="hideAppImageCropingModal"
+                  />
+                </div>
+
+                <div class="p-2 sm:p-4 lg:p-8">
+                  <form @submit.prevent="uploadThumbnail">
+                    <div>
+                      <AppLabel class="text-base font-semibold text-green-700"
+                        >Image Preview :</AppLabel
+                      >
+                      <div sm="10">
+                        <img
+                          :src="temporaryThumb"
+                          alt=""
+                          style="
+                            width: 100%;
+                            max-width: 100%;
+                            height: auto;
+                            max-height: 560px;
+                          "
+                        />
+                        <!-- <vue-cropper
+                      v-if="temporaryThumb"
+                      ref="cropper"
+                      :aspect-ratio="600 / 352"
+                      :autoCropArea="1"
+                      :src="temporaryThumb"
+                      @crop="cropThumb"
+                      style="
+                        width: 100%;
+                        max-width: 100%;
+                        height: auto;
+                        max-height: 560px;
+                      "
+                    >
+                    </vue-cropper> -->
+                      </div>
+                      <AppInputError v-if="errors.thumbnail">
+                        {{ errors.thumbnail[0] }}
+                      </AppInputError>
+                    </div>
+
+                    <div class="my-5">
+                      <div sm="2">
+                        <AppLabel for="name">Name:</AppLabel>
+                      </div>
+                      <div sm="10">
+                        <AppInput
+                          id="name"
+                          placeholder="Name"
+                          type="text"
+                          v-model="form.name"
+                        />
+                        <AppInputError v-if="errors.name">
+                          {{ errors.name[0] }}
+                        </AppInputError>
+                      </div>
+                    </div>
+
+                    <div class="mt-5">
+                      <AppButton
+                        type="submit"
+                        class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                        >Upload</AppButton
+                      >
+                    </div>
+                  </form>
+                </div>
+              </modal>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </modal>
@@ -144,10 +219,32 @@ import AppPagination from '../AppPagination.vue'
 export default {
   data() {
     return {
+      errors: [],
       images: [],
       meta: {},
       tab: 'thumbnail',
       searching: '',
+
+      uploading: false,
+      isLoading: false,
+      temporaryThumb: null,
+      thumbnail: null,
+      viewSelectedImage: null,
+
+      form: {
+        photo: null,
+        name: '',
+        path: '',
+        location: '',
+        source: '',
+        comment: '',
+        caption: '',
+        acceptSize: 1,
+        cropX: 0,
+        cropY: 0,
+        cropWidth: null,
+        cropHeight: null,
+      },
     }
   },
   props: {
@@ -171,6 +268,46 @@ export default {
     },
   },
   methods: {
+    statusMessage(type, message) {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: type,
+        title: message,
+      })
+    },
+
+    async uploadThumbnail() {
+      try {
+        let formData = new FormData()
+        formData.append('thumbnail', this.thumbnail)
+        console.log(formData)
+        formData.append('name', this.form.name)
+        formData.append('path', this.form.path)
+        formData.append('location', this.form.location)
+        formData.append('source', this.form.source)
+        formData.append('comment', this.form.comment)
+        formData.append('caption', this.form.caption)
+        formData.append('acceptSize', this.form.acceptSize)
+        formData.append('cropX', this.form.cropX)
+        formData.append('cropY', this.form.cropY)
+        formData.append('cropWidth', this.form.cropWidth)
+        formData.append('cropHeight', this.form.cropHeight)
+        await this.$axios.post(`admin/images`, formData).then(({ data }) => {
+          this.statusMessage('success', 'Thumbnail uploaded successfully')
+          this.getImages()
+          this.hideAppImageCropingModal()
+        })
+      } catch (e) {
+        this.errors = e.response.data.errors
+        this.statusMessage('error', 'Something wrong')
+      }
+    },
+
     async search(e) {
       await this.$router
         .replace({
@@ -185,15 +322,39 @@ export default {
       this.selectedThumb = arg
     },
 
+    hideAppImageCropingModal() {
+      this.$modal.hide('app-image-croping-modal')
+    },
+
     hideAppImageIndexModal() {
       this.$modal.hide('app-image-index-modal')
     },
-    shoeAppImageIndexModal() {
+    showAppImageIndexModal() {
       this.$modal.show('app-image-index-modal')
     },
 
     showThumbnails(option) {
       this.tab = option
+    },
+
+    async selectingThumbnail(e) {
+      if ((this.uploading = true)) {
+        this.$modal.show('app-image-croping-modal')
+
+        if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
+          return
+        }
+        this.thumbnail = e.target.files[0]
+        const file = e.target.files[0]
+
+        this.temporaryThumb = URL.createObjectURL(file)
+
+        const name = file.name
+        const lastDot = name.lastIndexOf('.')
+
+        this.form.name = name.substring(0, lastDot)
+        this.form.caption = name.substring(0, lastDot)
+      }
     },
 
     async getImages(query = this.$route.query) {
@@ -215,7 +376,6 @@ export default {
 
   mounted() {
     this.getImages()
-    // this.shoeAppImageIndexModal()
   },
 }
 </script>

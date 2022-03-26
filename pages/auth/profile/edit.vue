@@ -101,7 +101,7 @@
                   type="submit"
                   class="
                     text-white
-                    bg-red-600
+                    vertical-gradient
                     hover:bg-red-700
                     focus:ring-red-500
                   "
@@ -170,7 +170,7 @@
                   type="submit"
                   class="
                     text-white
-                    bg-red-600
+                    vertical-gradient
                     hover:bg-red-700
                     focus:ring-red-500
                   "
@@ -282,7 +282,7 @@
                   type="submit"
                   class="
                     text-white
-                    bg-red-600
+                    vertical-gradient
                     hover:bg-red-700
                     focus:ring-red-500
                   "

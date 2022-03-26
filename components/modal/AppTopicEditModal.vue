@@ -37,22 +37,10 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  mt-3
-                  mb-1
-                  text-right
-                  sm:rounded-bl-md sm:rounded-br-md
-                "
+                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
               >
                 <AppButton
-                  class="
-                    text-white
-                    bg-red-600
-                    hover:bg-red-700
-                    focus:ring-red-500
-                  "
+                  class="text-white  vertical-gradient hover:bg-red-700 focus:ring-red-500"
                 >
                   Update
                 </AppButton>

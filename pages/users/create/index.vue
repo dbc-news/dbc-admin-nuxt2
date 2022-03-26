@@ -98,7 +98,13 @@
               <div class="w-full p-2 mt-2">
                 <AppButton
                   type="submit"
-                  class="w-full text-white bg-red-600  hover:bg-red-700 focus:ring-red-500"
+                  class="
+                    w-full
+                    text-white
+                    vertical-gradient
+                    hover:bg-red-700
+                    focus:ring-red-500
+                  "
                   >Submit
                 </AppButton>
               </div>

@@ -8,15 +8,7 @@
     />
 
     <div
-      class="
-        flex flex-wrap
-        items-center
-        justify-between
-        w-full
-        p-2
-        sm:px-6
-        lg:px-8
-      "
+      class="flex flex-wrap items-center justify-between w-full p-2  sm:px-6 lg:px-8"
     ></div>
 
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
@@ -27,31 +19,12 @@
             placeholder="Searh"
             @keyup="search"
             v-model="searching"
-            class="
-              flex-grow
-              w-full
-              h-8
-              px-2
-              border border-gray-300
-              rounded-md
-              shadow-sm
-              focus:border-red-300
-              focus:ring
-              focus:ring-red-200
-              focus:ring-opacity-50
-              focus:outline-none
-            "
+            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 focus:outline-none"
           />
         </div>
 
         <div
-          class="
-            min-w-full
-            overflow-hidden overflow-x-auto
-            align-middle
-            shadow
-            sm:rounded-lg
-          "
+          class="min-w-full overflow-hidden overflow-x-auto align-middle shadow  sm:rounded-lg"
         >
           <div class="" v-if="articles.length">
             <ArticleItem

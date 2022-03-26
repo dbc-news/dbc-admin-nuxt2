@@ -1,6 +1,8 @@
 <template>
   <div class="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
-    <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto bg-red-700">
+    <div
+      class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto liner-gradient"
+    >
       <div class="flex items-center justify-center flex-shrink-0 px-4">
         <img
           class="w-auto h-12"
@@ -17,7 +19,7 @@
           <nuxt-link
             to="/"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'index' }"
+            :class="{ 'bg-red-600': $route.name === 'index' }"
           >
             <NewspaperIcon
               class="w-6 h-6 mr-4 text-red-200"
@@ -29,7 +31,7 @@
           <nuxt-link
             :to="{ name: 'categories' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'categories' }"
+            :class="{ 'bg-red-600': $route.name === 'categories' }"
           >
             <CollectionIcon
               class="w-6 h-6 mr-4 text-red-200"
@@ -41,7 +43,7 @@
           <nuxt-link
             :to="{ name: 'topics' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'topics' }"
+            :class="{ 'bg-red-600': $route.name === 'topics' }"
           >
             <BookOpenIcon
               class="w-6 h-6 mr-4 text-red-200"
@@ -53,7 +55,7 @@
           <nuxt-link
             :to="{ name: 'regions' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'regions' }"
+            :class="{ 'bg-red-600': $route.name === 'regions' }"
           >
             <LocationMarkerIcon
               class="w-6 h-6 mr-4 text-red-200"
@@ -65,7 +67,7 @@
           <nuxt-link
             :to="{ name: 'tags' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'tags' }"
+            :class="{ 'bg-red-600': $route.name === 'tags' }"
           >
             <TagIcon class="w-6 h-6 mr-4 text-red-200" aria-hidden="true" />
             Tags
@@ -74,7 +76,7 @@
           <nuxt-link
             :to="{ name: 'media' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'media' }"
+            :class="{ 'bg-red-600': $route.name === 'media' }"
           >
             <DatabaseIcon
               class="w-6 h-6 mr-4 text-red-200"
@@ -86,7 +88,7 @@
           <nuxt-link
             :to="{ name: 'users' }"
             class="flex items-center px-2 py-2 text-sm font-medium leading-6 text-red-100 rounded-md  group hover:text-white hover:bg-red-600"
-            :class="{ 'bg-red-800': $route.name === 'users' }"
+            :class="{ 'bg-red-600': $route.name === 'users' }"
           >
             <UserGroupIcon
               class="w-6 h-6 mr-4 text-red-200"

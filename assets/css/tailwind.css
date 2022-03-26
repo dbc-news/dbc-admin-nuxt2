@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.liner-gradient {
+    @apply bg-gradient-to-r from-red-700 via-red-600 to-red-700;
+}
+
+.vertical-gradient {
+    @apply bg-gradient-to-b from-red-700 via-red-600 to-red-700;
+}

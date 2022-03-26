@@ -35,21 +35,6 @@
                     {{ errors.name[0] }}
                   </AppInputError>
                 </div>
-                <div class="w-full py-1 md:py-3">
-                  <AppLabel> Slug </AppLabel>
-                  <AppInput
-                    placeholder="Slug"
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    v-model="form.slug"
-                    class="cursor-not-allowed"
-                    disabled="disabled"
-                  />
-                  <AppInputError v-if="errors.slug">
-                    {{ errors.slug[0] }}
-                  </AppInputError>
-                </div>
 
                 <div class="w-full py-1 md:py-3">
                   <AppLabel> Parent </AppLabel>
@@ -69,22 +54,10 @@
               </div>
 
               <div
-                class="
-                  flex
-                  items-center
-                  mt-3
-                  mb-1
-                  text-right
-                  sm:rounded-bl-md sm:rounded-br-md
-                "
+                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
               >
                 <AppButton
-                  class="
-                    text-white
-                    bg-cyan-600
-                    hover:bg-cyan-700
-                    focus:ring-cyan-500
-                  "
+                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
                 >
                   Update
                 </AppButton>

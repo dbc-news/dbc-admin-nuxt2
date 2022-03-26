@@ -44,49 +44,57 @@
 
       <div
         class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
-        v-if="images.length"
         v-show="tab === 'thumbnail'"
       >
-        <div
-          class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
-          v-for="image in images"
-          :key="image.id"
-        >
-          <input
-            type="checkbox"
-            :id="image.id"
-            :name="image.id"
-            :value="image.id"
-            :checked="image.id == (selectedThumb ? selectedThumb.id : null)"
-            class="absolute top-0 right-0"
-            :class="{
-              hidden: image.id != (selectedThumb ? selectedThumb.id : null),
-            }"
-          />
-          <div @click.prevent="selectingImage(image)">
-            <AppLabel :for="image.id">
-              <img
-                v-if="image.thumb160x84"
-                v-lazy="image.thumb160x84"
-                :alt="image.name"
-                class="w-full h-auto"
-              />
-              <div class="px-1 py-2">
-                <p class="text-sm tracking-wider truncate">
-                  {{ image.name }}
-                </p>
-                <p class="py-1">
-                  <AppInput
-                    type="text"
-                    class="py-1 text-xs h-7"
-                    :value="image.thumb160x84"
-                  />
-                </p>
-                <p class="text-xs tracking-wider truncate">
-                  {{ image.formatted_date_time }}
-                </p>
-              </div>
-            </AppLabel>
+        <template v-if="images.length">
+          <div
+            class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
+            v-for="image in images"
+            :key="image.id"
+          >
+            <input
+              type="checkbox"
+              :id="image.id"
+              :name="image.id"
+              :value="image.id"
+              :checked="image.id == (selectedThumb ? selectedThumb.id : null)"
+              class="absolute top-0 right-0"
+              :class="{
+                hidden: image.id != (selectedThumb ? selectedThumb.id : null),
+              }"
+            />
+            <div @click.prevent="selectingImage(image)">
+              <AppLabel :for="image.id">
+                <img
+                  v-if="image.thumb160x84"
+                  v-lazy="image.thumb160x84"
+                  :alt="image.name"
+                  class="w-full h-auto"
+                />
+                <div class="px-1 py-2">
+                  <p class="text-sm tracking-wider truncate">
+                    {{ image.name }}
+                  </p>
+                  <p class="py-1">
+                    <AppInput
+                      type="text"
+                      class="py-1 text-xs h-7"
+                      :value="image.thumb160x84"
+                    />
+                  </p>
+                  <p class="text-xs tracking-wider truncate">
+                    {{ image.formatted_date_time }}
+                  </p>
+                </div>
+              </AppLabel>
+            </div>
+          </div>
+        </template>
+        <div v-else class="col-span-12">
+          <div class="flex justify-center">
+            <div class="text-center">
+              <p class="text-sm text-gray-600">No images found.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +107,8 @@
           <div class="w-full">
             <div class="mt-1">
               <div
-                class="flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer "
+                class="flex justify-center px-6 pt-5 pb-6 cursor-pointer"
+                v-if="!temporaryThumb"
               >
                 <div class="space-y-1 text-center">
                   <ImagePlus />
@@ -124,87 +133,51 @@
                   <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                 </div>
               </div>
-              <modal class="relative" name="app-image-croping-modal">
-                <div class="absolute top-2 right-2">
-                  <XIcon
-                    class="
-                      w-5
-                      h-5
-                      text-red-600
-                      border border-red-500
-                      rounded-full
-                      cursor-pointer
-                      p-0.5
-                    "
-                    @click="hideAppImageCropingModal"
-                  />
-                </div>
 
-                <div class="p-2 sm:p-4 lg:p-8">
-                  <form @submit.prevent="uploadThumbnail">
-                    <div>
-                      <AppLabel class="text-base font-semibold text-green-700"
-                        >Image Preview :</AppLabel
-                      >
-                      <div sm="10">
-                        <img
-                          :src="temporaryThumb"
-                          alt=""
-                          style="
-                            width: 100%;
-                            max-width: 100%;
-                            height: auto;
-                            max-height: 560px;
-                          "
-                        />
-                        <!-- <vue-cropper
-                      v-if="temporaryThumb"
-                      ref="cropper"
-                      :aspect-ratio="600 / 352"
-                      :autoCropArea="1"
-                      :src="temporaryThumb"
-                      @crop="cropThumb"
-                      style="
-                        width: 100%;
-                        max-width: 100%;
-                        height: auto;
-                        max-height: 560px;
-                      "
+              <div class="p-2 sm:p-4 lg:p-8" v-if="temporaryThumb">
+                <form @submit.prevent="uploadThumbnail">
+                  <div>
+                    <AppLabel class="text-base font-semibold text-green-700"
+                      >Image Preview :</AppLabel
                     >
-                    </vue-cropper> -->
-                      </div>
-                      <AppInputError v-if="errors.thumbnail">
-                        {{ errors.thumbnail[0] }}
+                    <div class="flex justify-center">
+                      <img
+                        :src="temporaryThumb"
+                        alt=""
+                        style="max-width: 100%; max-height: 560px"
+                      />
+                    </div>
+                    <AppInputError v-if="errors.thumbnail">
+                      {{ errors.thumbnail[0] }}
+                    </AppInputError>
+                  </div>
+
+                  <div class="my-5">
+                    <div sm="2">
+                      <AppLabel for="name">Name:</AppLabel>
+                    </div>
+                    <div sm="10">
+                      <AppInput
+                        id="name"
+                        placeholder="Name"
+                        type="text"
+                        v-model="form.name"
+                      />
+                      <AppInputError v-if="errors.name">
+                        {{ errors.name[0] }}
                       </AppInputError>
                     </div>
+                  </div>
 
-                    <div class="my-5">
-                      <div sm="2">
-                        <AppLabel for="name">Name:</AppLabel>
-                      </div>
-                      <div sm="10">
-                        <AppInput
-                          id="name"
-                          placeholder="Name"
-                          type="text"
-                          v-model="form.name"
-                        />
-                        <AppInputError v-if="errors.name">
-                          {{ errors.name[0] }}
-                        </AppInputError>
-                      </div>
-                    </div>
-
-                    <div class="mt-5">
-                      <AppButton
-                        type="submit"
-                        class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
-                        >Upload</AppButton
-                      >
-                    </div>
-                  </form>
-                </div>
-              </modal>
+                  <div class="mt-5">
+                    <AppButton
+                      type="submit"
+                      class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                      >Upload</AppButton
+                    >
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -234,16 +207,6 @@ export default {
       form: {
         photo: null,
         name: '',
-        path: '',
-        location: '',
-        source: '',
-        comment: '',
-        caption: '',
-        acceptSize: 1,
-        cropX: 0,
-        cropY: 0,
-        cropWidth: null,
-        cropHeight: null,
       },
     }
   },
@@ -285,22 +248,12 @@ export default {
       try {
         let formData = new FormData()
         formData.append('thumbnail', this.thumbnail)
-        console.log(formData)
         formData.append('name', this.form.name)
-        formData.append('path', this.form.path)
-        formData.append('location', this.form.location)
-        formData.append('source', this.form.source)
-        formData.append('comment', this.form.comment)
-        formData.append('caption', this.form.caption)
-        formData.append('acceptSize', this.form.acceptSize)
-        formData.append('cropX', this.form.cropX)
-        formData.append('cropY', this.form.cropY)
-        formData.append('cropWidth', this.form.cropWidth)
-        formData.append('cropHeight', this.form.cropHeight)
+
         await this.$axios.post(`admin/images`, formData).then(({ data }) => {
           this.statusMessage('success', 'Thumbnail uploaded successfully')
           this.getImages()
-          this.hideAppImageCropingModal()
+          this.temporaryThumb = null
         })
       } catch (e) {
         this.errors = e.response.data.errors
@@ -322,13 +275,10 @@ export default {
       this.selectedThumb = arg
     },
 
-    hideAppImageCropingModal() {
-      this.$modal.hide('app-image-croping-modal')
-    },
-
     hideAppImageIndexModal() {
       this.$modal.hide('app-image-index-modal')
     },
+
     showAppImageIndexModal() {
       this.$modal.show('app-image-index-modal')
     },
@@ -339,8 +289,6 @@ export default {
 
     async selectingThumbnail(e) {
       if ((this.uploading = true)) {
-        this.$modal.show('app-image-croping-modal')
-
         if (!e || !e.target || !e.target.files || e.target.files.length === 0) {
           return
         }
@@ -353,7 +301,6 @@ export default {
         const lastDot = name.lastIndexOf('.')
 
         this.form.name = name.substring(0, lastDot)
-        this.form.caption = name.substring(0, lastDot)
       }
     },
 

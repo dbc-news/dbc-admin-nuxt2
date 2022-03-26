@@ -34,21 +34,6 @@
                     {{ errors.name[0] }}
                   </AppInputError>
                 </div>
-                <div class="w-full py-1 md:py-3">
-                  <AppLable> Slug </AppLable>
-                  <AppInput
-                    placeholder="Slug"
-                    type="text"
-                    id="slug"
-                    name="slug"
-                    v-model="form.slug"
-                    class="cursor-not-allowed"
-                    disabled="disabled"
-                  />
-                  <AppInputError v-if="errors.slug">
-                    {{ errors.slug[0] }}
-                  </AppInputError>
-                </div>
               </div>
 
               <div
@@ -131,7 +116,6 @@ export default {
     selectedTag(tag) {
       if (tag) {
         this.form.name = tag.name
-        this.form.slug = tag.slug
       }
     },
   },

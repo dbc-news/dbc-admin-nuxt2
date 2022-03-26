@@ -101,8 +101,8 @@
                     <AppInput
                       placeholder="Display Name"
                       type="text"
-                      id="name"
-                      name="name"
+                      id="display_name"
+                      name="display_name"
                       v-model="form.display_name"
                     />
                     <AppInputError v-if="errors.display_name">

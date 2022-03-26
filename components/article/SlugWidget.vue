@@ -5,7 +5,15 @@
       <LinkIcon class="w-4 h-4 text-blue-500" />
     </div>
     <div
-      class="inline-flex ml-2 overflow-hidden text-center  h-7 whitespace-nowrap text-ellipsis"
+      class="
+        inline-flex
+        ml-2
+        overflow-hidden
+        text-center
+        h-7
+        whitespace-nowrap
+        text-ellipsis
+      "
     >
       <span class="root-url">{{ url }}</span>
       <span class="mx-2">/{{ subdirectory }}/</span>
@@ -28,7 +36,21 @@
         id="slug-editor"
         name="slug"
         placeholder="Slug"
-        class="flex-grow w-full px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none min-w-40 max-w-45"
+        class="
+          flex-grow
+          w-full
+          px-2
+          border border-gray-300
+          rounded-md
+          shadow-sm
+          focus:border-red-300
+          focus:ring
+          focus:ring-red-200
+          focus:ring-opacity-50
+          focus:outline-none
+          min-w-40
+          max-w-45
+        "
         v-model="customSlug"
       />
     </div>

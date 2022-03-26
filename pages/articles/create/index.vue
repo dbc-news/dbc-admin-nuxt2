@@ -285,7 +285,7 @@
       <div class="col-span-12 px-2 sm:px-4 lg:px-8">
         <AppButton
           type="submit"
-          class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+          class="w-full text-white bg-red-600  hover:bg-red-700 focus:ring-red-500"
           >Submit</AppButton
         >
       </div>

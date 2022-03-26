@@ -1,7 +1,15 @@
 <!-- Please remove this file from your project -->
 <template>
   <div
-    class="relative flex justify-center min-h-screen bg-gray-100  items-top sm:items-center sm:pt-0"
+    class="
+      relative
+      flex
+      justify-center
+      min-h-screen
+      bg-gray-100
+      items-top
+      sm:items-center sm:pt-0
+    "
   >
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css"
@@ -50,7 +58,7 @@
           />
         </svg>
       </a>
-      <div class="font-bold text-cyan-500">abc</div>
+      <div class="font-bold text-red-500">abc</div>
       <div class="p-6 mt-8 overflow-hidden bg-white shadow sm:rounded-lg">
         <h2 class="text-2xl font-semibold leading-7">
           Welcome to your Nuxt Application

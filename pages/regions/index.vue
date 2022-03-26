@@ -10,19 +10,50 @@
               <div class="overflow-hidden border-2 border-dashed rounded-md">
                 <div>
                   <div
-                    class="flex flex-wrap items-center justify-between w-full p-2 bg-white border-b border-gray-200  sm:px-6 lg:px-8 sm:py-3 lg:py-4"
+                    class="
+                      flex flex-wrap
+                      items-center
+                      justify-between
+                      w-full
+                      p-2
+                      bg-white
+                      border-b border-gray-200
+                      sm:px-6
+                      lg:px-8
+                      sm:py-3
+                      lg:py-4
+                    "
                   >
                     <div class="flex-grow">
                       <div class="flex mt-1">
                         <div
-                          class="relative flex items-stretch flex-grow  focus-within:z-10"
+                          class="
+                            relative
+                            flex
+                            items-stretch
+                            flex-grow
+                            focus-within:z-10
+                          "
                         >
                           <input
                             type="search"
                             placeholder="Searh"
                             @keyup="search"
                             v-model="searching"
-                            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+                            class="
+                              flex-grow
+                              w-full
+                              h-8
+                              px-2
+                              border border-gray-300
+                              rounded-md
+                              shadow-sm
+                              focus:border-red-300
+                              focus:ring
+                              focus:ring-red-200
+                              focus:ring-opacity-50
+                              focus:outline-none
+                            "
                           />
                         </div>
                       </div>

@@ -18,14 +18,26 @@
     <div class="px-2 pt-8 sm:gap-2 sm:px-4">
       <div class="flex">
         <div
-          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+          class="
+            p-3
+            bg-white
+            border-b-0 border-gray-300 border-dashed
+            cursor-pointer
+            rounded-t-md
+          "
           :class="tab === 'thumbnail' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('thumbnail')"
         >
           Thumbnails
         </div>
         <div
-          class="p-3 bg-white border-b-0 border-gray-300 border-dashed cursor-pointer  rounded-t-md"
+          class="
+            p-3
+            bg-white
+            border-b-0 border-gray-300 border-dashed
+            cursor-pointer
+            rounded-t-md
+          "
           :class="tab === 'upload' ? '-mb-0.5  border-2' : ''"
           @click.prevent="showThumbnails('upload')"
         >
@@ -37,18 +49,45 @@
             placeholder="Searh"
             @keyup="search"
             v-model="searching"
-            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+            class="
+              flex-grow
+              w-full
+              h-8
+              px-2
+              border border-gray-300
+              rounded-md
+              shadow-sm
+              focus:border-red-300
+              focus:ring
+              focus:ring-red-200
+              focus:ring-opacity-50
+              focus:outline-none
+            "
           />
         </div>
       </div>
 
       <div
-        class="grid grid-cols-12 gap-3 p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        class="
+          grid grid-cols-12
+          gap-3
+          p-3
+          border-2 border-gray-300 border-dashed
+          rounded-md rounded-tl-none
+        "
         v-show="tab === 'thumbnail'"
       >
         <template v-if="images.length">
           <div
-            class="relative col-span-6 border border-gray-100  sm:col-span-4 md:col-span-3 lg:col-span-2 bg-gray-50"
+            class="
+              relative
+              col-span-6
+              border border-gray-100
+              sm:col-span-4
+              md:col-span-3
+              lg:col-span-2
+              bg-gray-50
+            "
             v-for="image in images"
             :key="image.id"
           >
@@ -100,7 +139,11 @@
       </div>
       <AppPagination :meta="meta" v-if="meta.last_page > 1" />
       <div
-        class="p-3 border-2 border-gray-300 border-dashed rounded-md rounded-tl-none "
+        class="
+          p-3
+          border-2 border-gray-300 border-dashed
+          rounded-md rounded-tl-none
+        "
         v-show="tab === 'upload'"
       >
         <div class="flex flex-wrap">
@@ -115,7 +158,19 @@
                   <div class="flex text-sm text-gray-600">
                     <label
                       for="file-upload"
-                      class="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                      class="
+                        relative
+                        font-medium
+                        text-indigo-600
+                        bg-white
+                        rounded-md
+                        cursor-pointer
+                        hover:text-indigo-500
+                        focus-within:outline-none
+                        focus-within:ring-2
+                        focus-within:ring-offset-2
+                        focus-within:ring-indigo-500
+                      "
                     >
                       <span>Upload a file</span>
                       <input
@@ -172,7 +227,13 @@
                   <div class="mt-5">
                     <AppButton
                       type="submit"
-                      class="w-full text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                      class="
+                        w-full
+                        text-white
+                        bg-red-600
+                        hover:bg-red-700
+                        focus:ring-red-500
+                      "
                       >Upload</AppButton
                     >
                   </div>

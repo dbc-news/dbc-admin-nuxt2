@@ -21,7 +21,15 @@
                   <AppLabel> Photo</AppLabel>
                   <div class="flex items-center mt-1">
                     <span
-                      class="inline-block w-12 h-12 mr-3 overflow-hidden bg-gray-100 rounded-full "
+                      class="
+                        inline-block
+                        w-12
+                        h-12
+                        mr-3
+                        overflow-hidden
+                        bg-gray-100
+                        rounded-full
+                      "
                     >
                       <img
                         v-if="this.temporaryThumb"
@@ -41,7 +49,21 @@
 
                     <label
                       for="file-upload"
-                      class="relative p-1 font-medium text-indigo-600 bg-white border border-gray-300 rounded-md cursor-pointer  hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                      class="
+                        relative
+                        p-1
+                        font-medium
+                        text-indigo-600
+                        bg-white
+                        border border-gray-300
+                        rounded-md
+                        cursor-pointer
+                        hover:text-indigo-500
+                        focus-within:outline-none
+                        focus-within:ring-2
+                        focus-within:ring-offset-2
+                        focus-within:ring-indigo-500
+                      "
                     >
                       <span>Change</span>
                       <input
@@ -77,7 +99,12 @@
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-red-600
+                    hover:bg-red-700
+                    focus:ring-red-500
+                  "
                 >
                   Submit
                 </AppButton>
@@ -141,7 +168,12 @@
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-red-600
+                    hover:bg-red-700
+                    focus:ring-red-500
+                  "
                 >
                   Submit
                 </AppButton>
@@ -248,7 +280,12 @@
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-red-600
+                    hover:bg-red-700
+                    focus:ring-red-500
+                  "
                 >
                   Submit
                 </AppButton>

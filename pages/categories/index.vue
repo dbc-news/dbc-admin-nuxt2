@@ -6,7 +6,7 @@
       <div class="w-full md:flex md:space-x-3 lg:space-x-8">
         <div class="w-full md:w-4/12">
           <div class="p-2 border-2 border-dashed rounded-md sm:p-6 lg:p-8">
-            <h1 class="text-xl font-semibold text-cyan-500">
+            <h1 class="text-xl font-semibold text-red-500">
               Create New Category
             </h1>
 
@@ -51,10 +51,22 @@
               </div>
 
               <div
-                class="flex items-center mt-3 mb-1 text-right  sm:rounded-bl-md sm:rounded-br-md"
+                class="
+                  flex
+                  items-center
+                  mt-3
+                  mb-1
+                  text-right
+                  sm:rounded-bl-md sm:rounded-br-md
+                "
               >
                 <AppButton
-                  class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+                  class="
+                    text-white
+                    bg-red-600
+                    hover:bg-red-700
+                    focus:ring-red-500
+                  "
                 >
                   Submit
                 </AppButton>
@@ -69,19 +81,50 @@
               <div class="overflow-hidden border-2 border-dashed rounded-md">
                 <div>
                   <div
-                    class="flex flex-wrap items-center justify-between w-full p-2 bg-white border-b border-gray-200  sm:px-6 lg:px-8 sm:py-3 lg:py-4"
+                    class="
+                      flex flex-wrap
+                      items-center
+                      justify-between
+                      w-full
+                      p-2
+                      bg-white
+                      border-b border-gray-200
+                      sm:px-6
+                      lg:px-8
+                      sm:py-3
+                      lg:py-4
+                    "
                   >
                     <div class="flex-grow">
                       <div class="flex mt-1">
                         <div
-                          class="relative flex items-stretch flex-grow  focus-within:z-10"
+                          class="
+                            relative
+                            flex
+                            items-stretch
+                            flex-grow
+                            focus-within:z-10
+                          "
                         >
                           <input
                             type="search"
                             placeholder="Searh"
                             @keyup="search"
                             v-model="searching"
-                            class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+                            class="
+                              flex-grow
+                              w-full
+                              h-8
+                              px-2
+                              border border-gray-300
+                              rounded-md
+                              shadow-sm
+                              focus:border-red-300
+                              focus:ring
+                              focus:ring-red-200
+                              focus:ring-opacity-50
+                              focus:outline-none
+                            "
                           />
                         </div>
                       </div>

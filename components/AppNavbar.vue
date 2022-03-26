@@ -7,7 +7,14 @@
         <label for="search-field" class="sr-only">Search</label>
         <div class="relative w-full text-gray-400 focus-within:text-gray-600">
           <div
-            class="absolute inset-y-0 left-0 flex items-center pointer-events-none "
+            class="
+              absolute
+              inset-y-0
+              left-0
+              flex
+              items-center
+              pointer-events-none
+            "
             aria-hidden="true"
           >
             <SearchIcon class="w-5 h-5" aria-hidden="true" />
@@ -15,7 +22,19 @@
           <input
             id="search-field"
             name="search-field"
-            class="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent  focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
+            class="
+              block
+              w-full
+              h-full
+              py-2
+              pl-8
+              pr-3
+              text-gray-900
+              placeholder-gray-500
+              border-transparent
+              focus:outline-none focus:ring-0 focus:border-transparent
+              sm:text-sm
+            "
             placeholder="Search transactions"
             type="search"
           />
@@ -25,7 +44,14 @@
     <div class="flex items-center ml-4 md:ml-6">
       <button
         type="button"
-        class="p-1 text-gray-400 bg-white rounded-full  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+        class="
+          p-1
+          text-gray-400
+          bg-white
+          rounded-full
+          hover:text-gray-500
+          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500
+        "
       >
         <span class="sr-only">View notifications</span>
         <BellIcon class="w-6 h-6" aria-hidden="true" />
@@ -34,7 +60,7 @@
       <!-- <Menu as="div" class="relative ml-3">
         <div>
           <MenuButton
-            class="flex items-center max-w-xs text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50"
+            class="flex items-center max-w-xs text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50"
           >
             <img
               class="w-8 h-8 rounded-full"

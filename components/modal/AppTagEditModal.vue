@@ -18,7 +18,7 @@
       <div class="flex items-center justify-center">
         <div class="w-full mt-8 sm:mt-28 md:w-8/12">
           <div class="p-2 border-2 border-dashed rounded-md lg:p-8">
-            <h1 class="text-xl font-semibold text-cyan-500">Edit Tag</h1>
+            <h1 class="text-xl font-semibold text-red-500">Edit Tag</h1>
             <form @submit.prevent="updateTag">
               <div class="sm:rounded-tl-md sm:rounded-tr-md">
                 <div class="w-full py-1 md:py-3">
@@ -50,9 +50,9 @@
                 <AppButton
                   class="
                     text-white
-                    bg-cyan-600
-                    hover:bg-cyan-700
-                    focus:ring-cyan-500
+                    bg-red-600
+                    hover:bg-red-700
+                    focus:ring-red-500
                   "
                 >
                   Update

@@ -41,7 +41,7 @@
         <div class="flex mt-6 space-x-3 md:mt-0 md:ml-4" v-if="trialing">
           <nuxt-link :to="link()">
             <AppButton
-              class="text-white  bg-cyan-600 hover:bg-cyan-700 focus:ring-cyan-500"
+              class="text-white bg-red-600 hover:bg-red-700 focus:ring-red-500"
             >
               {{ trialing }}
             </AppButton>

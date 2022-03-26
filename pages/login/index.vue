@@ -201,7 +201,15 @@
     </div> -->
 
     <div
-      class="flex items-center justify-center min-h-screen  bg-gradient-to-t from-red-400 to-red-200"
+      class="
+        flex
+        items-center
+        justify-center
+        min-h-screen
+        bg-gradient-to-t
+        from-red-400
+        to-red-200
+      "
     >
       <div class="flex-1 px-2 py-4 sm:p-8">
         <div
@@ -217,7 +225,15 @@
         >
           <div class="">
             <div
-              class="relative z-50 h-48 overflow-hidden bg-opacity-0  bg-gradient-to-br from-red-400 to-red-700"
+              class="
+                relative
+                z-50
+                h-48
+                overflow-hidden
+                bg-opacity-0 bg-gradient-to-br
+                from-red-400
+                to-red-700
+              "
             >
               <div class="absolute inset-0 flex justify-center top-10">
                 <nuxt-link to="/">
@@ -242,7 +258,17 @@
             </div>
 
             <div
-              class="relative z-50 px-4 pb-8 bg-opacity-0  bg-gradient-to-br from-gray-300 to-transparent sm:px-10 blur-test"
+              class="
+                relative
+                z-50
+                px-4
+                pb-8
+                bg-opacity-0 bg-gradient-to-br
+                from-gray-300
+                to-transparent
+                sm:px-10
+                blur-test
+              "
             >
               <form @submit.prevent="login" class="pt-5">
                 <div>
@@ -251,7 +277,19 @@
                     name="email"
                     type="email"
                     placeholder="Email"
-                    class="flex-grow w-full px-0 bg-transparent border-0 border-b border-gray-400  focus:border-cyan-300 focus:ring-0 focus:ring-b focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+                    class="
+                      flex-grow
+                      w-full
+                      px-0
+                      bg-transparent
+                      border-0 border-b border-gray-400
+                      focus:border-red-300
+                      focus:ring-0
+                      focus:ring-b
+                      focus:ring-red-200
+                      focus:ring-opacity-50
+                      focus:outline-none
+                    "
                   />
                   <AppInputError v-if="errors.email">
                     {{ errors.email[0] }}
@@ -264,7 +302,19 @@
                     name="password"
                     type="password"
                     placeholder="Password"
-                    class="flex-grow w-full px-0 bg-transparent border-0 border-b border-gray-400  focus:border-cyan-300 focus:ring-0 focus:ring-b focus:ring-cyan-200 focus:ring-opacity-50 focus:outline-none"
+                    class="
+                      flex-grow
+                      w-full
+                      px-0
+                      bg-transparent
+                      border-0 border-b border-gray-400
+                      focus:border-red-300
+                      focus:ring-0
+                      focus:ring-b
+                      focus:ring-red-200
+                      focus:ring-opacity-50
+                      focus:outline-none
+                    "
                   />
                   <AppInputError v-if="errors.password">
                     {{ errors.password[0] }}
@@ -288,7 +338,28 @@
                 <div class="flex items-center justify-end mt-8">
                   <button
                     type="submit"
-                    class="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-gray-400 uppercase transition border border-transparent border-gray-400 rounded-md  hover:bg-gray-400 hover:text-gray-300 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-300 disabled:opacity-25"
+                    class="
+                      inline-flex
+                      items-center
+                      px-4
+                      py-2
+                      ml-4
+                      text-xs
+                      font-semibold
+                      tracking-widest
+                      text-gray-400
+                      uppercase
+                      transition
+                      border border-transparent border-gray-400
+                      rounded-md
+                      hover:bg-gray-400 hover:text-gray-300
+                      active:bg-red-900
+                      focus:outline-none
+                      focus:border-red-900
+                      focus:ring
+                      focus:ring-red-300
+                      disabled:opacity-25
+                    "
                   >
                     Login
                   </button>

@@ -22,7 +22,16 @@
             class="flex-grow w-full h-8 px-2 border border-gray-300 rounded-md shadow-sm  focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50 focus:outline-none"
           />
         </div>
-
+        <div class="mb-3">
+          <button
+            type="button"
+            class="cursor-pinter"
+            @click.prevent="archiveArticles"
+          >
+            <ArchiveIcon class="inline-block w-4 h-4 text-gray-500" />
+            View archive product
+          </button>
+        </div>
         <div
           class="min-w-full overflow-hidden overflow-x-auto align-middle shadow  sm:rounded-lg"
         >
@@ -44,6 +53,8 @@
   </div>
 </template>
 <script>
+import { PencilIcon, ArchiveIcon } from '@vue-hero-icons/outline'
+
 export default {
   middleware: ['authIndent'],
 
@@ -54,6 +65,11 @@ export default {
 
       searching: '',
     }
+  },
+
+  components: {
+    PencilIcon,
+    ArchiveIcon,
   },
 
   watch: {
@@ -85,6 +101,10 @@ export default {
             this.meta = response.meta
           })
       } catch (e) {}
+    },
+
+    archiveArticles() {
+      console.log('hi')
     },
 
     statusMessage(type, message) {

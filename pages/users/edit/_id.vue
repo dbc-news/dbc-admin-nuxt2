@@ -50,12 +50,7 @@
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
-                  class="
-                    text-white
-                    bg-red-600
-                    hover:bg-red-700
-                    focus:ring-red-500
-                  "
+                  class="text-white bg-red-600  hover:bg-red-700 focus:ring-red-500"
                 >
                   Submit
                 </AppButton>
@@ -164,12 +159,7 @@
               <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
                 <AppButton
                   type="submit"
-                  class="
-                    text-white
-                    vertical-gradient
-                    hover:bg-red-700
-                    focus:ring-red-500
-                  "
+                  class="text-white  vertical-gradient hover:bg-red-700 focus:ring-red-500"
                 >
                   Submit
                 </AppButton>

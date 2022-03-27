@@ -82,14 +82,14 @@
                     name="remember"
                   />
                 </label>
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                <span class="ml-2 text-sm text-gray-500">Remember me</span>
               </AppLabel>
             </div>
 
             <div class="flex items-center justify-end mt-8">
               <button
                 type="submit"
-                class="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-gray-400 uppercase transition border border-transparent border-gray-400 rounded-md  hover:bg-gray-400 hover:text-gray-300 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-300 disabled:opacity-25"
+                class="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-gray-500 uppercase transition border-2 border-transparent border-gray-400 rounded-md  hover:bg-gray-400 hover:text-gray-300 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-300 disabled:opacity-25"
               >
                 Login
               </button>

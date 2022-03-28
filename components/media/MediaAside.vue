@@ -64,12 +64,12 @@
           </div>
 
           <div class="flex mt-5">
-            <button
+            <AppButton
+              class="px-4 text-white  vertical-gradient hover:bg-red-700 focus:ring-red-500"
               type="submit"
-              class="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Update
-            </button>
+            </AppButton>
             <button
               type="button"
               class="flex-1 px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

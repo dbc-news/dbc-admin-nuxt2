@@ -29,7 +29,6 @@
               <AppInputError v-if="errors.name">
                 {{ errors.name[0] }}
               </AppInputError>
-              <!-- <p class="text-sm font-medium text-gray-500">3.9 MB</p> -->
             </div>
           </div>
           <div class="mt-5">
@@ -58,7 +57,7 @@
 
               <div class="flex justify-between py-3 text-sm font-medium">
                 <dt class="text-gray-500">Size :</dt>
-                <!-- <dd class="text-gray-900">4032 x 3024</dd> -->
+                <dd class="text-gray-900">{{ image.size }}</dd>
               </div>
             </dl>
           </div>

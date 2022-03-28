@@ -63,6 +63,7 @@ export default {
     return {
       articles: [],
       meta: {},
+      archived: false,
 
       searching: '',
     }
@@ -79,8 +80,13 @@ export default {
     },
   },
 
-  async asyncData({ app }) {
-    let articlesResponse = await app.$axios.$get('admin/articles?per-page=5')
+  async asyncData({ app, query = this.$route.query }) {
+    let articlesResponse = await app.$axios.$get('admin/articles?per-page=5', {
+      params: {
+        page: query.page,
+        ...query,
+      },
+    })
     return {
       articles: articlesResponse.data,
       meta: articlesResponse.meta,
@@ -89,6 +95,7 @@ export default {
 
   methods: {
     async getArticles(query = this.$route.query) {
+      console.log(query)
       try {
         await this.$axios
           .$get('admin/articles?per-page=5', {
@@ -105,10 +112,11 @@ export default {
     },
 
     async archiveArticles() {
+      this.archived = !this.archived
       await this.$router
         .replace({
           query: Object.assign({}, this.$route.query, {
-            archived: true,
+            archived: this.archived,
           }),
         })
         .catch(() => {})
@@ -143,23 +151,6 @@ export default {
         params: {
           slug: arg,
         },
-      }
-    },
-
-    async deleteArticle(articleSlug) {
-      try {
-        await this.$axios
-          .delete(`articles/admin/${articleSlug}`)
-          .then(({ data }) => {
-            this.getArticles()
-            // this.statusMessage('success', 'Article deleted successfully')
-          })
-      } catch (error) {
-        if (error.response.status === 500) {
-          // this.statusMessage('error', 'Server Error')
-        } else {
-          // this.statusMessage('error', 'Something went wrong')
-        }
       }
     },
   },

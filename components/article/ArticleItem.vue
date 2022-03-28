@@ -1,6 +1,7 @@
 <template>
   <div
     class="items-center justify-between p-2 mb-1 bg-white rounded-md  sm:px-6 lg:px-8 sm:py-3 lg:py-4 sm:flex group"
+    :class="{ 'opacity-50': article.archived }"
   >
     <div class="flex items-center space-x-1 sm:mr-6">
       <div class="flex-shrink-0 mb-4 sm:mb-0" v-if="article.thumbnails">

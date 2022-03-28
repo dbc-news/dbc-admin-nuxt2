@@ -26,7 +26,7 @@
           <button
             type="button"
             class="cursor-pinter"
-            @click.prevent="archiveArticles"
+            @click.prevent="toggleArchiveArticles"
           >
             <ArchiveIcon class="inline-block w-4 h-4 text-gray-500" />
             View archive product
@@ -111,7 +111,7 @@ export default {
       } catch (e) {}
     },
 
-    async archiveArticles() {
+    async toggleArchiveArticles() {
       this.archived = !this.archived
       await this.$router
         .replace({

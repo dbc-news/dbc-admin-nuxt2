@@ -114,20 +114,35 @@ export default {
       }
     },
 
+    statusMessage(type, message) {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      Toast.fire({
+        icon: type,
+        title: message,
+      })
+    },
+
     async deleteArticle(articleSlug) {
       try {
         await this.$axios
-          .delete(`articles/admin/${articleSlug}`)
+          .delete(`admin/articles/${encodeURI(articleSlug)}`)
           .then(({ data }) => {
-            this.getArticles()
+            this.$emit('reloadEventFromArticleItem')
             this.statusMessage('success', 'Article deleted successfully')
           })
       } catch (error) {
-        if (error.response.status === 500) {
-          this.statusMessage('error', 'Server Error')
-        } else {
-          this.statusMessage('error', 'Something went wrong')
-        }
+        // if (error.response.status === 500) {
+        //   this.statusMessage('error', 'Server Error')
+        // } else {
+        //   this.statusMessage('error', 'Something went wrong')
+        // }
+        this.statusMessage('error', 'Something went wrong')
+        console.log(error)
       }
     },
   },

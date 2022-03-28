@@ -40,6 +40,7 @@
               v-for="article in articles"
               :key="article.id"
               :article="article"
+              @reloadEventFromArticleItem="getArticles"
             />
           </div>
           <div class="w-full p-2 text-center" v-else>No article listed yet</div>
@@ -103,8 +104,14 @@ export default {
       } catch (e) {}
     },
 
-    archiveArticles() {
-      console.log('hi')
+    async archiveArticles() {
+      await this.$router
+        .replace({
+          query: Object.assign({}, this.$route.query, {
+            archived: true,
+          }),
+        })
+        .catch(() => {})
     },
 
     statusMessage(type, message) {
@@ -145,13 +152,13 @@ export default {
           .delete(`articles/admin/${articleSlug}`)
           .then(({ data }) => {
             this.getArticles()
-            this.statusMessage('success', 'Article deleted successfully')
+            // this.statusMessage('success', 'Article deleted successfully')
           })
       } catch (error) {
         if (error.response.status === 500) {
-          this.statusMessage('error', 'Server Error')
+          // this.statusMessage('error', 'Server Error')
         } else {
-          this.statusMessage('error', 'Something went wrong')
+          // this.statusMessage('error', 'Something went wrong')
         }
       }
     },

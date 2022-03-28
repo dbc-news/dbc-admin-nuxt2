@@ -1,16 +1,7 @@
 <template>
   <aside class="px-1 mt-3 sm:px-0 sm:mt-0">
     <div
-      class="
-        w-full
-        mx-auto
-        overflow-y-auto
-        bg-white
-        border-l border-gray-200
-        rounded-md
-        sm:rounded-none sm:w-68
-        md:w-72
-      "
+      class="w-full mx-auto overflow-y-auto bg-white border-l border-gray-200 rounded-md  sm:rounded-none sm:w-68 md:w-72"
     >
       <div
         class="h-full sm:min-h-[850px] p-2 pb-16 space-y-6 sm:p-3"
@@ -44,15 +35,13 @@
           <div class="mt-5">
             <h3 class="font-medium text-gray-900">Information</h3>
             <dl
-              class="
-                mt-2
-                border-t border-b border-gray-200
-                divide-y divide-gray-200
-              "
+              class="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200 "
             >
               <div class="flex justify-between py-3 text-sm font-medium">
                 <dt class="text-gray-500">Uploaded by :</dt>
-                <!-- <dd class="text-gray-900">User</dd> -->
+                <dd class="text-gray-900" v-if="image.user">
+                  {{ image.user.name }}
+                </dd>
               </div>
 
               <div class="flex justify-between py-3 text-sm font-medium">
@@ -64,7 +53,7 @@
 
               <div class="flex justify-between py-3 text-sm font-medium">
                 <dt class="text-gray-500">Dimensions :</dt>
-                <!-- <dd class="text-gray-900">4032 x 3024</dd> -->
+                <dd class="text-gray-900">4032 x 3024</dd>
               </div>
 
               <div class="flex justify-between py-3 text-sm font-medium">
@@ -77,46 +66,13 @@
           <div class="flex mt-5">
             <button
               type="submit"
-              class="
-                flex-1
-                px-4
-                py-2
-                text-sm
-                font-medium
-                text-white
-                bg-indigo-600
-                border border-transparent
-                rounded-md
-                shadow-sm
-                hover:bg-indigo-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-indigo-500
-              "
+              class="flex-1 px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm  hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Update
             </button>
             <button
               type="button"
-              class="
-                flex-1
-                px-4
-                py-2
-                ml-3
-                text-sm
-                font-medium
-                text-gray-700
-                bg-white
-                border border-gray-300
-                rounded-md
-                shadow-sm
-                hover:bg-gray-50
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-indigo-500
-              "
+              class="flex-1 px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               @click="deleteImage(image.id)"
             >
               Delete
@@ -127,12 +83,7 @@
       <div class="inset-y-0 w-full sm:fixed" v-else>
         <div class="relative flex flex-col flex-grow h-full bg-white">
           <div
-            class="
-              w-full
-              border-2 border-gray-200 border-dashed
-              sm:mb-4 sm:absolute
-              top-16
-            "
+            class="w-full border-2 border-gray-200 border-dashed  sm:mb-4 sm:absolute top-16"
           >
             <div
               class="

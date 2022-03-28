@@ -10,12 +10,14 @@
         <form @submit.prevent="updateThumbnail(image.id)">
           <div>
             <div class="block w-full overflow-hidden aspect-w-10 aspect-h-7">
-              <img
-                v-if="image.thumb600x314"
-                v-lazy="image.thumb600x314"
-                :alt="image.name"
-                class="object-cover"
-              />
+              <a v-if="image.thumb600x314" :href="image.thumb600x314">
+                <img
+                  v-if="image.thumb600x314"
+                  v-lazy="image.thumb600x314"
+                  :alt="image.name"
+                  class="object-cover"
+                />
+              </a>
             </div>
             <div class="w-full mt-4">
               <AppInput

@@ -2,6 +2,7 @@
   <div
     class="flex items-center justify-center min-h-screen  bg-gradient-to-t from-red-400 to-red-200"
   >
+    <!-- {{ $auth }} -->
     <div class="flex-1 px-2 py-4 sm:p-8">
       <div
         class="
@@ -131,5 +132,3 @@ export default {
   },
 }
 </script>
-
-

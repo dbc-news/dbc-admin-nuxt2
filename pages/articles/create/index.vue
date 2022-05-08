@@ -78,7 +78,7 @@
           <div class="p-4 mb-3 bg-white border rounded-md shadow-sm">
             <div class="flex flex-wrap">
               <AppLabel>Content</AppLabel>
-              <div id="content">
+              <div id="content" class="w-full">
                 <editor
                   class="body-editor"
                   v-model="form.content"

@@ -1,24 +1,10 @@
 <template>
   <div
-    class="
-      relative
-      z-10
-      flex flex-shrink-0
-      h-16
-      bg-white
-      border-b border-gray-200
-      lg:border-none
-    "
+    class="relative z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200  lg:border-none"
   >
     <button
       type="button"
-      class="
-        px-4
-        text-gray-400
-        border-r border-gray-200
-        focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500
-        lg:hidden
-      "
+      class="px-4 text-gray-400 border-r border-gray-200  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500 lg:hidden"
       @click.prevent="openDrawer"
     >
       <span class="sr-only">Open sidebar</span>
@@ -32,14 +18,7 @@
           <label for="search-field" class="sr-only">Search</label>
           <div class="relative w-full text-gray-400 focus-within:text-gray-600">
             <div
-              class="
-                absolute
-                inset-y-0
-                left-0
-                flex
-                items-center
-                pointer-events-none
-              "
+              class="absolute inset-y-0 left-0 flex items-center pointer-events-none "
               aria-hidden="true"
             >
               <SearchIcon class="w-5 h-5" />
@@ -47,19 +26,7 @@
             <input
               id="search-field"
               name="search-field"
-              class="
-                block
-                w-full
-                h-full
-                py-2
-                pl-8
-                pr-3
-                text-gray-900
-                placeholder-gray-500
-                border-transparent
-                focus:outline-none focus:ring-0 focus:border-transparent
-                sm:text-sm
-              "
+              class="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent  focus:outline-none focus:ring-0 focus:border-transparent sm:text-sm"
               placeholder="Search transactions"
               type="search"
             />
@@ -83,19 +50,7 @@
           <div>
             <button
               type="button"
-              class="
-                flex
-                items-center
-                max-w-xs
-                text-sm
-                bg-white
-                rounded-full
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-red-500
-                lg:p-2 lg:rounded-md lg:hover:bg-gray-50
-              "
+              class="flex items-center max-w-xs text-sm bg-white rounded-full  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 lg:p-2 lg:rounded-md lg:hover:bg-gray-50"
             >
               <img
                 class="w-8 h-8 rounded-full"
@@ -115,19 +70,7 @@
           </div>
 
           <div
-            class="
-              absolute
-              right-0
-              w-48
-              py-1
-              mt-2
-              origin-top-right
-              bg-white
-              rounded-md
-              shadow-lg
-              ring-1 ring-black ring-opacity-5
-              focus:outline-none
-            "
+            class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg  ring-1 ring-black ring-opacity-5 focus:outline-none"
             v-show="profileDropdown"
           >
             <nuxt-link
@@ -196,4 +139,3 @@ export default {
   },
 }
 </script>
-

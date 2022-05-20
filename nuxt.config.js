@@ -20,6 +20,11 @@ export default {
 
   css: [],
 
+  server: {
+    port: 3002, // default: 3000
+    host: '127.0.0.2', // default: localhost
+  },
+
   plugins: [
     '~/plugins/components',
     '@/plugins/VueSweetAlert',

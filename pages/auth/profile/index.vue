@@ -5,7 +5,7 @@
         <main
           class="relative z-0 flex-1 h-screen overflow-y-auto bg-white  focus:outline-none xl:order-last"
         >
-          <nav
+          <!-- <nav
             class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
             aria-label="Breadcrumb"
           >
@@ -16,7 +16,7 @@
               <ChevronLeftIcon />
               <span>Directory</span>
             </a>
-          </nav>
+          </nav> -->
 
           <article>
             <div>
